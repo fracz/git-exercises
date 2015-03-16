@@ -41,7 +41,7 @@ if (count($commits) != 1) {
     $changedFile = $changedFiles[0];
     exec("git show $newRef:$changedFile", $fileContents);
     if (count($fileContents) != 1 || $fileContents[0] != 'test') {
-        echo colorize("KATA FAILED!\nWrong content in the file - first line is $fileContents[0] but test is expected.", 'FAILURE');
+        echo colorize("KATA FAILED!\nWrong content in the file - first line is [$fileContents[0]] but [test] is expected.", 'FAILURE');
     } else
         echo colorize("KATA SUCCESSFUL!!!!!!!!!!!!!!!!!!!!!!!", 'SUCCESS');
 }
