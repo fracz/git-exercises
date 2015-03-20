@@ -4,20 +4,47 @@
 // https://gerrit.libreoffice.org/Documentation/config-hooks.html#_ref_update
 
 $project = $argv[2];
-$ref = $argv[4];
+$branch = $argv[4];
 $author = $argv[6];
-$oldRef = $argv[8];
-$newRef = $argv[10];
+$oldRev = $argv[8];
+$newRev = $argv[10];
 
 $exerciseProjectName = 'git-exercises';
 
 if ($project == $exerciseProjectName) {
 
-    echo "(\n\n**********************************\n";
+    require __DIR__ . '/AbstractVerification.php';
 
-    require __DIR__ . '/verifications/intro.php';
+    echo "(\n\n****************************************************\n";
 
-    echo "\n\n**********************************\n\n)";
+    /** @var AbstractVerification $verifier */
+    $verifier = null;
+
+    try {
+        $verifier = AbstractVerification::factory($branch, $author, $oldRev, $newRev);
+    } catch (InvalidArgumentException $e) {
+        echo 'Status: ';
+        echo colorize('UNKNOWN EXERCISE', "[43m");
+    }
+
+    if ($verifier) {
+        echo 'Exercise: ' . $verifier->getShortInfo() . PHP_EOL;
+        echo 'Status: ';
+        try {
+            $verifier->verify();
+            echo colorize('PASSED', "[42m");
+        } catch (VerificationFailure $e) {
+            echo colorize('FAILED', "[41m") . PHP_EOL;
+            echo $e->getMessage();
+        }
+    }
+
+    echo "\n****************************************************\n\n)";
 
     exit(1);
+}
+
+function colorize($text, $color)
+{
+    return chr(27) . $color . $text . chr(27) . "[0m";
 }
