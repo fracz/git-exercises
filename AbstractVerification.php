@@ -32,6 +32,13 @@ abstract class AbstractVerification
         }
     }
 
+    protected function ensureCommitsCount($count)
+    {
+        $commits = $this->getCommits();
+        $this->ensure(count($commits) == 1, 'Only one commit is expected to be pushed for this exercise. Received %d.', [count($commits)]);
+        return $count == 1 ? $commits[0] : $commits;
+    }
+
     protected function getCommits()
     {
         exec("git show --format=format:%H --quiet $this->oldRev...$this->newRev", $commits);
