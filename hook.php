@@ -39,7 +39,16 @@ if ($project == $exerciseProjectName) {
         echo 'Status: ';
         try {
             $verifier->verify();
-            echo colorize('PASSED', GREEN);
+            echo colorize('PASSED', GREEN) . PHP_EOL;
+            $nextTask = $verifier->getNextTask();
+            if ($nextTask == 'master') {
+                echo colorize('Congratulations! You have done all exercises!', BLUE) . PHP_EOL;
+                echo 'Provided that you were doing them one by one :-)';
+            } else {
+                echo "Next task: $nextTask" . PHP_EOL;
+                echo "In order to start, execute: " . PHP_EOL;
+                echo colorize("git checkout -f $nextTask && ./start.sh", BLUE);
+            }
         } catch (VerificationFailure $e) {
             echo colorize('FAILED', RED) . PHP_EOL;
             echo $e->getMessage();

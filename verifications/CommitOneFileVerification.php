@@ -7,6 +7,11 @@ class CommitOneFileVerification extends AbstractVerification
         return 'Commit one file.';
     }
 
+    public function getNextTask()
+    {
+        return 'commit-one-file-staged';
+    }
+
     protected function doVerify()
     {
         $commit = $this->ensureCommitsCount(1);

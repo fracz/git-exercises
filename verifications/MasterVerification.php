@@ -9,6 +9,11 @@ class MasterVerification extends AbstractVerification
         return 'Initial exercise.';
     }
 
+    public function getNextTask()
+    {
+        return 'commit-one-file';
+    }
+
     protected function doVerify()
     {
         $commit = $this->ensureCommitsCount(1);
