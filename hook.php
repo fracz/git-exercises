@@ -5,26 +5,33 @@
 
 $project = $argv[2];
 $branch = $argv[4];
-$author = $argv[6];
+$uploader = $argv[6];
 $oldRev = $argv[8];
 $newRev = $argv[10];
 
 $exerciseProjectName = 'git-exercises';
 
+const GREEN = "[42m";
+const BLUE = "[44m";
+const YELLOW = "[43m";
+const RED = "[41m";
+
 if ($project == $exerciseProjectName) {
 
     require __DIR__ . '/AbstractVerification.php';
 
-    echo "(\n\n****************************************************\n";
+    $stars = str_repeat('*', 72);
+
+    echo "(\n\n$stars\n";
 
     /** @var AbstractVerification $verifier */
     $verifier = null;
 
     try {
-        $verifier = AbstractVerification::factory($branch, $author, $oldRev, $newRev);
+        $verifier = AbstractVerification::factory($branch, $oldRev, $newRev);
     } catch (InvalidArgumentException $e) {
         echo 'Status: ';
-        echo colorize('UNKNOWN EXERCISE', "[43m");
+        echo colorize('UNKNOWN EXERCISE', YELLOW);
     }
 
     if ($verifier) {
@@ -32,14 +39,14 @@ if ($project == $exerciseProjectName) {
         echo 'Status: ';
         try {
             $verifier->verify();
-            echo colorize('PASSED', "[42m");
+            echo colorize('PASSED', GREEN);
         } catch (VerificationFailure $e) {
-            echo colorize('FAILED', "[41m") . PHP_EOL;
+            echo colorize('FAILED', RED) . PHP_EOL;
             echo $e->getMessage();
         }
     }
 
-    echo "\n****************************************************\n\n)";
+    echo "\n$stars\n\n)";
 
     exit(1);
 }

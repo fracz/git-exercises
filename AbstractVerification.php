@@ -10,9 +10,8 @@ abstract class AbstractVerification
 
     protected $newRev;
 
-    public function __construct($author, $oldRev, $newRev)
+    public function __construct($oldRev, $newRev)
     {
-        $this->author = $author;
         $this->oldRev = $oldRev;
         $this->newRev = $newRev;
     }
@@ -26,6 +25,13 @@ abstract class AbstractVerification
 
     protected abstract function doVerify();
 
+    protected function ensure($condition, $errorMessage, array $formatVars = [])
+    {
+        if (!$condition) {
+            throw new VerificationFailure($errorMessage, $formatVars);
+        }
+    }
+
     protected function getCommits()
     {
         exec("git show --format=format:%H --quiet $this->oldRev...$this->newRev", $commits);
@@ -34,17 +40,17 @@ abstract class AbstractVerification
 
     protected function getFiles($commitId)
     {
-        exec("git diff --name-only $commitId^..$commitId", $changedFiles);
+        exec("git diff-tree --no-commit-id --name-only -r $commitId", $changedFiles);
         return $changedFiles;
     }
 
-    protected function getFileContent($commitId, $filePath)
+    protected function getFileContent($commitId, $filePath, $getAsArray = false)
     {
         exec("git show $commitId:$filePath", $fileLines);
-        return implode(PHP_EOL, $fileLines);
+        return $getAsArray ? $fileLines : implode(PHP_EOL, $fileLines);
     }
 
-    public static function factory($ref, $author, $oldRev, $newRev)
+    public static function factory($ref, $oldRev, $newRev)
     {
         $branch = $ref;
         if (strpos($branch, 'refs/heads/') === 0) {
@@ -55,7 +61,7 @@ abstract class AbstractVerification
         if (!class_exists($verificationName)) {
             throw new InvalidArgumentException('Wrong excercise.');
         }
-        return new $verificationName($author, $oldRev, $newRev);
+        return new $verificationName($oldRev, $newRev);
     }
 
     private static function dashToCamelCase($name)
