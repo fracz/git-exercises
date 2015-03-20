@@ -18,11 +18,11 @@ class MasterVerification extends AbstractVerification
         $this->ensure(count($commits) == 1, 'Only one commit is expected to be pushed for this exercise. Received %d.', [count($commits)]);
         $files = $this->getFiles($commits[0]);
         $this->ensure(count($files) == 1, 'Only one file is expected to be commited for this exercise. Received %d.', [count($files)]);
+        $this->ensure($files[0] == 'test.txt', 'The file that has been commited does not look like the generated one.');
         $fileContent = $this->getFileContent($commits[0], $files[0], true);
         $this->ensure(
             trim(implode('', $fileContent)) == self::$expectedContent,
-            "Wrong content in the commited file. First line in the commited file is \n%s\nbut the expected file content is:\n%s",
-            [colorize($fileContent[0], BLUE), colorize(self::$expectedContent, BLUE)]
+            'The file that has been commited does not look like the generated one.'
         );
     }
 }
