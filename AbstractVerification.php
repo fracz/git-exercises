@@ -41,6 +41,12 @@ abstract class AbstractVerification
         return $count == 1 ? $commits[0] : $commits;
     }
 
+    public function getCommiterName($commitId)
+    {
+        exec("git log --pretty=format:\"%cn\" -1 $commitId", $commiter);
+        return $commiter[0];
+    }
+
     protected function getCommits()
     {
         exec("git show --format=format:%H --quiet $this->oldRev...$this->newRev", $commits);
