@@ -1,11 +1,10 @@
 <?php
 
 require __DIR__ . '/VerificationFailure.php';
+require __DIR__ . '/GitUtils.php';
 
 abstract class AbstractVerification
 {
-    protected $author;
-
     protected $oldRev;
 
     protected $newRev;
@@ -41,36 +40,29 @@ abstract class AbstractVerification
         return $count == 1 ? $commits[0] : $commits;
     }
 
-    public function getCommiterName($commitId)
+    public function getCommiterName($commitId = null)
     {
-        exec("git log --pretty=format:\"%cn\" -1 $commitId", $commiter);
-        return $commiter[0];
+        return GitUtils::getCommiterName($commitId ? $commitId : $this->newRev);
     }
 
     protected function getCommits()
     {
-        exec("git show --format=format:%H --quiet $this->oldRev...$this->newRev", $commits);
-        return $commits;
+        return GitUtils::getCommitIdsBetween($this->oldRev, $this->newRev);
     }
 
     protected function getFiles($commitId)
     {
-        exec("git diff-tree --no-commit-id --name-only -r $commitId", $changedFiles);
-        return $changedFiles;
+        return GitUtils::getChangedFilenames($commitId);
     }
 
     protected function getFileContent($commitId, $filePath, $getAsArray = false)
     {
-        exec("git show $commitId:$filePath", $fileLines);
+        $fileLines = GitUtils::getFileContent($commitId, $filePath);
         return $getAsArray ? $fileLines : implode(PHP_EOL, $fileLines);
     }
 
-    public static function factory($ref, $oldRev, $newRev)
+    public static function factory($branch, $oldRev, $newRev)
     {
-        $branch = $ref;
-        if (strpos($branch, 'refs/heads/') === 0) {
-            $branch = substr($branch, strlen('refs/heads/'));
-        }
         $verificationName = ucfirst(self::dashToCamelCase($branch)) . 'Verification';
         @include __DIR__ . '/verifications/' . $verificationName . '.php';
         if (!class_exists($verificationName)) {

@@ -27,6 +27,12 @@ if ($project == $exerciseProjectName) {
     /** @var AbstractVerification $verifier */
     $verifier = null;
 
+    $status = -1;
+
+    if (strpos($branch, 'refs/heads/') === 0) {
+        $branch = substr($branch, strlen('refs/heads/'));
+    }
+
     try {
         $verifier = AbstractVerification::factory($branch, $oldRev, $newRev);
     } catch (InvalidArgumentException $e) {
@@ -39,6 +45,7 @@ if ($project == $exerciseProjectName) {
         echo 'Status: ';
         try {
             $verifier->verify();
+            $status = 1;
             echo colorize('PASSED', GREEN) . PHP_EOL;
             $nextTask = $verifier->getNextTask();
             if ($nextTask == 'master') {
@@ -50,12 +57,15 @@ if ($project == $exerciseProjectName) {
                 echo colorize("git checkout -f $nextTask && ./start.sh", BLUE);
             }
         } catch (VerificationFailure $e) {
+            $status = 0;
             echo colorize('FAILED', RED) . PHP_EOL;
             echo $e->getMessage();
         }
     }
 
     echo "\n$stars\n\n)";
+
+    @include __DIR__ . '/stats/stats.php';
 
     exit(1);
 }
