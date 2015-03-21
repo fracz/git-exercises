@@ -11,6 +11,6 @@ class CommitOneFileStagedVerification extends CommitOneFileVerification
 
     public function getNextTask()
     {
-        return 'master';
+        return 'ignore-them';
     }
 }
