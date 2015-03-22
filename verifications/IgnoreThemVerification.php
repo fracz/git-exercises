@@ -7,11 +7,6 @@ class IgnoreThemVerification extends AbstractVerification
         return 'Ignore unwanted files.';
     }
 
-    public function getNextTask()
-    {
-        return 'master';
-    }
-
     protected function doVerify()
     {
         $commit = $this->ensureCommitsCount(1);

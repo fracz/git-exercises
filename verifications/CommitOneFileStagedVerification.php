@@ -8,9 +8,4 @@ class CommitOneFileStagedVerification extends CommitOneFileVerification
     {
         return 'Commit one file when both have been staged.';
     }
-
-    public function getNextTask()
-    {
-        return 'ignore-them';
-    }
 }

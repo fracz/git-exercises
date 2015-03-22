@@ -22,8 +22,6 @@ abstract class AbstractVerification
 
     public abstract function getShortInfo();
 
-    public abstract function getNextTask();
-
     protected abstract function doVerify();
 
     protected function ensure($condition, $errorMessage, array $formatVars = [])

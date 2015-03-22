@@ -47,7 +47,7 @@ if ($project == $exerciseProjectName) {
             $verifier->verify();
             $status = 1;
             echo colorize('PASSED', GREEN) . PHP_EOL;
-            $nextTask = $verifier->getNextTask();
+            $nextTask = getNextTask($branch);
             if ($nextTask == 'master') {
                 echo colorize('Congratulations! You have done all exercises!', BLUE) . PHP_EOL;
                 echo 'Provided that you were doing them one by one :-)';
@@ -73,4 +73,19 @@ if ($project == $exerciseProjectName) {
 function colorize($text, $color)
 {
     return chr(27) . $color . $text . chr(27) . "[0m";
+}
+
+function getNextTask($currentTask)
+{
+    $tasks = file_get_contents(__DIR__ . '/exercise-order.txt');
+    $tasks = explode(PHP_EOL, $tasks);
+    $tasks = array_filter(array_map(function ($task) {
+        return trim($task);
+    }, $tasks));
+    $currentIndex = array_search($currentTask, $tasks);
+    if ($currentIndex === false || $currentIndex == count($tasks) - 1) {
+        return $tasks[0];
+    } else {
+        return $tasks[$currentIndex + 1];
+    }
 }
