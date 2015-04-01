@@ -26,10 +26,10 @@ INFO;
     protected function doVerify()
     {
         $commit = $this->ensureCommitsCount(1);
-        // TODO make names random
-        $this->ensure(GitUtils::checkIgnore($commit, 'cos.exe'), "cos.exe file is not ignored");
-        $this->ensure(GitUtils::checkIgnore($commit, 'cos.jar'), "cos.jar file is not ignored");
-        $this->ensure(GitUtils::checkIgnore($commit, 'cos.o'), "cos.o file is not ignored");
+        $randomName = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 8);
+        $this->ensure(GitUtils::checkIgnore($commit, "$randomName.exe"), "$randomName.exe file is not ignored");
+        $this->ensure(GitUtils::checkIgnore($commit, "$randomName.jar"), "$randomName.jar file is not ignored");
+        $this->ensure(GitUtils::checkIgnore($commit, "$randomName.o"), "$randomName.o file is not ignored");
         $this->ensure(GitUtils::checkIgnore($commit, 'libraries/'), "libraries directory is not ignored");
         $this->ensure(GitUtils::checkIgnore($commit, 'libraries/text.txt'), "txt file inside libraries directory is not ignored");
         $this->ensure(!GitUtils::checkIgnore($commit, 'libraries'), "File with name 'libraries' would be ignored but it should not.");
