@@ -2,3 +2,4 @@ master
 commit-one-file
 commit-one-file-staged
 ignore-them
+too-many-commits

@@ -18,6 +18,16 @@ class GitUtils
 
     /**
      * @param $commitId
+     * @return string
+     */
+    public static function getCommitSubject($commitId)
+    {
+        exec("git log --pretty=format:\"%s\" -1 $commitId", $subject);
+        return $subject[0];
+    }
+
+    /**
+     * @param $commitId
      * @return array
      */
     public static function getChangedFilenames($commitId)
