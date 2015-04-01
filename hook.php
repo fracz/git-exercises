@@ -61,11 +61,10 @@ if ($project == $exerciseProjectName) {
             echo colorize('FAILED', RED) . PHP_EOL;
             echo $e->getMessage();
         }
+        @include __DIR__ . '/stats/stats.php';
     }
 
     echo "\n$stars\n\n)";
-
-    @include __DIR__ . '/stats/stats.php';
 
     exit(1);
 }
