@@ -15,6 +15,7 @@ const GREEN = "[42m";
 const BLUE = "[44m";
 const YELLOW = "[43m";
 const RED = "[41m";
+const PINK = "[45m";
 
 if ($project == $exerciseProjectName) {
 
@@ -44,9 +45,13 @@ if ($project == $exerciseProjectName) {
         echo 'Exercise: ' . $verifier->getShortInfo() . PHP_EOL;
         echo 'Status: ';
         try {
-            $verifier->verify();
+            $info = $verifier->verify();
             $status = 1;
             echo colorize('PASSED', GREEN) . PHP_EOL;
+            if ($info) {
+                echo PHP_EOL . colorize('HINTS:', PINK) . PHP_EOL;
+                echo $info . PHP_EOL . PHP_EOL;
+            }
             $nextTask = getNextTask($branch);
             if ($nextTask == 'master') {
                 echo colorize('Congratulations! You have done all exercises!', BLUE) . PHP_EOL;

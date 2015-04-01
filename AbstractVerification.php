@@ -17,7 +17,7 @@ abstract class AbstractVerification
 
     public function verify()
     {
-        $this->doVerify();
+        return $this->doVerify();
     }
 
     public abstract function getShortInfo();
