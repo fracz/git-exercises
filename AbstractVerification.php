@@ -34,8 +34,15 @@ abstract class AbstractVerification
     protected function ensureCommitsCount($count)
     {
         $commits = $this->getCommits();
-        $this->ensure(count($commits) == 1, 'Only one commit is expected to be pushed for this exercise. Received %d.', [count($commits)]);
+        $this->ensure(count($commits) == $count, 'Expected number of commits: %d. Received %d.', [$count, count($commits)]);
         return $count == 1 ? $commits[0] : $commits;
+    }
+
+    protected function ensureFilesCount($commitId, $count)
+    {
+        $files = $this->getFiles($commitId);
+        $this->ensure(count($files) == $count, 'Commit %s should contain %d files. %d received.', [substr($commitId, 0, 7), $count, count($files)]);
+        return $count == 1 ? $files[0] : $files;
     }
 
     public function getCommiterName($commitId = null)
@@ -53,10 +60,9 @@ abstract class AbstractVerification
         return GitUtils::getChangedFilenames($commitId);
     }
 
-    protected function getFileContent($commitId, $filePath, $getAsArray = false)
+    protected function getFileContent($commitId, $filePath)
     {
-        $fileLines = GitUtils::getFileContent($commitId, $filePath);
-        return $getAsArray ? $fileLines : implode(PHP_EOL, $fileLines);
+        return GitUtils::getFileContent($commitId, $filePath);
     }
 
     public static function factory($branch, $oldRev, $newRev)

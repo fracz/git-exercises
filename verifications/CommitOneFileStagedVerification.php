@@ -4,10 +4,10 @@ require __DIR__ . '/CommitOneFileVerification.php';
 
 class CommitOneFileStagedVerification extends CommitOneFileVerification
 {
-    private static $info = <<<INFO
+    private static $hints = <<<HINTS
 When you have added too many changes to staging area, you can undo
 them with git reset <file> command.
-INFO;
+HINTS;
 
     public function getShortInfo()
     {
@@ -17,6 +17,6 @@ INFO;
     protected function doVerify()
     {
         parent::doVerify();
-        return self::$info;
+        return self::$hints;
     }
 }

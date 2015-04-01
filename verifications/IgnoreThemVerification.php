@@ -2,7 +2,7 @@
 
 class IgnoreThemVerification extends AbstractVerification
 {
-    private static $info = <<<INFO
+    private static $hints = <<<HINTS
 A .gitignore file specifies intentionally untracked files that Git should ignore.
 
 To ignore all files with specific string inside filename, just type it in, i.e. dumb
@@ -15,7 +15,7 @@ The first one would ignore all directories named "libraries" in the whole projec
 the second one would ignore only the "libraries" directory in the same location as .gitignore file.
 
 For more info, see http://git-scm.com/docs/gitignore
-INFO;
+HINTS;
 
 
     public function getShortInfo()
@@ -35,6 +35,6 @@ INFO;
         $this->ensure(!GitUtils::checkIgnore($commit, 'libraries'), "File with name 'libraries' would be ignored but it should not.");
         $this->ensure(!GitUtils::checkIgnore($commit, 'test.txt'), "File with name 'test.txt' would be ignored but it should not.");
         $this->ensure(!GitUtils::checkIgnore($commit, 'libs'), "File with name 'libs' would be ignored but it should not.");
-        return self::$info;
+        return self::$hints;
     }
 }
