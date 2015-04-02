@@ -28,11 +28,16 @@ class GitUtils
 
     /**
      * @param $commitId
-     * @return array
+     * @return array indexed by filenames, values are operations (M, A, D)
      */
-    public static function getChangedFilenames($commitId)
+    public static function getChangedFiles($commitId)
     {
-        exec("git diff-tree --no-commit-id --name-only -r $commitId", $changedFiles);
+        exec("git diff-tree --no-commit-id --name-status -r $commitId", $changes);
+        $changedFiles = [];
+        foreach ($changes as $change) {
+            $data = explode("\t", $change);
+            $changedFiles[$data[1]] = $data[0];
+        }
         return $changedFiles;
     }
 

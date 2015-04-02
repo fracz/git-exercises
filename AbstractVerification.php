@@ -40,7 +40,7 @@ abstract class AbstractVerification
 
     protected function ensureFilesCount($commitId, $count)
     {
-        $files = $this->getFiles($commitId);
+        $files = $this->getFilenames($commitId);
         $this->ensure(count($files) == $count, 'Commit %s should contain %d files. %d received.', [substr($commitId, 0, 7), $count, count($files)]);
         return $count == 1 ? $files[0] : $files;
     }
@@ -55,9 +55,9 @@ abstract class AbstractVerification
         return GitUtils::getCommitIdsBetween($this->oldRev, $this->newRev);
     }
 
-    protected function getFiles($commitId)
+    protected function getFilenames($commitId)
     {
-        return GitUtils::getChangedFilenames($commitId);
+        return array_keys(GitUtils::getChangedFiles($commitId));
     }
 
     protected function getFileContent($commitId, $filePath)

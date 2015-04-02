@@ -2,5 +2,6 @@ master
 commit-one-file
 commit-one-file-staged
 ignore-them
+remove-ignored
 too-many-commits
 invalid-order
