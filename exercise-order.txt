@@ -4,6 +4,7 @@ commit-one-file-staged
 ignore-them
 chase-branch
 merge-conflict
+save-your-work
 change-branch-history
 remove-ignored
 fix-typo
