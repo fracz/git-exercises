@@ -6,3 +6,6 @@ remove-ignored
 too-many-commits
 invalid-order
 fix-typo
+chase-branch
+merge-conflict
+change-branch-history
