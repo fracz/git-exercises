@@ -23,7 +23,7 @@ git push origin escaped:chase-branch
 Remote repository could not tell then if you have done the merge or if you just wanted
 to set remote chase-branch to point to the same commit as your local escaped branch.
 
-More info:
+More info: http://git-scm.com/book/en/v2/Git-Branching-Basic-Branching-and-Merging
 HINTS;
 
 
