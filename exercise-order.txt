@@ -2,10 +2,13 @@ master
 commit-one-file
 commit-one-file-staged
 ignore-them
-remove-ignored
-too-many-commits
-invalid-order
-fix-typo
 chase-branch
 merge-conflict
 change-branch-history
+remove-ignored
+fix-typo
+fix-old-typo
+too-many-commits
+invalid-order
+find-swearwords
+find-bug
