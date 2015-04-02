@@ -1,5 +1,6 @@
-# git-exercises
-## Exercise - Fix typographic mistake in last commit
-You have commited `file.txt` but you realized you made a typo - you wrote `wordl` instead of `world`.
+## Fix typographic mistake in old commit
+While you were working you noticed a typographic error in `file.txt` - you wrote `wordl` instead of `world`.
 
-Edit previous commit so no one would realize you haven't checked the file before commiting it :-)
+Unfortunately, you have made another commit on top of the typo so simple `git commit --amend` is not enough.
+
+Fix the typographic error by amending commit in history. Pay attention to the commit message, too!
