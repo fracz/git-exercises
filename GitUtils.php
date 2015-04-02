@@ -48,7 +48,7 @@ class GitUtils
      */
     public static function getCommitIdsBetween($commitIdLeft, $commitIdRight)
     {
-        exec("git show --format=format:%H --quiet $commitIdLeft...$commitIdRight", $commits);
+        exec("git rev-list $commitIdLeft...$commitIdRight", $commits);
         return $commits;
     }
 
@@ -83,5 +83,11 @@ class GitUtils
     {
         exec("git show $commitId:$filename", $fileLines);
         return $fileLines;
+    }
+
+    public static function getParents($commitId)
+    {
+        exec("git show --summary --format=%P --quiet $commitId", $parents);
+        return explode(' ', $parents[0]);
     }
 }
