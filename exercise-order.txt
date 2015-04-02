@@ -5,3 +5,4 @@ ignore-them
 remove-ignored
 too-many-commits
 invalid-order
+fix-typo
