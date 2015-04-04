@@ -10,6 +10,7 @@ remove-ignored
 fix-typo
 fix-old-typo
 too-many-commits
+pick-your-features
 invalid-order
 find-swearwords
 find-bug
