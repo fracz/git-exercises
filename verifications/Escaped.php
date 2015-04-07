@@ -1,8 +1,8 @@
 <?php
 
-require __DIR__ . '/ChaseBranchVerification.php';
+require __DIR__ . '/ChaseBranch.php';
 
-class EscapedVerification extends ChaseBranchVerification
+class Escaped extends ChaseBranch
 {
     protected function doVerify()
     {

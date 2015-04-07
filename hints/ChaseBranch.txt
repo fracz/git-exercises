@@ -1,8 +1,3 @@
-<?php
-
-class ChaseBranchVerification extends AbstractVerification
-{
-    private static $hints = <<<HINTS
 You should have executed git merge escaped command in order to make the chase-branch
 pointer to point to the same commit as the escaped branch. Because the chase branch
 was direct ancestor of the escaped branch, pointer could be only moved and no
@@ -24,19 +19,3 @@ Remote repository could not tell then if you have done the merge or if you just 
 to set remote chase-branch to point to the same commit as your local escaped branch.
 
 More info: http://git-scm.com/book/en/v2/Git-Branching-Basic-Branching-and-Merging
-HINTS;
-
-
-    public function getShortInfo()
-    {
-        return 'Chase branch that escaped.';
-    }
-
-    protected function doVerify()
-    {
-        $commits = $this->ensureCommitsCount(2);
-        $this->ensure(GitUtils::getCommitSubject($commits[1]) == 'First escaped commit', 'The first pushed commit is not the one that has been created by start.sh script.');
-        $this->ensure(GitUtils::getCommitSubject($commits[0]) == 'Second escaped commit', 'The second pushed commit is not the one that has been created by start.sh script.');
-        return self::$hints;
-    }
-}

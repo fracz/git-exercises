@@ -17,7 +17,15 @@ abstract class AbstractVerification
 
     public function verify()
     {
-        return $this->doVerify();
+        $this->doVerify();
+    }
+
+    public function getHints()
+    {
+        $hintsFile = __DIR__ . '/hints/' . get_class($this) . '.txt';
+        if (file_exists($hintsFile)) {
+            return file_get_contents($hintsFile);
+        }
     }
 
     public abstract function getShortInfo();
@@ -67,7 +75,7 @@ abstract class AbstractVerification
 
     public static function factory($branch, $oldRev, $newRev)
     {
-        $verificationName = ucfirst(self::dashToCamelCase($branch)) . 'Verification';
+        $verificationName = ucfirst(self::dashToCamelCase(basename($branch)));
         @include __DIR__ . '/verifications/' . $verificationName . '.php';
         if (!class_exists($verificationName)) {
             throw new InvalidArgumentException('Wrong excercise.');

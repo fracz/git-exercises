@@ -1,15 +1,7 @@
 <?php
 
-class FindSwearwordsVerification extends AbstractVerification
+class FindSwearwords extends AbstractVerification
 {
-    private static $hints = <<<HINTS
-Use git log -Sword when you want to grep for commits that introduced
-word or source code fragment you are interested in.
-
-Once you know commit ids that introduced a swearword, it's easy to
-amend the commits during interactive rebase.
-HINTS;
-
     public function getShortInfo()
     {
         return 'Find swearwords.';
@@ -26,6 +18,5 @@ HINTS;
             $this->ensure($wordAddedInFile != 'shit', 'There are still commits that introduce "shit" word instead of "flower".');
             $this->ensure($wordAddedInFile == 'flower', 'You mistakenly replaced "shit" word with "%s", not with a "flower".', [$wordAddedInFile]);
         }
-        return self::$hints;
     }
 }

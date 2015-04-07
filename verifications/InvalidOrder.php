@@ -1,22 +1,7 @@
 <?php
 
-class InvalidOrderVerification extends AbstractVerification
+class InvalidOrder extends AbstractVerification
 {
-    private static $hints = <<<HINTS
-The easiest way to change order of commits in history is to use rebase interactive
-feature of Git. Just swap the commits as you want leaving default pick operation.
-
-Remember that you don't need to know the commit SHA-1 hashes when specifying
-them in git rebase -i command. When you know that you want to go 2 commits
-back, you can always run git rebase -i HEAD^^ or git rebase -i HEAD~2.
-
-Note that you should not change commits order when you have published them already.
-Need to know why? See: http://git-scm.com/book/en/v2/Git-Branching-Rebasing#The-Perils-of-Rebasing
-
-For more info, see: http://git-scm.com/book/en/v2/Git-Tools-Rewriting-History#Reordering-Commits
-HINTS;
-
-
     public function getShortInfo()
     {
         return 'Change order of commits.';
@@ -33,6 +18,5 @@ HINTS;
         $file = $this->ensureFilesCount($commits[1], 1);
         $this->ensure($file == 'second.txt', 'Invalid file %s commited in the second commit.', [$file]);
         $this->ensure($this->getFileContent($commits[1], $file)[0] == '2', 'Invalid content of the file commited in the second commit.');
-        return self::$hints;
     }
 }

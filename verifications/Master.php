@@ -1,6 +1,6 @@
 <?php
 
-class MasterVerification extends AbstractVerification
+class Master extends AbstractVerification
 {
     private static $expectedContent = 'test';
 

@@ -1,6 +1,6 @@
 <?php
 
-class MergeConflictVerification extends AbstractVerification
+class MergeConflict extends AbstractVerification
 {
     public function getShortInfo()
     {

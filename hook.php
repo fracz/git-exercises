@@ -45,12 +45,13 @@ if ($project == $exerciseProjectName) {
         echo 'Exercise: ' . $verifier->getShortInfo() . PHP_EOL;
         echo 'Status: ';
         try {
-            $info = $verifier->verify();
+            $verifier->verify();
             $status = 1;
             echo colorize('PASSED', GREEN) . PHP_EOL;
-            if ($info) {
+            $hints = $verifier->getHints();
+            if ($hints) {
                 echo PHP_EOL . colorize('HINTS:', PINK) . PHP_EOL;
-                echo $info . PHP_EOL . PHP_EOL;
+                echo $hints . PHP_EOL . PHP_EOL;
             }
             $nextTask = getNextTask($branch);
             if ($nextTask == 'master') {

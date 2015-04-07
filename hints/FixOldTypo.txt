@@ -1,10 +1,3 @@
-<?php
-
-require __DIR__ . '/FixTypoVerification.php';
-
-class FixOldTypoVerification extends FixTypoVerification
-{
-    private static $hints = <<<HINTS
 Interactive rebase is one of the most powerful tools in Git. It allows
 you to amend any commit in history.
 
@@ -23,20 +16,3 @@ Note that you should not change commits order when you have published them alrea
 Need to know why? See: http://git-scm.com/book/en/v2/Git-Branching-Rebasing#The-Perils-of-Rebasing
 
 More info: http://git-scm.com/book/en/v2/Git-Tools-Rewriting-History#Changing-Multiple-Commit-Messages
-HINTS;
-
-
-    public function getShortInfo()
-    {
-        return 'Fix old typographic error.';
-    }
-
-    protected function doVerify()
-    {
-        $commits = $this->ensureCommitsCount(2);
-        $this->verifyTypoIsFixed($commits[1]);
-        $fileContent = implode(' ', $this->getFileContent($commits[0], 'file.txt'));
-        $this->ensure($fileContent == 'Hello world Hello world is an excellent program.', "You haven't resolved the conflict correctly.");
-        return self::$hints;
-    }
-}
