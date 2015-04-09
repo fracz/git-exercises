@@ -9,6 +9,7 @@ change-branch-history
 remove-ignored
 fix-typo
 fix-old-typo
+split-commit
 too-many-commits
 pick-your-features
 invalid-order
