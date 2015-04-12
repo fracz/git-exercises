@@ -60,7 +60,7 @@ if ($project == $exerciseProjectName) {
             } else {
                 echo "Next task: $nextTask" . PHP_EOL;
                 echo "In order to start, execute: " . PHP_EOL;
-                echo colorize("git checkout -f $nextTask && ./start.sh", BLUE);
+                echo colorize("git clean -fdx && git checkout -f $nextTask && ./start.sh", BLUE);
             }
         } catch (VerificationFailure $e) {
             $status = 0;
