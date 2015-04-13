@@ -9,7 +9,7 @@ class IgnoreThem extends AbstractVerification
 
     protected function doVerify()
     {
-        $commit = $this->ensureCommitsCount(1);
+        $commit = $this->getCommits()[0];
         $randomName = substr(str_shuffle("0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 8);
         $this->ensure(GitUtils::checkIgnore($commit, "$randomName.exe"), "$randomName.exe file is not ignored");
         $this->ensure(GitUtils::checkIgnore($commit, "$randomName.jar"), "$randomName.jar file is not ignored");
