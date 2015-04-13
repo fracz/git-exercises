@@ -14,7 +14,7 @@ branch but the overall result is different than after rebase. When
 cherry-picking, the hot-bugfix branch is moved forward and it points
 to the same commit as change-branch-history. Be aware of that.
 
-Note that you should rebase commits when you have published them already.
+Note that you should not rebase commits when you have published them already.
 Need to know why? See: http://git-scm.com/book/en/v2/Git-Branching-Rebasing#The-Perils-of-Rebasing
 
 More info: http://git-scm.com/book/en/v2/Git-Branching-Rebasing
