@@ -11,6 +11,7 @@ fix-typo
 fix-old-typo
 split-commit
 too-many-commits
+commit-parts
 pick-your-features
 invalid-order
 find-swearwords
