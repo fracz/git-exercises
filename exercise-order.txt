@@ -13,6 +13,7 @@ split-commit
 too-many-commits
 commit-parts
 pick-your-features
+rebase-complex
 invalid-order
 find-swearwords
 find-bug
