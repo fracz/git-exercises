@@ -59,8 +59,8 @@ if ($project == $exerciseProjectName) {
                 echo 'Provided that you were doing them one by one :-)';
             } else {
                 echo "Next task: $nextTask" . PHP_EOL;
-                echo "In order to start, execute: " . PHP_EOL;
-                echo colorize("git clean -fdx && git checkout -f $nextTask && ./start.sh", BLUE);
+                echo "In order to start, execute: ";
+                echo colorize("git start $nextTask", BLUE);
             }
         } catch (VerificationFailure $e) {
             $status = 0;
