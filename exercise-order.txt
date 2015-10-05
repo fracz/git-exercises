@@ -9,6 +9,7 @@ change-branch-history
 remove-ignored
 fix-typo
 fix-old-typo
+commit-lost
 split-commit
 too-many-commits
 commit-parts
