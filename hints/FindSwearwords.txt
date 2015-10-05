@@ -1,3 +1,5 @@
+git log -Sshit
+###
 Use git log -Sword when you want to grep for commits that introduced
 word or source code fragment you are interested in.
 

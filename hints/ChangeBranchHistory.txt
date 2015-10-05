@@ -1,12 +1,7 @@
-Basically, there are two main ways of passing this exercise.
-
-The first one is rebase. You want to rebase change-branch-history branch
-on the hot-bugfix branch by
 git rebase hot-bugfix
-This results in the situation presented in Readme.md.
-
-The second one is cherry-pick. You can cherry-pick your work on the
-hot-bugfix branch with
+###
+Although rebase is the easiest way of solving this exercise you may also
+use a cherry-pick command:
 git checkout hot-bugfix
 git cherry-pick change-branch-history
 This results in the same commit history of the change-branch-history

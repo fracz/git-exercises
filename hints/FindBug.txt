@@ -1,3 +1,9 @@
+git bisect start
+git bisect bad HEAD
+git bisect good 1.0
+git bisect run sh -c "openssl enc -base64 -A -d < home-screen-text.txt | grep -v jackass"
+git verify find-bugs
+###
 git bisect is an amazing tool that helps you to find commit that introduced a bug.
 Once you are able to write a script that verifies if the bug exists, the task is
 even simpler as git bisect allows you to automate searching for buggy commit.

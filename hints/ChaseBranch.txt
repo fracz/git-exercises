@@ -1,7 +1,8 @@
-You should have executed git merge escaped command in order to make the chase-branch
-pointer to point to the same commit as the escaped branch. Because the chase branch
-was direct ancestor of the escaped branch, pointer could be only moved and no
-merge commit is necessary (also, conflicts are impossible to happen in such situations).
+git merge escaped
+###
+Because the chase branch was direct ancestor of the escaped branch, branch pointer
+could be simply moved and no merge commit is necessary (also, conflicts are
+impossible to happen in such situations).
 
 This is what Git calls as "Fast-Forward merge" as the branch pointer is only "fast forwarded"
 to commit you are merging into.

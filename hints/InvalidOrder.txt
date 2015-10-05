@@ -1,3 +1,6 @@
+git rebase -i HEAD~2
+# move the second commit up
+###
 The easiest way to change order of commits in history is to use rebase interactive
 feature of Git. Just swap the commits as you want leaving default pick operation.
 

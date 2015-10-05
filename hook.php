@@ -50,8 +50,10 @@ if ($project == $exerciseProjectName) {
             echo colorize('PASSED', GREEN) . PHP_EOL;
             $hints = $verifier->getHints();
             if ($hints) {
-                echo PHP_EOL . colorize('HINTS:', PINK) . PHP_EOL;
-                echo $hints . PHP_EOL . PHP_EOL;
+                $hints = explode('###', $hints);
+                echo PHP_EOL . colorize('The easiest solution:', PINK) . PHP_EOL . trim($hints[0]) . PHP_EOL;
+                echo PHP_EOL . 'Hints:' . PHP_EOL;
+                echo trim($hints[1]) . PHP_EOL . PHP_EOL;
             }
             $nextTask = getNextTask($branch);
             if ($nextTask == 'master') {

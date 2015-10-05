@@ -1,9 +1,11 @@
+git rebase issue-555 --onto your-master
+###
+
 git rebase --onto allows you to move a branch to a different place.
 
-You should have executed:
+That:
 git rebase issue-555 --onto your-master
-
-That means:
+means:
 Get all commits that are not in issue-555 and place them onto your-master branch.
 
 It is consistent with regular rebase (--onto defaults to branch you are rebasing to), i.e.:

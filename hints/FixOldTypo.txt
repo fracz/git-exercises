@@ -1,3 +1,10 @@
+git rebase -i HEAD^^
+# mark the first commit with "edit" command
+# fix the typo in the file
+git add file.txt
+git rebase --continue
+# fix the typo in the commit message
+###
 Interactive rebase is one of the most powerful tools in Git. It allows
 you to amend any commit in history.
 

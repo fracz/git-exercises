@@ -1,3 +1,10 @@
+echo "*.o" > .gitignore
+echo "*.exe" >> .gitignore
+echo "*.jar" >> .gitignore
+echo "libraries/" >> .gitignore
+git add .gitignore
+git commit -m "Ignore binary files"
+###
 A .gitignore file specifies intentionally untracked files that Git should ignore.
 
 To ignore all files with specific string inside filename, just type it in, i.e. dumb
