@@ -20,6 +20,16 @@ class GitUtils
      * @param $commitId
      * @return string
      */
+    public static function getCommiterEmail($commitId)
+    {
+        exec("git log --pretty=format:\"%ce\" -1 $commitId", $commiter);
+        return $commiter[0];
+    }
+
+    /**
+     * @param $commitId
+     * @return string
+     */
     public static function getCommitSubject($commitId)
     {
         exec("git log --pretty=format:\"%s\" -1 $commitId", $subject);
