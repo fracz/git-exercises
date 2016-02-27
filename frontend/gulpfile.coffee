@@ -7,10 +7,6 @@ del = require('del')
 runSequence = require('run-sequence')
 bowerFiles = require("main-bower-files")
 
-appVersion =
-  number: '0.0'
-  build: 'unknown'
-
 htmlMinifier = ->
   $.minifyHtml
     empty: yes
@@ -47,7 +43,6 @@ gulp.task 'indexView', ->
     'public/style.css'
   ]
   if argv.production
-#    appFiles.shift()
     appFiles.unshift('public/libs/vendor.css')
     appFiles.push('public/templates.js')
   gulp.src('app/index.html')
@@ -60,7 +55,6 @@ gulp.task 'indexView', ->
     name: 'app'
     ignorePath: 'public'
   .pipe($.if(argv.production, htmlMinifier()))
-  .pipe($.if(argv.production, $.replace(/\.((css)|(js))/g, '.$1?' + appVersion.build)))
   .pipe(gulp.dest('public'))
 
 gulp.task 'views', ->

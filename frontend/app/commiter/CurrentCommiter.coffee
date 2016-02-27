@@ -9,8 +9,8 @@ angular.module('git-exercises').service 'CurrentCommiter', ($http, $rootScope, $
 
     set: (@currentCommiter) =>
       ipCookie('currentCommiter', @currentCommiter, {expires: 21, path: '/'})
-      $rootScope.currentCommiter =
-        id: @currentCommiter
+      $rootScope.currentCommiter ?= {}
+      $rootScope.currentCommiter.id = @currentCommiter
       @fetchData()
       refreshing = $interval(@fetchData, 30000) if not refreshing
 

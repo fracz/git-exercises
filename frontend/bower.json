@@ -34,7 +34,7 @@
       }
     },
     "angular-bootstrap": {
-      "main": "ui-bootstrap-tpls.min.js"
+      "main": "ui-bootstrap-tpls.js"
     },
     "bootstrap": {
       "main": [
