@@ -13,7 +13,9 @@
     </p>
     <uib-progressbar ng-if="availableExercises.length" animate="false" value="commiterData.passedExercises.length || 0"
                      max="availableExercises.length" type="success">
-        <b>{{commiterData.passedExercises.length || 0}} / {{ availableExercises.length }}</b>
+        <strong class="hidden-sm hidden-xs">
+            {{ commiterData.passedExercises.length || 0}} / {{ availableExercises.length }}
+        </strong>
     </uib-progressbar>
 
     <div class="row">
@@ -28,6 +30,9 @@
             <p class="text-center"><a href="http://thecatapi.com"><img
                     ng-src="http://thecatapi.com/api/images/get?format=src&type=gif"></a></p>
         </div>
-        <div class="col-md-3" latest-attempts="commiterData.attempts"></div>
+        <div class="col-md-3" ng-if="commiterData.attempts.length">
+            <h3 class="hidden-lg hidden-md">Recent attempts:</h3>
+            <div latest-attempts="commiterData.attempts"></div>
+        </div>
     </div>
 </div>
