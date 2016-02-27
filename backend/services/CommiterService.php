@@ -23,7 +23,7 @@ class CommiterService
 
     public function getPassedExercises($commiterId)
     {
-        $passedExercises = $this->query("SELECT DISTINCT exercise FROM attempt WHERE commiter_id = :id", $commiterId);
+        $passedExercises = $this->query("SELECT DISTINCT exercise FROM attempt WHERE commiter_id = :id AND passed = 1", $commiterId);
         return array_map(function ($row) {
             return $row['exercise'];
         }, $passedExercises->fetchAll());
