@@ -3,6 +3,8 @@ angular.module('git-exercises').config ($urlRouterProvider, $stateProvider, $loc
   $urlRouterProvider.when('', '/')
   $urlRouterProvider.when('/exercise', '/exercise/master')
 
+  $urlRouterProvider.otherwise('/')
+
   $stateProvider
   .state 'home',
     url: '/'
