@@ -4,7 +4,7 @@
 git config alias.start "! f() { currentBranch=\$(git rev-parse --abbrev-ref HEAD); exercise=\${1-\$currentBranch}; git show origin/\$exercise:start.sh >/dev/null 2>&1 && git checkout -f \$exercise >/dev/null 2>&1 && git reset --hard origin/\$exercise >/dev/null 2>&1 && git clean -fdx >/dev/null 2>&1 && echo \"Preparing the exercise environment, hold on...\" && ./start.sh >/dev/null 2>&1 && echo \"Exercise \$exercise started! Read the README.md for instructions.\" || echo \"Invalid exercise: \$exercise\"; }; f"
 
 # Add "git verify" local alias for submitting exercises solutions.
-git config alias.verify "! f() { currentBranch=\$(git rev-parse --abbrev-ref HEAD); exercise=\${1-\$currentBranch}; git show origin/\$exercise:start.sh >/dev/null 2>&1 && echo \"Verifying the \$exercise exercise. Hold on...\" && git push -f origin HEAD:\$exercise 2>&1 | sed -n '/\\*\\*\\*/,/\\*\\*\\*/p' | grep -v \"\\*\\*\" || echo \"Invalid exercise: \$exercise\"; }; f"
+git config alias.verify "! f() { currentBranch=\$(git rev-parse --abbrev-ref HEAD); exercise=\${1-\$currentBranch}; git show origin/\$exercise:start.sh >/dev/null 2>&1 && echo \"Verifying the \$exercise exercise. Hold on...\" && git push -f origin HEAD:\$exercise 2>&1 | sed -n '/\\*\\*\\*/,/\\*\\*\\*/p' | grep -v \"\\*\\*\" | sed 's/remote: //g' || echo \"Invalid exercise: \$exercise\"; }; f"
 
 # Add "git exercises" alias that shows list of available exercises
 git config alias.exercises "! echo \"Available exercises (alphabetically, use git start to switch): \" &&  git branch -r | grep origin | grep -v /HEAD | grep -v verifications | sed 's/origin\///g'"
