@@ -48,15 +48,6 @@ if (class_exists($command)) {
             if ($solution) {
                 echo PHP_EOL . ConsoleUtils::pink('The easiest solution:') . PHP_EOL . trim($solution) . PHP_EOL . PHP_EOL;
             }
-            $nextTask = $commiterService->suggestNextExercise($commiterId);
-            if ($nextTask == 'master') {
-                echo ConsoleUtils::blue('Congratulations! You have done all exercises!') . PHP_EOL;
-                echo 'Provided that you were doing them one by one :-)';
-            } else {
-                echo "Next task: $nextTask" . PHP_EOL;
-                echo "In order to start, execute: ";
-                echo ConsoleUtils::blue("git start $nextTask");
-            }
         } catch (VerificationFailure $e) {
             $passed = false;
             echo ConsoleUtils::red('FAILED') . PHP_EOL;
@@ -64,10 +55,22 @@ if (class_exists($command)) {
         }
         $commiterName = GitUtils::getCommiterName($newRev);
         $commiterService->saveAttempt($commiterEmail, $commiterName, $branch, $passed);
-        @include __DIR__ . '/stats/stats.php';
+        if ($passed) {
+            $nextTask = $commiterService->suggestNextExercise($commiterId);
+            if (!$nextTask) {
+                echo ConsoleUtils::blue('Congratulations! You have done all exercises!') . PHP_EOL;
+            } else {
+                echo "Next task: $nextTask" . PHP_EOL;
+                echo "In order to start, execute: ";
+                echo ConsoleUtils::blue("git start $nextTask");
+            }
+        }
     }
 }
 
 echo "\n$outputSeparator\n)";
+
+echo PHP_EOL . 'Remember that you can use ' . ConsoleUtils::pink('git verify')
+    . ' command to strip disturbing content.' . PHP_EOL;
 
 exit(1);
