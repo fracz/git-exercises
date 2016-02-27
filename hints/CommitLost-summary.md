@@ -1,7 +1,3 @@
-git reflog
-# inspect what you want to checkout - the previous version of the commit should be under HEAD@{1}
-git reset --hard HEAD@{1}
-###
 git reflog records where you have been previously. You can find any
 commit you have been on with this tool and find commits that you have
 lost accidentally (i.e. by rebase, amend).

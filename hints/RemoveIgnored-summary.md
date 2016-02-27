@@ -1,6 +1,3 @@
-git rm ignored.txt
-git commit -am "Remove the file that should have been ignored"
-###
 When file is ignored but is tracked for whatever reason, you can always execute
 git rm <file>
 to remove the file from both repository and working area.

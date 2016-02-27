@@ -1,0 +1,6 @@
+git cherry-pick feature-a
+git cherry-pick feature-b
+git cherry-pick feature-c
+# resolve merge conflict
+git add -A
+git cherry-pick --continue

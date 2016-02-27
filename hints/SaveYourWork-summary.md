@@ -1,10 +1,3 @@
-git stash
-# fix a bug
-git commit -am "Fix a bug"
-git stash pop
-echo "Finally, finished it!" >> bug.txt
-git commit -am "Finish my work"
-###
 It's hard to verify if you have done this task correctly.
 
 Its aim was to demonstrate git stash feature. When you run this command

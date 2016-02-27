@@ -1,10 +1,3 @@
-git merge fast-bugfix
-echo "Hola mundo" > file.txt
-git add file.txt
-git commit --no-edit
-
-###
-
 Because the branches have diverged, fast-forward merge strategy could not be applied.
 Therefore, merge conflict was possible. Because two branches made changes in the same
 file and near the same line, Git decided not to handle the situation itself but to

@@ -1,11 +1,4 @@
-git cherry-pick feature-a
-git cherry-pick feature-b
-git cherry-pick feature-c
-# resolve merge conflict
-git add -A
-git cherry-pick --continue
-###
-Cherry picking commits is like doing small rebases (with one commit only)
+[Cherry picking commits](http://git-scm.com/docs/git-cherry-pick) is like doing small rebases (with one commit only)
 but it moves current branch forward. Therefore, the easiest way of passing
 this exercise was to git cherry-pick feature-a, feature-b and feature-c
 consecutively.
@@ -15,5 +8,3 @@ When you tried to pick feature-c, Git should have complained that it does not
 know where to get first part of Feature C from (cherry-pick picks only one commit).
 Therefore, it is often good idea to squash commits first before cherry-picking them
 to other branch.
-
-More info: http://git-scm.com/docs/git-cherry-pick

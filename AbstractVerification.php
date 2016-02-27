@@ -20,11 +20,11 @@ abstract class AbstractVerification
         $this->doVerify();
     }
 
-    public function getHints()
+    public function getSolution()
     {
-        $hintsFile = __DIR__ . '/hints/' . get_class($this) . '.txt';
-        if (file_exists($hintsFile)) {
-            return file_get_contents($hintsFile);
+        $solutionFile = __DIR__ . '/hints/' . get_class($this) . '-solution.txt';
+        if (file_exists($solutionFile)) {
+            return file_get_contents($solutionFile);
         }
     }
 

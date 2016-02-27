@@ -40,12 +40,9 @@ if ($verifier) {
         $verifier->verify();
         $status = 1;
         echo colorize('PASSED', GREEN) . PHP_EOL;
-        $hints = $verifier->getHints();
-        if ($hints) {
-            $hints = explode('###', $hints);
-            echo PHP_EOL . colorize('The easiest solution:', PINK) . PHP_EOL . trim($hints[0]) . PHP_EOL;
-            echo PHP_EOL . 'Hints:' . PHP_EOL;
-            echo trim($hints[1]) . PHP_EOL . PHP_EOL;
+        $solution = $verifier->getSolution();
+        if ($solution) {
+            echo PHP_EOL . colorize('The easiest solution:', PINK) . PHP_EOL . trim($solution) . PHP_EOL . PHP_EOL;
         }
         $nextTask = getNextTask($branch);
         if ($nextTask == 'master') {

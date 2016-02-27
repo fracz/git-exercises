@@ -1,5 +1,3 @@
-git rebase hot-bugfix
-###
 Although rebase is the easiest way of solving this exercise you may also
 use a cherry-pick command:
 git checkout hot-bugfix

@@ -1,9 +1,3 @@
-git reset HEAD^
-git add first.txt
-git commit -m "First.txt"
-git add second.txt
-git commit -m "Second.txt"
-###
 In order to split a commit you need to go just before it (force working
 area looks like the commit has not been made) and repeat commit(s)
 as you wish.

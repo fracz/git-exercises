@@ -1,6 +1,3 @@
-git rebase -i HEAD^^
-# "squash" or "fixup" the second commit
-###
 The easiest way to make one commit out of two (or more) is to squash them
 with git rebase -i command and choose squash option for all but the first
 commit you want to preserve. Note that you can also use fixup command
