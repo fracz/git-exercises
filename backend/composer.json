@@ -1,0 +1,11 @@
+{
+    "name": "git-exercises",
+    "require": {
+        "php": ">=5.5",
+        "slim/slim": "2.6.2",
+        "michelf/php-markdown": "^1.6"
+    },
+    "autoload": {
+        "psr-4": {"GitExercises\\": "./"}
+    }
+}

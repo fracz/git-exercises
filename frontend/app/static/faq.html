@@ -1,0 +1,48 @@
+<h1>Frequently Asked Questions</h1>
+
+<h2>What is it and how to use it?</h2>
+<p>The <code>exercises</code> repository contains problems that you may encounter in everyday work with Git.
+    Each problem resides in its own branch which you can checkout and verify your git-skills.
+    In general, all exercises assume that you know basics of Git (i.e. how to commit a file and what the working and
+    staging area is).</p>
+
+<p>The <code>README.md</code> file always contains an explanation of the problem and the expected repository state that
+    should be achieved. A special git command (alias) <code>git start</code> has been prepared for the purpose of
+    preparing your local commit history and working area for the exercise.</p>
+
+<p>In fact, the <code>master</code> branch contains the first exercise.</p>
+
+<h2>How to start?</h2>
+<div ng-include="'home/start.html'"></div>
+
+<div ng-include="'home/home-faq.html'"></div>
+
+<h2>How to verify my solution?</h2>
+<p>When you think you are ready with the exercise, just execute the <code>git verify</code> command. It will try to
+    push your changes to the remote repository and tell you if the provided solution is correct.</p>
+
+<p>There may be situation when the <code>git verify</code> tells you that the exercise name is invalid.
+    This means that you have probably changed the branch name during work. In such cases, you need to tell what exercise
+    you are currently trying to solve with <code>git verify exercise-name</code> command.</p>
+
+<p>One more thing. You can always simplty <code>git push</code> your solutions. The remote repository will always tell
+    you that your changes have been rejected but it will display the solution result anyway. In fact, <code>git
+        verify</code>
+    does <code>git push</code> and greps-out unnecessary information.</p>
+
+<h2>How to find the next exercise?</h2>
+<p>When you pass the exercise successfully, output of <code>git verify</code> command will tell you the next exercise
+    name
+    as well as the command you need to execute in order to be in the right place (that is <code>git start
+        exercise-name</code>).</p>
+
+<p>You can also jump to any of the exercises at any moment. To display list of them, execute the <code>git
+    exercises</code>
+    command or view the <a ui-sref="exercise">exercises</a> page.</p>
+
+<h2>How to reset exercise and start from the beginning?</h2>
+<p>Each time you got lost you can discard all changes you made in an exercise and start from scratch with executing
+    <code>git start</code> command without any arguments.
+
+<p>This will work only if you are on an exercise branch. If not, tell git which task you want to start with by executing
+    <code>git start exercise-name</code>.</p>

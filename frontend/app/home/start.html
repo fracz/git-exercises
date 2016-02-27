@@ -1,0 +1,17 @@
+<div class="jumbotron">
+    <div class="row form-group">
+        <div class="col-sm-6">
+            <input type="text" class="form-control" placeholder="Your name here" ng-model="you.name">
+        </div>
+        <div class="col-sm-6">
+            <input type="text" class="form-control" placeholder="Your e-mail here" ng-model="you.email">
+        </div>
+    </div>
+    <pre>
+git clone http://gitexercises.fracz.com/git/exercises.git
+cd exercises
+git config user.name "{{ you.name || 'Your name here' }}"
+git config user.email "{{ you.email || 'Your e-mail here' }}"
+./configure.sh
+git start</pre>
+</div>

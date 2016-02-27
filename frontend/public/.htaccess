@@ -1,0 +1,13 @@
+RewriteEngine On
+
+# Don't rewrite files
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteRule ^ - [L]
+
+RewriteRule \.html$ - [L]
+
+# Rewrite API calls to api.php
+RewriteRule ^api api.php [QSA,L]
+
+# Rewrite everything else to index.html to allow html5 state links
+RewriteRule ^ index.html [L]
