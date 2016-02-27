@@ -18,13 +18,15 @@
 
     <div class="row">
         <div class="col-md-9" ng-if="commiterData.nextExercise">
-            <div exercise-content="commiterData.nextExercise"></div>
+            <div exercise-content="commiterData.nextExercise" heading="Next exercise"></div>
         </div>
-        <div class="col-md-9" ng-if="availableExercises.length && commiterData.passedExercises.length >= availableExercises.length">
+        <div class="col-md-9"
+             ng-if="availableExercises.length && commiterData.passedExercises.length >= availableExercises.length">
             <h2>Congratulations!</h2>
             <p class="lead">You managed to pass all exercises!</p>
             <p class="lead">Please find below a random kitten generated specially for you.</p>
-            <p class="text-center"><a href="http://thecatapi.com"><img ng-src="http://thecatapi.com/api/images/get?format=src&type=gif"></a></p>
+            <p class="text-center"><a href="http://thecatapi.com"><img
+                    ng-src="http://thecatapi.com/api/images/get?format=src&type=gif"></a></p>
         </div>
         <div class="col-md-3" latest-attempts="commiterData.attempts"></div>
     </div>

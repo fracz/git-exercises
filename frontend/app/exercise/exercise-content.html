@@ -1,4 +1,4 @@
-<h1>Exercise: {{ exerciseData.name }}</h1>
+<h1>{{ heading || 'Exercise' }}: {{ exerciseData.name }}</h1>
 <uib-alert ng-if="$root.currentCommiter.passedExercises | contains:exercise" type="success" class="text-center">You have passed this exercise!</uib-alert>
 <div class="jumbotron text-center" ng-if="!hideCommand">
     <pre>

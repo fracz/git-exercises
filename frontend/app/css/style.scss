@@ -3,6 +3,10 @@ $font-size-base: 17px;
 $icon-font-path: '/libs/bootstrap/dist/fonts/';
 @import "../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap";
 
+.ng-cloak {
+  display: none;
+}
+
 .home {
   p {
     margin-bottom: 2em;

@@ -18,14 +18,13 @@
   "dependencies": {
     "bootstrap-sass": "3.3.6",
     "angular": "1.5.0",
-    "angular-fontawesome": "1.0.0",
     "angular-ui-router": "0.2.18",
     "jquery": "2.2.1",
     "moment": "2.11.2",
     "js-sha1": "0.3.0",
     "angular-bootstrap": "1.1.2",
-    "bootstrap": "^3.3.6",
-    "angular-cookie": "^4.1.0"
+    "bootstrap": "3.3.6",
+    "angular-cookie": "4.1.0"
   },
   "overrides": {
     "angular": {
