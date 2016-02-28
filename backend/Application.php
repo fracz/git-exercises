@@ -53,7 +53,7 @@ class Application extends Slim
     private function injectServices()
     {
         $this->container->singleton('commiterService', function () {
-            return new CommiterService($this->database);
+            return new CommiterService();
         });
     }
 }

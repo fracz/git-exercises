@@ -7,6 +7,7 @@ require __DIR__ . '/../vendor/autoload.php';
 use GitExercises\hook\utils\ConsoleUtils;
 use GitExercises\hook\utils\GitUtils;
 use GitExercises\services\CommiterService;
+use GitExercises\services\GamificationService;
 
 $branch = $argv[1];
 $oldRev = $argv[2];
@@ -20,13 +21,14 @@ if (strpos($branch, 'refs/heads/') === 0) {
 $outputSeparator = str_repeat('*', 72);
 echo "(\n$outputSeparator\n";
 
-$commiterService = new CommiterService(require __DIR__ . '/../db.php');
+$commiterService = new CommiterService();
 $commiterEmail = GitUtils::getCommiterEmail($newRev);
 $commiterId = $commiterService->getCommiterId($commiterEmail);
+$gamificationService = new GamificationService($commiterId);
 
 $command = 'GitExercises\\hook\\commands\\' . ucfirst($branch) . 'Command';
 if (class_exists($command)) {
-    (new $command())->execute($commiterService, $commiterId);
+    (new $command())->execute($commiterId);
 } else {
     /** @var AbstractVerification $verifier */
     $verifier = null;
@@ -64,6 +66,14 @@ if (class_exists($command)) {
                 echo "In order to start, execute: ";
                 echo ConsoleUtils::blue("git start $nextTask");
             }
+            if ($gamificationService->isGamificationSessionActive()) {
+                echo PHP_EOL, PHP_EOL;
+                $gamificationService->printExerciseSummary($branch);
+            }
+        }
+        if ($gamificationService->isGamificationSessionActive()) {
+            $gamificationService->newAttempt($passed);
+            echo PHP_EOL, $gamificationService->getGamificationStatus();
         }
     }
 }

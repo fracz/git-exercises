@@ -9,9 +9,9 @@ class CommiterService
      */
     private $pdo;
 
-    public function __construct(\PDO $pdo)
+    public function __construct()
     {
-        $this->pdo = $pdo;
+        $this->pdo = require __DIR__ . '/../db.php';;
     }
 
     public function getAttempts($commiterId, $maxCount = 15)
