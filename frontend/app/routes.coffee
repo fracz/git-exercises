@@ -1,9 +1,13 @@
 angular.module('git-exercises').config ($urlRouterProvider, $stateProvider, $locationProvider) ->
   $locationProvider.html5Mode(true)
   $urlRouterProvider.when('', '/')
+  $urlRouterProvider.when('/!', '/') # for crawlers
   $urlRouterProvider.when('/exercise', '/exercise/master')
+  $urlRouterProvider.when(/\/e\/([a-z\-]+)\/([a-z0-9]+)/, ($match) -> "/exercise/#{$match[1]}/#{$match[2]}")
+  $urlRouterProvider.when(/\/e\/([a-z\-]+)/, '/exercise/$1')
+  $urlRouterProvider.when(/\/c\/([a-z0-9]+)/, '/committer/$1')
 
-  $urlRouterProvider.otherwise('/')
+  #  $urlRouterProvider.otherwise('/')
 
   $stateProvider
   .state 'home',

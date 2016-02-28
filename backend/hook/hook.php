@@ -8,6 +8,9 @@ use GitExercises\hook\utils\ConsoleUtils;
 use GitExercises\hook\utils\GitUtils;
 use GitExercises\services\CommitterService;
 use GitExercises\services\GamificationService;
+use GitExercises\services\ShortIdService;
+
+const DOMAIN = 'http://gitexercises.fracz.com';
 
 $branch = $argv[1];
 $oldRev = $argv[2];
@@ -24,6 +27,7 @@ echo "(\n$outputSeparator\n";
 $committerService = new CommitterService();
 $committerEmail = GitUtils::getCommitterEmail($newRev);
 $committerId = $committerService->getCommitterId($committerEmail);
+$shortCommiterId = (new ShortIdService())->getShort($committerId);
 $gamificationService = new GamificationService($committerId);
 
 $command = 'GitExercises\\hook\\commands\\' . ucfirst($exercise) . 'Command';
@@ -57,8 +61,8 @@ if (class_exists($command)) {
         $committerName = GitUtils::getCommitterName($newRev);
         $committerService->saveAttempt($committerEmail, $committerName, $exercise, $passed);
         if ($passed) {
-            echo 'If you want to see the easiest known solution for this exercise or need some further info, visit:', PHP_EOL,
-                'http://gitexercises.fracz.com/exercise/' . $exercise . '/' . $committerId, PHP_EOL, PHP_EOL;
+            echo "You can see the easiest known solution and further info at:", PHP_EOL,
+                DOMAIN . "/e/$exercise/$shortCommiterId", PHP_EOL, PHP_EOL;
             $nextTask = $committerService->suggestNextExercise($committerId);
             if (!$nextTask) {
                 echo ConsoleUtils::blue('Congratulations! You have done all exercises!') . PHP_EOL;
@@ -77,7 +81,7 @@ if (class_exists($command)) {
             echo PHP_EOL, $gamificationService->getGamificationStatus();
         } else {
             echo PHP_EOL, PHP_EOL, 'See your progress and instructions at:', PHP_EOL,
-            "http://git-exercises.fracz.com/committer/$committerId";
+                DOMAIN . "/c/$shortCommiterId";
         }
     }
 }

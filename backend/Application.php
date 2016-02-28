@@ -5,12 +5,14 @@ namespace GitExercises;
 
 use GitExercises\services\CommitterService;
 use GitExercises\services\JsonHelper;
+use GitExercises\services\ShortIdService;
 use Slim\Middleware\ContentTypes;
 use Slim\Slim;
 
 /**
  * @property \PDO $database
  * @property CommitterService $committerService
+ * @property ShortIdService $shortIdService
  */
 class Application extends Slim
 {
@@ -54,6 +56,9 @@ class Application extends Slim
     {
         $this->container->singleton('committerService', function () {
             return new CommitterService();
+        });
+        $this->container->singleton('shortIdService', function () {
+            return new ShortIdService();
         });
     }
 }

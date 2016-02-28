@@ -2,8 +2,6 @@
 
 namespace GitExercises;
 
-defined('APPLICATION_ENV') || define('APPLICATION_ENV', (getenv('APPLICATION_ENV') ? getenv('APPLICATION_ENV') : 'production'));
-
 ini_set('display_errors', 'Off');
 ini_set("log_errors", 1);
 ini_set("error_log", __DIR__ . "/data/logs/error.log");
