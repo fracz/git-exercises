@@ -11,10 +11,10 @@ angular.module('git-exercises').config ($urlRouterProvider, $stateProvider, $loc
     controller: 'HomeController'
     templateUrl: 'home/home.html'
 
-  .state 'commiter',
-    url: '/commiter/{id}?{email}'
-    controller: 'CommiterDetailsController'
-    templateUrl: 'commiter/commiter.html'
+  .state 'committer',
+    url: '/committer/{id}?{email}'
+    controller: 'CommitterDetailsController'
+    templateUrl: 'committer/committer.html'
 
   .state 'exercise',
     url: '/exercise'
@@ -27,11 +27,11 @@ angular.module('git-exercises').config ($urlRouterProvider, $stateProvider, $loc
     templateUrl: 'exercise/exercise-details.html'
 
   .state 'exercise.detailsWithCommitter',
-    url: '/{id}/{commiterId}'
+    url: '/{id}/{committerId}'
     controller: 'ExerciseDetailsController'
     templateUrl: 'exercise/exercise-details.html'
-    onEnter: ($stateParams, CurrentCommiter) ->
-      CurrentCommiter.set($stateParams.commiterId)
+    onEnter: ($stateParams, CurrentCommitter) ->
+      CurrentCommitter.set($stateParams.committerId)
 
   .state 'faq',
     url: '/faq'

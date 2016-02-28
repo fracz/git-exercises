@@ -16,7 +16,7 @@ class GamificationService
      */
     private $pdo;
 
-    private $commiterId;
+    private $committerId;
 
     private $passedExerciseTimes;
 
@@ -51,10 +51,10 @@ class GamificationService
         'find-bug' => 6,
     ];
 
-    public function __construct($commiterId)
+    public function __construct($committerId)
     {
         $this->pdo = require __DIR__ . '/../db.php';
-        $this->commiterId = $commiterId;
+        $this->committerId = $committerId;
         $this->isGamificationSessionActive();
     }
 
@@ -154,7 +154,7 @@ class GamificationService
     public function getMyPlaceInGroup()
     {
         if ($this->sessionId) {
-            $place = $this->query('SELECT COUNT(*) FROM gamification_stats WHERE session_id=:session AND points >= (SELECT points FROM gamification_stats WHERE session_id=:session AND commiter_id=:id)', [':session' => $this->sessionId])
+            $place = $this->query('SELECT COUNT(*) FROM gamification_stats WHERE session_id=:session AND points >= (SELECT points FROM gamification_stats WHERE session_id=:session AND committer_id=:id)', [':session' => $this->sessionId])
                 ->fetchColumn();
             return $place;
         }
@@ -184,12 +184,12 @@ class GamificationService
     public function newAttempt($passed)
     {
         if ($this->sessionId) {
-            $this->query('INSERT IGNORE INTO gamification_stats (session_id, commiter_id) VALUES(:session, :id)', [':session' => $this->sessionId]);
+            $this->query('INSERT IGNORE INTO gamification_stats (session_id, committer_id) VALUES(:session, :id)', [':session' => $this->sessionId]);
             if ($passed) {
-                $this->query('UPDATE gamification_stats SET passed=passed+1, points=:points WHERE session_id=:session AND commiter_id=:id AND points<:points',
+                $this->query('UPDATE gamification_stats SET passed=passed+1, points=:points WHERE session_id=:session AND committer_id=:id AND points<:points',
                     [':session' => $this->sessionId, ':points' => $this->getTotalPoints()]);
             } else {
-                $this->query('UPDATE gamification_stats SET failed=failed+1 WHERE session_id=:session AND commiter_id=:id', [':session' => $this->sessionId]);
+                $this->query('UPDATE gamification_stats SET failed=failed+1 WHERE session_id=:session AND committer_id=:id', [':session' => $this->sessionId]);
             }
         }
     }
@@ -199,9 +199,9 @@ class GamificationService
         if ($this->orderInSession) {
             return $this->orderInSession;
         }
-        $order = $this->query("SELECT t.exercise, COUNT(DISTINCT commiter_id) count FROM (SELECT commiter_id me, exercise, MIN(timestamp) minTimestamp FROM attempt
-                                WHERE $this->inSessionCondition AND commiter_id = :id AND passed = 1 GROUP BY exercise) AS t INNER JOIN attempt ON attempt.exercise = t.exercise
-                                AND $this->inSessionCondition AND attempt.commiter_id != me AND passed = 1 AND timestamp < minTimestamp GROUP BY exercise;");
+        $order = $this->query("SELECT t.exercise, COUNT(DISTINCT committer_id) count FROM (SELECT committer_id me, exercise, MIN(timestamp) minTimestamp FROM attempt
+                                WHERE $this->inSessionCondition AND committer_id = :id AND passed = 1 GROUP BY exercise) AS t INNER JOIN attempt ON attempt.exercise = t.exercise
+                                AND $this->inSessionCondition AND attempt.committer_id != me AND passed = 1 AND timestamp < minTimestamp GROUP BY exercise;");
         $order = array_reduce($order->fetchAll(\PDO::FETCH_ASSOC), function ($carry, $item) {
             $carry[$item['exercise']] = intval($item['count']);
             return $carry;
@@ -219,8 +219,8 @@ class GamificationService
         if ($this->passedExerciseAttempts) {
             return $this->passedExerciseAttempts;
         }
-        $attempts = $this->query("SELECT exercise, COUNT(*) attempts FROM attempt WHERE $this->inSessionCondition AND commiter_id = :id AND timestamp <= (
-                                SELECT MIN(timestamp) timestamp FROM attempt a WHERE a.commiter_id = attempt.commiter_id
+        $attempts = $this->query("SELECT exercise, COUNT(*) attempts FROM attempt WHERE $this->inSessionCondition AND committer_id = :id AND timestamp <= (
+                                SELECT MIN(timestamp) timestamp FROM attempt a WHERE a.committer_id = attempt.committer_id
                                 AND a.exercise = attempt.exercise AND passed = 1) GROUP BY exercise");
         $attempts = array_reduce($attempts->fetchAll(\PDO::FETCH_ASSOC), function ($carry, $item) {
             $carry[$item['exercise']] = intval($item['attempts']);
@@ -234,7 +234,7 @@ class GamificationService
         if ($this->passedExerciseTimes) {
             return $this->passedExerciseTimes;
         }
-        $times = $this->query("SELECT exercise, MIN(timestamp) timestamp FROM attempt WHERE $this->inSessionCondition AND commiter_id = :id AND passed = 1 GROUP BY exercise ORDER BY timestamp");
+        $times = $this->query("SELECT exercise, MIN(timestamp) timestamp FROM attempt WHERE $this->inSessionCondition AND committer_id = :id AND passed = 1 GROUP BY exercise ORDER BY timestamp");
         $lastPassTime = 0;
         $result = [];
         foreach ($times as $time) {
@@ -252,13 +252,13 @@ class GamificationService
             return 'No active gamification session.';
         }
         echo $this->inSessionCondition . PHP_EOL;
-        $stmt = $this->pdo->prepare('SELECT commiter_id, failed, passed, points FROM gamification_stats WHERE session_id=:session ORDER BY points DESC');
+        $stmt = $this->pdo->prepare('SELECT committer_id, failed, passed, points FROM gamification_stats WHERE session_id=:session ORDER BY points DESC');
         $stmt->execute([':session' => $this->sessionId]);
-        $commiterService = new CommiterService();
+        $committerService = new CommitterService();
         $results = $stmt->fetchAll(\PDO::FETCH_ASSOC);
-        $results = array_map(function ($e) use ($commiterService) {
-            $e = ['commiter_name' => $commiterService->getMostFrequentName($e['commiter_id'])] + $e;
-            unset($e['commiter_id']);
+        $results = array_map(function ($e) use ($committerService) {
+            $e = ['committer_name' => $committerService->getMostFrequentName($e['committer_id'])] + $e;
+            unset($e['committer_id']);
             return $e;
         }, $results);
         $renderer = new ArrayToTextTable($results);
@@ -269,7 +269,7 @@ class GamificationService
     private function query($query, array $params = [])
     {
         $stmt = $this->pdo->prepare($query);
-        $stmt->execute(array_merge($params, [':id' => $this->commiterId]));
+        $stmt->execute(array_merge($params, [':id' => $this->committerId]));
         return $stmt;
     }
 }

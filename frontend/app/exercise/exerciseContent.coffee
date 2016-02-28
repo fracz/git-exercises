@@ -1,4 +1,4 @@
-angular.module('git-exercises').directive 'exerciseContent', ($http, $state, $sce, CurrentCommiter) ->
+angular.module('git-exercises').directive 'exerciseContent', ($http, $state, $sce, CurrentCommitter) ->
   templateUrl: 'exercise/exercise-content.html'
   scope:
     exercise: '=exerciseContent'
@@ -13,4 +13,4 @@ angular.module('git-exercises').directive 'exerciseContent', ($http, $state, $sc
         exerciseData.summary = $sce.trustAsHtml(exerciseData.summary) if exerciseData.summary
         $scope.exerciseData = exerciseData
 
-    CurrentCommiter.getData() if not $scope.$root.currentCommiter?.passedExercises
+    CurrentCommitter.getData() if not $scope.$root.currentCommitter?.passedExercises

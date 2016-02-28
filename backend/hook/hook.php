@@ -6,7 +6,7 @@ require __DIR__ . '/../vendor/autoload.php';
 
 use GitExercises\hook\utils\ConsoleUtils;
 use GitExercises\hook\utils\GitUtils;
-use GitExercises\services\CommiterService;
+use GitExercises\services\CommitterService;
 use GitExercises\services\GamificationService;
 
 $branch = $argv[1];
@@ -21,14 +21,14 @@ if (strpos($branch, 'refs/heads/') === 0) {
 $outputSeparator = str_repeat('*', 72);
 echo "(\n$outputSeparator\n";
 
-$commiterService = new CommiterService();
-$commiterEmail = GitUtils::getCommiterEmail($newRev);
-$commiterId = $commiterService->getCommiterId($commiterEmail);
-$gamificationService = new GamificationService($commiterId);
+$committerService = new CommitterService();
+$committerEmail = GitUtils::getCommitterEmail($newRev);
+$committerId = $committerService->getCommitterId($committerEmail);
+$gamificationService = new GamificationService($committerId);
 
 $command = 'GitExercises\\hook\\commands\\' . ucfirst($branch) . 'Command';
 if (class_exists($command)) {
-    (new $command())->execute($commiterId);
+    (new $command())->execute($committerId);
 } else {
     /** @var AbstractVerification $verifier */
     $verifier = null;
@@ -55,12 +55,12 @@ if (class_exists($command)) {
             echo ConsoleUtils::red('FAILED') . PHP_EOL;
             echo $e->getMessage();
         }
-        $commiterName = GitUtils::getCommiterName($newRev);
-        $commiterService->saveAttempt($commiterEmail, $commiterName, $branch, $passed);
+        $committerName = GitUtils::getCommitterName($newRev);
+        $committerService->saveAttempt($committerEmail, $committerName, $branch, $passed);
         if ($passed) {
             echo 'If you want to see the easiest known solution for this exercise, visit:', PHP_EOL,
-                'http://gitexercises.fracz.com/exercise/' . $branch . '/' . $commiterId, PHP_EOL, PHP_EOL;
-            $nextTask = $commiterService->suggestNextExercise($commiterId);
+                'http://gitexercises.fracz.com/exercise/' . $branch . '/' . $committerId, PHP_EOL, PHP_EOL;
+            $nextTask = $committerService->suggestNextExercise($committerId);
             if (!$nextTask) {
                 echo ConsoleUtils::blue('Congratulations! You have done all exercises!') . PHP_EOL;
             } else {
@@ -78,7 +78,7 @@ if (class_exists($command)) {
             echo PHP_EOL, $gamificationService->getGamificationStatus();
         } else {
             echo PHP_EOL, PHP_EOL, 'See your progress and further instructions at:', PHP_EOL,
-            "http://git-exercises.dev/commiter/$commiterId", PHP_EOL;
+            "http://git-exercises.dev/committer/$committerId", PHP_EOL;
         }
     }
 }

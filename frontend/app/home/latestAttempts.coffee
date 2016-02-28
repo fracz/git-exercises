@@ -8,7 +8,7 @@ angular.module('git-exercises').directive 'latestAttempts', ($http, $interval) -
         $scope.latest = response
 
     if $scope.latest?.length > 0
-      $scope.hideCommiterName = yes
+      $scope.hideCommitterName = yes
     else
       fetchLatest()
       stop = $interval(fetchLatest, 10000)

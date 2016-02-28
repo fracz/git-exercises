@@ -16,7 +16,7 @@ $app = new Application();
 
 $app->group('/api', function () use ($app) {
     $app->get('/latest', 'GitExercises\\controllers\\HomeController:latest');
-    $app->get('/commiter/:id', 'GitExercises\\controllers\\CommiterController:get');
+    $app->get('/committer/:id', 'GitExercises\\controllers\\CommitterController:get');
     $app->get('/exercise', 'GitExercises\\controllers\\ExerciseController:list');
     $app->get('/exercise/:id', 'GitExercises\\controllers\\ExerciseController:readme');
 });

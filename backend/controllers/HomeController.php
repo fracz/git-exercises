@@ -8,7 +8,7 @@ class HomeController extends AbstractController
         return $this
             ->getApp()
             ->database
-            ->query('SELECT commiter_id, commiter_name, exercise, passed is_passed, timestamp FROM attempt ORDER BY timestamp DESC LIMIT 0, 12')
+            ->query('SELECT committer_id, committer_name, exercise, passed is_passed, timestamp FROM attempt ORDER BY timestamp DESC LIMIT 0, 12')
             ->fetchAll(\PDO::FETCH_ASSOC);
     }
 }

@@ -54,9 +54,9 @@ abstract class AbstractVerification
         return $count == 1 ? $files[0] : $files;
     }
 
-    public function getCommiterName($commitId = null)
+    public function getCommitterName($commitId = null)
     {
-        return GitUtils::getCommiterName($commitId ? $commitId : $this->newRev);
+        return GitUtils::getCommitterName($commitId ? $commitId : $this->newRev);
     }
 
     protected function getCommits()

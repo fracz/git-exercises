@@ -1,38 +1,38 @@
-<div ng-if="commiterData.attempts.length === 0">
+<div ng-if="committerData.attempts.length === 0">
     <h1>We could not find any attempt made by this user.</h1>
     <p class="lead">
-        Is {{ commiterEmail || 'it' }} you? Go and do the first exercise!
+        Is {{ committerEmail || 'it' }} you? Go and do the first exercise!
     </p>
     <div start-commands></div>
     <div exercise-content="'master'" hide-command="true"></div>
 </div>
-<div ng-if="commiterData.attempts.length > 0" class="commiter-details">
-    <h1>{{ commiterData.commiterName }}</h1>
+<div ng-if="committerData.attempts.length > 0" class="committer-details">
+    <h1>{{ committerData.committerName }}</h1>
     <p class="lead" class="text-right">
-        Passed {{ commiterData.passedExercises.length || 0 }} exercises
+        Passed {{ committerData.passedExercises.length || 0 }} exercises
     </p>
-    <uib-progressbar ng-if="availableExercises.length" animate="false" value="commiterData.passedExercises.length || 0"
+    <uib-progressbar ng-if="availableExercises.length" animate="false" value="committerData.passedExercises.length || 0"
                      max="availableExercises.length" type="success">
         <strong class="hidden-sm hidden-xs">
-            {{ commiterData.passedExercises.length || 0}} / {{ availableExercises.length }}
+            {{ committerData.passedExercises.length || 0}} / {{ availableExercises.length }}
         </strong>
     </uib-progressbar>
 
     <div class="row">
-        <div class="col-md-9" ng-if="commiterData.nextExercise">
-            <div exercise-content="commiterData.nextExercise" heading="Next exercise"></div>
+        <div class="col-md-9" ng-if="committerData.nextExercise">
+            <div exercise-content="committerData.nextExercise" heading="Next exercise"></div>
         </div>
         <div class="col-md-9"
-             ng-if="availableExercises.length && commiterData.passedExercises.length >= availableExercises.length">
+             ng-if="availableExercises.length && committerData.passedExercises.length >= availableExercises.length">
             <h2>Congratulations!</h2>
             <p class="lead">You managed to pass all exercises!</p>
             <p class="lead">Please find below a random kitten generated specially for you.</p>
             <p class="text-center"><a href="http://thecatapi.com"><img
                     ng-src="http://thecatapi.com/api/images/get?format=src&type=gif"></a></p>
         </div>
-        <div class="col-md-3" ng-if="commiterData.attempts.length">
+        <div class="col-md-3" ng-if="committerData.attempts.length">
             <h3 class="hidden-lg hidden-md">Recent attempts:</h3>
-            <div latest-attempts="commiterData.attempts"></div>
+            <div latest-attempts="committerData.attempts"></div>
         </div>
     </div>
 </div>

@@ -6,6 +6,6 @@ angular.module('git-exercises', [
   'ui.bootstrap.tpls'
   'ui.router'
 ])
-.run (ExerciseService, $rootScope, CurrentCommiter) ->
+.run (ExerciseService, $rootScope, CurrentCommitter) ->
   ExerciseService.getAll().then (exercises) ->
     $rootScope.availableExercises = exercises

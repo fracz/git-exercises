@@ -12,20 +12,20 @@ class GitUtils
      * @param $commitId
      * @return string
      */
-    public static function getCommiterName($commitId)
+    public static function getCommitterName($commitId)
     {
-        exec("git log --pretty=format:\"%cn\" -1 $commitId", $commiter);
-        return $commiter[0];
+        exec("git log --pretty=format:\"%cn\" -1 $commitId", $committer);
+        return $committer[0];
     }
 
     /**
      * @param $commitId
      * @return string
      */
-    public static function getCommiterEmail($commitId)
+    public static function getCommitterEmail($commitId)
     {
-        exec("git log --pretty=format:\"%ce\" -1 $commitId", $commiter);
-        return $commiter[0];
+        exec("git log --pretty=format:\"%ce\" -1 $commitId", $committer);
+        return $committer[0];
     }
 
     /**
