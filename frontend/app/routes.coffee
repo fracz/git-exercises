@@ -26,6 +26,13 @@ angular.module('git-exercises').config ($urlRouterProvider, $stateProvider, $loc
     controller: 'ExerciseDetailsController'
     templateUrl: 'exercise/exercise-details.html'
 
+  .state 'exercise.detailsWithCommitter',
+    url: '/{id}/{commiterId}'
+    controller: 'ExerciseDetailsController'
+    templateUrl: 'exercise/exercise-details.html'
+    onEnter: ($stateParams, CurrentCommiter) ->
+      CurrentCommiter.set($stateParams.commiterId)
+
   .state 'faq',
     url: '/faq'
     templateUrl: 'static/faq.html'
