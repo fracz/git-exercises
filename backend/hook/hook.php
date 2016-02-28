@@ -10,7 +10,7 @@ use GitExercises\services\CommitterService;
 use GitExercises\services\GamificationService;
 use GitExercises\services\ShortIdService;
 
-const DOMAIN = 'http://gitexercises.fracz.com';
+define('DOMAIN', 'http://gitexercises.fracz.com');
 
 $branch = $argv[1];
 $oldRev = $argv[2];

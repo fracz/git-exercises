@@ -40,3 +40,7 @@ angular.module('git-exercises').config ($urlRouterProvider, $stateProvider, $loc
   .state 'faq',
     url: '/faq'
     templateUrl: 'static/faq.html'
+
+  .state 'cheatsheet',
+    url: '/cheatsheet'
+    templateUrl: 'static/cheatsheet.html'

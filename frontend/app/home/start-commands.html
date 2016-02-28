@@ -12,7 +12,7 @@
         <div class="code-copy-button">
             <button clipboard text="commands()" class="btn" ng-class="copied ? 'btn-success' : 'btn-default'"
                     on-copied="copied = true">
-                <span class="glyphicon glyphicon-copy"></span>
+                <span class="glyphicon" ng-class="copied ? 'glyphicon-ok' : 'glyphicon-copy'"></span>
                 {{ copied ? 'Copied' : 'Copy' }}
             </button>
         </div>

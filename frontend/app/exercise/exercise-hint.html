@@ -1,4 +1,4 @@
-<div ng-if="hint" class="jumbotron" ng-class="{'bg-info': displayHint()}">
+<div ng-if="hint" class="jumbotron" ng-class="displayHint() ? 'bg-info' : 'hidden-hint'">
     <h2>Hint</h2>
     <p ng-if="displayHint()"
        ng-bind-html="hint"></p>

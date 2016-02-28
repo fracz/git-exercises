@@ -4,6 +4,7 @@ namespace GitExercises\hook\commands;
 use GitExercises\services\CommitterService;
 use GitExercises\services\ExerciseUtils;
 use GitExercises\services\GamificationService;
+use GitExercises\services\ShortIdService;
 
 class ExercisesCommand
 {
@@ -24,6 +25,9 @@ class ExercisesCommand
         }
         if ($gamificationActive) {
             echo PHP_EOL, $gamificationService->getGamificationStatus();
+        } else {
+            echo PHP_EOL, 'See your progress and instructions at:', PHP_EOL,
+                DOMAIN . "/c/" . (new ShortIdService())->getShort($committerId), PHP_EOL;
         }
     }
 }
