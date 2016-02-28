@@ -11,6 +11,6 @@ angular.module('git-exercises').controller 'CommitterDetailsController', ($scope
 
   getDetails()
 
-  stop = $interval(getDetails, 5000)
+  stop = $interval(getDetails, 6000)
 
-  $scope.$on('destroy', -> $interval.cancel(stop))
+  $scope.$on('$destroy', -> $interval.cancel(stop))

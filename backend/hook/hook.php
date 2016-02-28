@@ -58,7 +58,7 @@ if (class_exists($command)) {
         $committerName = GitUtils::getCommitterName($newRev);
         $committerService->saveAttempt($committerEmail, $committerName, $branch, $passed);
         if ($passed) {
-            echo 'If you want to see the easiest known solution for this exercise, visit:', PHP_EOL,
+            echo 'If you want to see the easiest known solution for this exercise or need some further info, visit:', PHP_EOL,
                 'http://gitexercises.fracz.com/exercise/' . $branch . '/' . $committerId, PHP_EOL, PHP_EOL;
             $nextTask = $committerService->suggestNextExercise($committerId);
             if (!$nextTask) {
@@ -77,8 +77,8 @@ if (class_exists($command)) {
             $gamificationService->newAttempt($passed);
             echo PHP_EOL, $gamificationService->getGamificationStatus();
         } else {
-            echo PHP_EOL, PHP_EOL, 'See your progress and further instructions at:', PHP_EOL,
-            "http://git-exercises.dev/committer/$committerId", PHP_EOL;
+            echo PHP_EOL, PHP_EOL, 'See your progress and instructions at:', PHP_EOL,
+            "http://git-exercises.fracz.com/committer/$committerId";
         }
     }
 }
