@@ -26,6 +26,9 @@ $icon-font-path: '/libs/bootstrap/dist/fonts/';
   &.bg-info {
     background-color: $alert-info-bg;
   }
+  &.bg-danger {
+    background-color: $alert-danger-bg;
+  }
 }
 
 .latest {

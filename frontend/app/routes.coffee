@@ -1,13 +1,17 @@
 angular.module('git-exercises').config ($urlRouterProvider, $stateProvider, $locationProvider) ->
   $locationProvider.html5Mode(true)
   $urlRouterProvider.when('', '/')
+  $urlRouterProvider.when('/index.html', '/')
   $urlRouterProvider.when('/!', '/') # for crawlers
   $urlRouterProvider.when('/exercise', '/exercise/master')
   $urlRouterProvider.when(/\/e\/([a-z\-]+)\/([a-z0-9]+)/, ($match) -> "/exercise/#{$match[1]}/#{$match[2]}")
   $urlRouterProvider.when(/\/e\/([a-z\-]+)/, '/exercise/$1')
   $urlRouterProvider.when(/\/c\/([a-z0-9]+)/, '/committer/$1')
 
-  #  $urlRouterProvider.otherwise('/')
+  $urlRouterProvider.otherwise ($injector, $location) ->
+    $state = $injector.get('$state')
+    $state.go('notFound')
+    $location.path()
 
   $stateProvider
   .state 'home',
@@ -19,6 +23,10 @@ angular.module('git-exercises').config ($urlRouterProvider, $stateProvider, $loc
     url: '/committer/{id}?{email}'
     controller: 'CommitterDetailsController'
     templateUrl: 'committer/committer.html'
+    metaTags:
+      title: 'My progress'
+      prerender:
+        statusCode: 404
 
   .state 'exercise',
     url: '/exercise'
@@ -29,6 +37,10 @@ angular.module('git-exercises').config ($urlRouterProvider, $stateProvider, $loc
     url: '/{id}'
     controller: 'ExerciseDetailsController'
     templateUrl: 'exercise/exercise-details.html'
+    metaTags:
+      title: ($stateParams) ->
+        'ngInject'
+        $stateParams.id
 
   .state 'exercise.detailsWithCommitter',
     url: '/{id}/{committerId}'
@@ -36,11 +48,26 @@ angular.module('git-exercises').config ($urlRouterProvider, $stateProvider, $loc
     templateUrl: 'exercise/exercise-details.html'
     onEnter: ($stateParams, CurrentCommitter) ->
       CurrentCommitter.set($stateParams.committerId)
+    metaTags:
+      title: ($stateParams) -> $stateParams.id
+      prerender:
+        statusCode: 404
 
   .state 'faq',
     url: '/faq'
     templateUrl: 'static/faq.html'
+    metaTags:
+      title: 'FAQ'
 
   .state 'cheatsheet',
     url: '/cheatsheet'
     templateUrl: 'static/cheatsheet.html'
+    metaTags:
+      title: 'Cheatsheet'
+
+  .state 'notFound',
+    templateUrl: 'static/404.html'
+    metaTags:
+      title: 'Page not found'
+      prerender:
+        statusCode: 404
