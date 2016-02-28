@@ -1,0 +1,10 @@
+<div class="jumbotron hidden-xs hidden-sm">
+    <pre>{{ code }}</pre>
+    <div class="code-copy-button">
+        <button clipboard text="code" class="btn" ng-class="copied ? 'btn-success' : 'btn-default'"
+                on-copied="copied = true">
+            <span class="glyphicon glyphicon-copy"></span>
+            {{ copied ? 'Copied' : 'Copy' }}
+        </button>
+    </div>
+</div>

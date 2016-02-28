@@ -24,7 +24,8 @@
     "js-sha1": "0.3.0",
     "angular-bootstrap": "1.1.2",
     "bootstrap": "3.3.6",
-    "angular-cookie": "4.1.0"
+    "angular-cookie": "4.1.0",
+    "angular-clipboard": "1.3.0"
   },
   "overrides": {
     "angular": {

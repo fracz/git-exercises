@@ -1,4 +1,5 @@
 @import "darky";
+
 $font-size-base: 17px;
 $icon-font-path: '/libs/bootstrap/dist/fonts/';
 @import "../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap";
@@ -46,6 +47,15 @@ code {
   background: transparent;
   border: 0;
   color: lightgoldenrodyellow;
+}
+
+.code-copy-button {
+  position: relative;
+  button {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+  }
 }
 
 .text-success {

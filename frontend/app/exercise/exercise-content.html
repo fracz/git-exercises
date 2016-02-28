@@ -1,18 +1,15 @@
 <h1>{{ heading || 'Exercise' }}: {{ exerciseData.name }}</h1>
-<uib-alert ng-if="$root.currentCommiter.passedExercises | contains:exercise" type="success" class="text-center">You have passed this exercise!</uib-alert>
-<div class="jumbotron text-center" ng-if="!hideCommand">
-    <pre>
-git start {{ exercise }}</pre>
-</div>
+<uib-alert ng-if="$root.currentCommiter.passedExercises | contains:exercise" type="success" class="text-center">
+    You have passed this exercise!
+</uib-alert>
+<div source-code-jumbotron="'git start ' + exercise" ng-if="!hideCommand"></div>
 <h2>Instructions</h2>
 <div ng-bind-html="exerciseData.readme" class="exercise-readme"></div>
 
 <div ng-if="$root.currentCommiter.passedExercises | contains:exercise">
     <div ng-if="exerciseData.solution">
         <h2>The easiest solution</h2>
-        <div class="jumbotron">
-            <pre>{{ exerciseData.solution }}</pre>
-        </div>
+        <div source-code-jumbotron="exerciseData.solution"></div>
     </div>
     <div ng-if="exerciseData.summary">
         <h2>Further info</h2>

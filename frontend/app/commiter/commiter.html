@@ -3,7 +3,7 @@
     <p class="lead">
         Is {{ commiterEmail || 'it' }} you? Go and do the first exercise!
     </p>
-    <div ng-include="'home/start.html'"></div>
+    <div start-commands></div>
     <div exercise-content="'master'" hide-command="true"></div>
 </div>
 <div ng-if="commiterData.attempts.length > 0" class="commiter-details">

@@ -1,0 +1,23 @@
+<div>
+    <div class="jumbotron hidden-xs hidden-sm">
+        <div class="row form-group">
+            <div class="col-sm-6">
+                <input type="text" class="form-control" placeholder="Your name here" ng-model="you.name">
+            </div>
+            <div class="col-sm-6">
+                <input type="text" class="form-control" placeholder="Your e-mail here" ng-model="you.email">
+            </div>
+        </div>
+        <pre>{{ commands() }}</pre>
+        <div class="code-copy-button">
+            <button clipboard text="commands()" class="btn" ng-class="copied ? 'btn-success' : 'btn-default'"
+                    on-copied="copied = true">
+                <span class="glyphicon glyphicon-copy"></span>
+                {{ copied ? 'Copied' : 'Copy' }}
+            </button>
+        </div>
+    </div>
+    <p class="lead visible-sm visible-xs">
+        You will need a PC first :-)
+    </p>
+</div>

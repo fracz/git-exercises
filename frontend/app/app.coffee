@@ -1,4 +1,5 @@
 angular.module('git-exercises', [
+  'angular-clipboard'
   'ipCookie'
   'ui.bootstrap.alert'
   'ui.bootstrap.progressbar'
