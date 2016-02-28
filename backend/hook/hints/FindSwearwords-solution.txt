@@ -1,1 +1,4 @@
 git log -Sshit
+git rebase -i <found commit>^
+# remove the swearword
+git rebase --continue

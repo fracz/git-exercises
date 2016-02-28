@@ -23,6 +23,9 @@ $icon-font-path: '/libs/bootstrap/dist/fonts/';
     border: 0;
     font-size: 1.4em;
   }
+  &.bg-info {
+    background-color: $alert-info-bg;
+  }
 }
 
 .latest {

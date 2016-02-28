@@ -16,5 +16,7 @@
         <div ng-bind-html="exerciseData.summary"></div>
     </div>
 </div>
-
+<div ng-if="!($root.currentCommitter.passedExercises | contains:exercise)">
+    <div exercise-hint="exercise" hint="exerciseData.hint"></div>
+</div>
 

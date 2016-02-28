@@ -17,12 +17,14 @@ class ExerciseController extends AbstractController
             $name = strip_tags(Markdown::defaultTransform(ExerciseUtils::getExerciseName($id)));
             $readme = Markdown::defaultTransform(ExerciseUtils::getExerciseReadme($id));
             $summary = trim(Markdown::defaultTransform(ExerciseUtils::getExerciseSummary($id)));
+            $hint = trim(Markdown::defaultTransform(ExerciseUtils::getExerciseHint($id)));
             $solution = ExerciseUtils::getExerciseSolution($id);
             return [
                 'name' => $name,
                 'readme' => $readme,
                 'solution' => $solution,
-                'summary' => $summary
+                'summary' => $summary,
+                'hint' => $hint,
             ];
         }
     }

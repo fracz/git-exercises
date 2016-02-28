@@ -5,11 +5,9 @@ even simpler as git bisect allows you to automate searching for buggy commit.
 If you have a shell command that verifies if the bug exists (you should have figure
 out one with openssl and grep for this task), you can automate searching for bug with
 
-```
-git bisect run sh -c "your command"
-```
+    git bisect run sh -c "your command"
 
-`"Your command"` should return status code 0 for good commits and non-zero for bad commits.
+`"your command"` should return status code 0 for good commits and non-zero for bad commits.
 It can be running an unit test for example. If you marked last known good and bad commits
 before, git bisect will run and find the commit that introduced a bug in seconds.
 

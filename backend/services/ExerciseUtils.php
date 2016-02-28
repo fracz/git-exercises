@@ -27,6 +27,12 @@ class ExerciseUtils
         return @file_get_contents(__DIR__ . "/../hook/hints/$name-summary.md");
     }
 
+    public static function getExerciseHint($id)
+    {
+        $name = self::dashToCamelCase($id);
+        return @file_get_contents(__DIR__ . "/../hook/hints/$name-hint.md");
+    }
+
     private static function getExerciseReadmeContent($id)
     {
         exec("git show remotes/origin/$id:README.md", $contents);
