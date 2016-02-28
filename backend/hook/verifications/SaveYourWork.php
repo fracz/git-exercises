@@ -5,11 +5,6 @@ use GitExercises\hook\AbstractVerification;
 
 class SaveYourWork extends AbstractVerification
 {
-    public function getShortInfo()
-    {
-        return 'Save your work.';
-    }
-
     protected function doVerify()
     {
         $commits = $this->ensureCommitsCount(3);

@@ -1,15 +1,11 @@
 <?php
 namespace GitExercises\hook\verifications;
+
 use GitExercises\hook\AbstractVerification;
 use GitExercises\hook\utils\GitUtils;
 
 class MergeConflict extends AbstractVerification
 {
-    public function getShortInfo()
-    {
-        return 'Resolve merge conflict.';
-    }
-
     protected function doVerify()
     {
         $mergeCommit = $this->ensureCommitsCount(4)[0];

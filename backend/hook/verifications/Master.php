@@ -7,11 +7,6 @@ class Master extends AbstractVerification
 {
     private static $expectedContent = 'test';
 
-    public function getShortInfo()
-    {
-        return 'Initial exercise.';
-    }
-
     protected function doVerify()
     {
         $commit = $this->ensureCommitsCount(1);

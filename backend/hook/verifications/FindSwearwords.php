@@ -5,11 +5,6 @@ use GitExercises\hook\AbstractVerification;
 
 class FindSwearwords extends AbstractVerification
 {
-    public function getShortInfo()
-    {
-        return 'Find swearwords.';
-    }
-
     protected function doVerify()
     {
         $commits = array_reverse($this->ensureCommitsCount(106));

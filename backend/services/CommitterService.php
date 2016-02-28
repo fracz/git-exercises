@@ -18,7 +18,7 @@ class CommitterService
     {
         return $this->query("SELECT exercise, passed is_passed, timestamp
                       FROM attempt WHERE committer_id = :id ORDER BY timestamp DESC LIMIT 0, $maxCount", $committerId)
-            ->fetchAll();
+            ->fetchAll(\PDO::FETCH_ASSOC);
     }
 
     public function getPassedExercises($committerId)
@@ -26,7 +26,7 @@ class CommitterService
         $passedExercises = $this->query("SELECT DISTINCT exercise FROM attempt WHERE committer_id = :id AND passed = 1", $committerId);
         return array_map(function ($row) {
             return $row['exercise'];
-        }, $passedExercises->fetchAll());
+        }, $passedExercises->fetchAll(\PDO::FETCH_ASSOC));
     }
 
     public function getMostFrequentName($committerId)

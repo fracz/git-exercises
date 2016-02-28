@@ -6,11 +6,6 @@ use GitExercises\hook\utils\GitUtils;
 
 class TooManyCommits extends AbstractVerification
 {
-    public function getShortInfo()
-    {
-        return 'Make one commit out of two.';
-    }
-
     protected function doVerify()
     {
         $commit = $this->ensureCommitsCount(1);

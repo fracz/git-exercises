@@ -6,11 +6,6 @@ use GitExercises\hook\utils\GitUtils;
 
 class ChaseBranch extends AbstractVerification
 {
-    public function getShortInfo()
-    {
-        return 'Chase branch that escaped.';
-    }
-
     protected function doVerify()
     {
         $commits = $this->ensureCommitsCount(2);

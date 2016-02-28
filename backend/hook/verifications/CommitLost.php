@@ -5,11 +5,6 @@ use GitExercises\hook\AbstractVerification;
 
 class CommitLost extends AbstractVerification
 {
-    public function getShortInfo()
-    {
-        return 'Find the lost commit.';
-    }
-
     protected function doVerify()
     {
         $commit = end($this->getCommits());

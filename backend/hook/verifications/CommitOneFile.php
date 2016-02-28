@@ -6,11 +6,6 @@ use GitExercises\hook\utils\ConsoleUtils;
 
 class CommitOneFile extends AbstractVerification
 {
-    public function getShortInfo()
-    {
-        return 'Commit one file.';
-    }
-
     protected function doVerify()
     {
         $commit = $this->ensureCommitsCount(1);

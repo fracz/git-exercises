@@ -7,11 +7,6 @@ class FindBug extends AbstractVerification
 {
     private static $swearword = 'jackass';
 
-    public function getShortInfo()
-    {
-        return 'Find bug.';
-    }
-
     protected function doVerify()
     {
         $commits = $this->getCommits();

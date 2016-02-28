@@ -5,11 +5,6 @@ use GitExercises\hook\AbstractVerification;
 
 class CommitParts extends AbstractVerification
 {
-    public function getShortInfo()
-    {
-        return 'Commit parts of file.';
-    }
-
     protected function doVerify()
     {
         $commits = $this->ensureCommitsCount(3);

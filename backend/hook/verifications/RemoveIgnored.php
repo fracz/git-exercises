@@ -6,11 +6,6 @@ use GitExercises\hook\utils\GitUtils;
 
 class RemoveIgnored extends AbstractVerification
 {
-    public function getShortInfo()
-    {
-        return 'Remove ignored file.';
-    }
-
     protected function doVerify()
     {
         $commit = $this->ensureCommitsCount(3)[0];

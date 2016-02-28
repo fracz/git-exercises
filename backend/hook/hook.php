@@ -13,9 +13,9 @@ $branch = $argv[1];
 $oldRev = $argv[2];
 $newRev = $argv[3];
 
-
-if (strpos($branch, 'refs/heads/') === 0) {
-    $branch = substr($branch, strlen('refs/heads/'));
+$exercise = $branch;
+if (strpos($exercise, 'refs/heads/') === 0) {
+    $exercise = substr($exercise, strlen('refs/heads/'));
 }
 
 $outputSeparator = str_repeat('*', 72);
@@ -26,22 +26,21 @@ $committerEmail = GitUtils::getCommitterEmail($newRev);
 $committerId = $committerService->getCommitterId($committerEmail);
 $gamificationService = new GamificationService($committerId);
 
-$command = 'GitExercises\\hook\\commands\\' . ucfirst($branch) . 'Command';
+$command = 'GitExercises\\hook\\commands\\' . ucfirst($exercise) . 'Command';
 if (class_exists($command)) {
     (new $command())->execute($committerId);
 } else {
     /** @var AbstractVerification $verifier */
     $verifier = null;
     try {
-        $verifier = AbstractVerification::factory($branch, $oldRev, $newRev);
+        $verifier = AbstractVerification::factory($exercise, $oldRev, $newRev);
     } catch (\InvalidArgumentException $e) {
         echo 'Status: ';
         echo ConsoleUtils::yellow('UNKNOWN EXERCISE');
     }
     if ($verifier) {
         $passed = true;
-
-        echo 'Exercise: ' . $verifier->getShortInfo() . PHP_EOL;
+        echo 'Exercise: ', $exercise, PHP_EOL;
         echo 'Status: ';
         try {
             $verifier->verify();
@@ -56,10 +55,10 @@ if (class_exists($command)) {
             echo $e->getMessage();
         }
         $committerName = GitUtils::getCommitterName($newRev);
-        $committerService->saveAttempt($committerEmail, $committerName, $branch, $passed);
+        $committerService->saveAttempt($committerEmail, $committerName, $exercise, $passed);
         if ($passed) {
             echo 'If you want to see the easiest known solution for this exercise or need some further info, visit:', PHP_EOL,
-                'http://gitexercises.fracz.com/exercise/' . $branch . '/' . $committerId, PHP_EOL, PHP_EOL;
+                'http://gitexercises.fracz.com/exercise/' . $exercise . '/' . $committerId, PHP_EOL, PHP_EOL;
             $nextTask = $committerService->suggestNextExercise($committerId);
             if (!$nextTask) {
                 echo ConsoleUtils::blue('Congratulations! You have done all exercises!') . PHP_EOL;
@@ -70,7 +69,7 @@ if (class_exists($command)) {
             }
             if ($gamificationService->isGamificationSessionActive()) {
                 echo PHP_EOL, PHP_EOL;
-                $gamificationService->printExerciseSummary($branch);
+                $gamificationService->printExerciseSummary($exercise);
             }
         }
         if ($gamificationService->isGamificationSessionActive()) {

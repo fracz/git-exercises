@@ -29,8 +29,6 @@ abstract class AbstractVerification
         }
     }
 
-    public abstract function getShortInfo();
-
     protected abstract function doVerify();
 
     protected function ensure($condition, $errorMessage, array $formatVars = [])

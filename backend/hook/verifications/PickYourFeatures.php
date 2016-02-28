@@ -5,11 +5,6 @@ use GitExercises\hook\AbstractVerification;
 
 class PickYourFeatures extends AbstractVerification
 {
-    public function getShortInfo()
-    {
-        return 'Change branch history.';
-    }
-
     protected function doVerify()
     {
         $commits = $this->ensureCommitsCount(4);

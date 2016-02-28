@@ -6,11 +6,6 @@ use GitExercises\hook\utils\GitUtils;
 
 class ChangeBranchHistory extends AbstractVerification
 {
-    public function getShortInfo()
-    {
-        return 'Change branch history.';
-    }
-
     protected function doVerify()
     {
         $commits = $this->ensureCommitsCount(3);

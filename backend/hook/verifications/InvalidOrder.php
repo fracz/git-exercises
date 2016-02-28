@@ -6,11 +6,6 @@ use GitExercises\hook\utils\GitUtils;
 
 class InvalidOrder extends AbstractVerification
 {
-    public function getShortInfo()
-    {
-        return 'Change order of commits.';
-    }
-
     protected function doVerify()
     {
         $commits = array_reverse($this->ensureCommitsCount(2));

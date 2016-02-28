@@ -6,11 +6,6 @@ use GitExercises\hook\utils\GitUtils;
 
 class IgnoreThem extends AbstractVerification
 {
-    public function getShortInfo()
-    {
-        return 'Ignore unwanted files.';
-    }
-
     protected function doVerify()
     {
         $commit = $this->getCommits()[0];

@@ -1,5 +1,6 @@
 <?php
 namespace GitExercises\hook\verifications;
+
 use GitExercises\hook\utils\GitUtils;
 
 class RebaseComplex extends AbstractVerification
@@ -11,11 +12,6 @@ class RebaseComplex extends AbstractVerification
         'First commit in your-master',
         'Base commit for rebase complex',
     ];
-
-    public function getShortInfo()
-    {
-        return 'Complex rebase.';
-    }
 
     protected function doVerify()
     {

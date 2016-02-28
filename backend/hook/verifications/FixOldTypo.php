@@ -3,11 +3,6 @@ namespace GitExercises\hook\verifications;
 
 class FixOldTypo extends FixTypo
 {
-    public function getShortInfo()
-    {
-        return 'Fix old typographic error.';
-    }
-
     protected function doVerify()
     {
         $commits = $this->ensureCommitsCount(2);

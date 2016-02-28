@@ -5,11 +5,6 @@ use GitExercises\hook\AbstractVerification;
 
 class SplitCommit extends AbstractVerification
 {
-    public function getShortInfo()
-    {
-        return 'Split the last commit.';
-    }
-
     protected function doVerify()
     {
         $commits = $this->ensureCommitsCount(2);

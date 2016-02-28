@@ -6,11 +6,6 @@ use GitExercises\hook\utils\GitUtils;
 
 class FixTypo extends AbstractVerification
 {
-    public function getShortInfo()
-    {
-        return 'Fix typographic error.';
-    }
-
     protected function doVerify()
     {
         $commit = $this->ensureCommitsCount(1);
