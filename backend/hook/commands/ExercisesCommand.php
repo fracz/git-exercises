@@ -12,7 +12,9 @@ class ExercisesCommand
         $gamificationService = new GamificationService($committerId);
         $gamificationActive = $gamificationService->isGamificationSessionActive();
         $committerService = new CommitterService();
-        $passed = $committerService->getPassedExercises($committerId);
+        $passed = $gamificationActive
+            ? array_keys($gamificationService->getPassedExerciseAttempts())
+            : $committerService->getPassedExercises($committerId);
         foreach (ExerciseUtils::getAvailableExercises() as $exercise) {
             echo in_array($exercise, $passed) ? "[x]" : "[ ]", ' ', $exercise;
             if ($gamificationActive) {

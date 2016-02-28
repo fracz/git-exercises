@@ -121,7 +121,7 @@ class GamificationService
         if (($place = $this->getMyPlaceInGroup()) == 1) {
             $summary .= ConsoleUtils::blue("You are the best in your group!");
         } else if ($place) {
-            $summary = 'You have the ' . $this->ordinal($place) . ' place in your group.';
+            $summary .= 'You have the ' . $this->ordinal($place) . ' place in your group.';
         }
         $summary .= PHP_EOL;
         return $summary;
@@ -143,11 +143,15 @@ class GamificationService
     {
         $time = $this->getPassedExerciseTimes()[$exercise];
         $value = self::$EXERCISE_VALUES[$exercise];
-        if ($time < $value) {
-            return $value;
+        if ($time && $value) {
+            if ($time < $value) {
+                return $value;
+            } else {
+                $time -= $value;
+                return max(0, $value - $time);
+            }
         } else {
-            $time -= $value;
-            return max(0, $value - $time);
+            return 0;
         }
     }
 
@@ -220,7 +224,7 @@ class GamificationService
             return $this->passedExerciseAttempts;
         }
         $attempts = $this->query("SELECT exercise, COUNT(*) attempts FROM attempt WHERE $this->inSessionCondition AND committer_id = :id AND timestamp <= (
-                                SELECT MIN(timestamp) timestamp FROM attempt a WHERE a.committer_id = attempt.committer_id
+                                SELECT MIN(timestamp) timestamp FROM attempt a WHERE $this->inSessionCondition AND a.committer_id = attempt.committer_id
                                 AND a.exercise = attempt.exercise AND passed = 1) GROUP BY exercise");
         $attempts = array_reduce($attempts->fetchAll(\PDO::FETCH_ASSOC), function ($carry, $item) {
             $carry[$item['exercise']] = intval($item['attempts']);
