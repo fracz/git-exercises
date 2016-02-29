@@ -1,6 +1,7 @@
 <?php
 namespace GitExercises\hook\verifications;
 
+use GitExercises\hook\AbstractVerification;
 use GitExercises\hook\utils\GitUtils;
 
 class RebaseComplex extends AbstractVerification
