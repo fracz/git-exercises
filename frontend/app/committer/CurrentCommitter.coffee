@@ -3,24 +3,24 @@ angular.module('git-exercises').service 'CurrentCommitter', ($http, $rootScope, 
 
   new class
     constructor: ->
-      @currentCommitter = ipCookie('currentCommitter')
-      @set(@currentCommitter) if @currentCommitter
+      @currentCommitterId = ipCookie('currentCommitter')
+      @set(@currentCommitterId) if @currentCommitterId
 
-    set: (@currentCommitter) =>
-      ipCookie('currentCommitter', @currentCommitter, {expires: 21, path: '/'})
+    set: (@currentCommitterId) =>
+      ipCookie('currentCommitter', @currentCommitterId, {expires: 21, path: '/'})
       $rootScope.currentCommitter ?= {}
-      $rootScope.currentCommitter.id = @currentCommitter
+      $rootScope.currentCommitter.id = @currentCommitterId
       @fetchData()
       refreshing = $interval(@fetchData, 30000) if not refreshing
 
     getId: =>
-      @currentCommitter
+      @currentCommitterId
 
-    fetchData: =>
+    fetchData: (id = @currentCommitterId) =>
       defer = $q.defer()
-      if @currentCommitter
-        $http.get('/api/committer/' + @currentCommitter).success (response) ->
-          angular.extend($rootScope.currentCommitter, response)
+      if id
+        $http.get('/api/committer/' + id).success (response) =>
+          angular.extend($rootScope.currentCommitter, response) if id is @currentCommitterId
           defer.resolve(response)
       else
         defer.resolve(null)

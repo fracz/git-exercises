@@ -1,9 +1,10 @@
-angular.module('git-exercises').directive 'exerciseContent', ($http, $state, $sce, CurrentCommitter) ->
+angular.module('git-exercises').directive 'exerciseContent', ($http, $state, $sce) ->
   templateUrl: 'exercise/exercise-content.html'
   scope:
     exercise: '=exerciseContent'
     hideCommand: '='
     heading: '@'
+    committerId: '='
   link: ($scope) ->
 
     $scope.$watch 'exercise', ->
@@ -14,4 +15,4 @@ angular.module('git-exercises').directive 'exerciseContent', ($http, $state, $sc
         exerciseData.hint = $sce.trustAsHtml(exerciseData.hint) if exerciseData.hint
         $scope.exerciseData = exerciseData
 
-    CurrentCommitter.getData() if not $scope.$root.currentCommitter?.passedExercises
+    $scope.isMe = not $scope.committerId or $scope.committerId is $scope.$root.currentCommitter.id

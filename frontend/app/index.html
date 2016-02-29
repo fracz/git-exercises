@@ -39,7 +39,7 @@
                 <li ng-if="currentCommitter.id" ui-sref-active="active">
                     <a ui-sref="committer({id: currentCommitter.id})">
                         My progress
-                        <span class="badge" ng-if="currentCommitter.passedExercises.length">{{ currentCommitter.passedExercises.length }}</span>
+                        <span class="badge">{{ currentCommitter.passedExercises.length || 0 }}</span>
                     </a>
                 </li>
                 <li ui-sref-active="active"><a ui-sref="faq">FAQ</a></li>

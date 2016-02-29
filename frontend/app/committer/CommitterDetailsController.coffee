@@ -2,11 +2,14 @@ angular.module('git-exercises').controller 'CommitterDetailsController', ($scope
   $scope.committerEmail = $stateParams.email
   $scope.you =
     email: $stateParams.email
+    name: $stateParams.name
 
-  CurrentCommitter.set($stateParams.id)
+  $scope.committerId = $stateParams.id
+
+  CurrentCommitter.set($stateParams.id) if $stateParams.remember
 
   getDetails = ->
-    CurrentCommitter.fetchData().then (response) ->
+    CurrentCommitter.fetchData($stateParams.id).then (response) ->
       $scope.committerData = response
 
   getDetails()

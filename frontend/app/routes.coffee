@@ -1,5 +1,7 @@
-angular.module('git-exercises').config ($urlRouterProvider, $stateProvider, $locationProvider) ->
+angular.module('git-exercises').config ($urlRouterProvider, $stateProvider, $locationProvider, $urlMatcherFactoryProvider) ->
   $locationProvider.html5Mode(true)
+  $urlMatcherFactoryProvider.defaultSquashPolicy(true)
+
   $urlRouterProvider.when('', '/')
   $urlRouterProvider.when('/index.html', '/')
   $urlRouterProvider.when('/!', '/') # for crawlers
@@ -16,13 +18,15 @@ angular.module('git-exercises').config ($urlRouterProvider, $stateProvider, $loc
   $stateProvider
   .state 'home',
     url: '/'
-    controller: 'HomeController'
     templateUrl: 'home/home.html'
+    metaTags: {}
 
   .state 'committer',
-    url: '/committer/{id}?{email}'
+    url: '/committer/{id}?{email}&{name}&{remember:bool}'
     controller: 'CommitterDetailsController'
     templateUrl: 'committer/committer.html'
+    params:
+      remember: yes
     metaTags:
       title: 'My progress'
       prerender:
@@ -32,6 +36,7 @@ angular.module('git-exercises').config ($urlRouterProvider, $stateProvider, $loc
     url: '/exercise'
     controller: 'ExerciseListController'
     templateUrl: 'exercise/exercise-list.html'
+    metaTags: {}
 
   .state 'exercise.details',
     url: '/{id}'
@@ -49,7 +54,9 @@ angular.module('git-exercises').config ($urlRouterProvider, $stateProvider, $loc
     onEnter: ($stateParams, CurrentCommitter) ->
       CurrentCommitter.set($stateParams.committerId)
     metaTags:
-      title: ($stateParams) -> $stateParams.id
+      title: ($stateParams) ->
+        'ngInject'
+        $stateParams.id
       prerender:
         statusCode: 404
 

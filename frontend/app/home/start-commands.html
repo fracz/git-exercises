@@ -9,12 +9,19 @@
             </div>
         </div>
         <pre>{{ commands() }}</pre>
-        <div class="code-copy-button">
-            <button clipboard text="commands()" class="btn" ng-class="copied ? 'btn-success' : 'btn-default'"
-                    on-copied="copied = true">
-                <span class="glyphicon" ng-class="copied ? 'glyphicon-ok' : 'glyphicon-copy'"></span>
-                {{ copied ? 'Copied' : 'Copy' }}
-            </button>
+        <div class="code-copy-button" ng-if="you.email">
+            <div class="btn-group">
+                <button clipboard text="commands()" class="btn" ng-class="copied ? 'btn-success' : 'btn-default'"
+                        on-copied="copied = true">
+                    <span class="glyphicon" ng-class="copied ? 'glyphicon-ok' : 'glyphicon-copy'"></span>
+                    {{ copied ? 'Copied' : 'Copy' }}
+                </button>
+                <a class="btn btn-default" ng-if="!committerId"
+                   ui-sref="committer({id: (you.email | sha1), email: you.email, name: you.name})">
+                    <span class="glyphicon glyphicon-stats"></span>
+                    Show my results
+                </a>
+            </div>
         </div>
     </div>
     <p class="lead visible-sm visible-xs">

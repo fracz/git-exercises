@@ -89,6 +89,6 @@ if (class_exists($command)) {
 echo "\n$outputSeparator\n)";
 
 echo PHP_EOL . 'Remember that you can use ' . ConsoleUtils::pink('git verify')
-    . ' command to strip disturbing content.' . PHP_EOL;
+    . ' to strip disturbing output.' . PHP_EOL;
 
 exit(1);
