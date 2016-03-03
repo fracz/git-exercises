@@ -1,4 +1,6 @@
-*
+/*
+/*/
 !.gitignore
 !.htaccess*
 !api.php
+!/images/

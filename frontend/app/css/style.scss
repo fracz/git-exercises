@@ -12,6 +12,9 @@ $icon-font-path: '/libs/bootstrap/dist/fonts/';
   p {
     margin-bottom: 2em;
   }
+  img.intro {
+    max-width: 100%;
+  }
 }
 
 .jumbotron {
