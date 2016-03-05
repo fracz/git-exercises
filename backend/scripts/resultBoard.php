@@ -3,7 +3,7 @@ namespace GitExercises;
 
 use GitExercises\services\GamificationService;
 
-require 'vendor/autoload.php';
+require __DIR__ . '/../vendor/autoload.php';
 
 $s = new GamificationService(null);
 $s->printResultBoard();

@@ -1,3 +1,2 @@
 git reflog
-# inspect what you want to checkout - the previous version of the commit should be under HEAD@{1}
 git reset --hard HEAD@{1}

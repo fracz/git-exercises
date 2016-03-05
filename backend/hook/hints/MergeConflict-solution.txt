@@ -1,4 +1,4 @@
 git merge fast-bugfix
-echo "Hola mundo" > file.txt
+echo Hola mundo > file.txt
 git add file.txt
 git commit --no-edit

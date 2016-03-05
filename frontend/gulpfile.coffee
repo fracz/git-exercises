@@ -90,7 +90,7 @@ gulp.task 'clean', (done) ->
       'public/*'
       '!public/.gitignore'
       '!public/.htaccess*'
-      '!public/api.php'
+      '!public/*.php'
       '!public/images'
     ]
   ,

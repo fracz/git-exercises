@@ -11,7 +11,7 @@ angular.module('git-exercises').service 'CurrentCommitter', ($http, $rootScope, 
       $rootScope.currentCommitter ?= {}
       $rootScope.currentCommitter.id = @currentCommitterId
       @fetchData()
-      refreshing = $interval(@fetchData, 30000) if not refreshing
+      refreshing = $interval((=> @fetchData()), 30000) if not refreshing
 
     getId: =>
       @currentCommitterId
