@@ -65,26 +65,6 @@ class GitUtils
     }
 
     /**
-     * Returns the commit hash that is tagged with the given tag.
-     * http://stackoverflow.com/a/1862542/878514
-     */
-    public static function getCommitIdWithTag($tag)
-    {
-        exec("git rev-list -n 1 $tag 2>&1", $commit, $exitCode);
-        return $exitCode ? null : $commit[0];
-    }
-
-    /**
-     * Checks if the given tag is annotated or not.
-     * http://stackoverflow.com/a/1593574/878514
-     */
-    public static function isAnnotatedTag($tag)
-    {
-        exec("git describe $tag 2>&1", $description, $exitCode);
-        return $exitCode && $description[0] == $tag;
-    }
-
-    /**
      * Check if given filename would be ignored in the specified commit id by any of the commited .gitignore files.
      * @param $commitId
      * @param $filename
