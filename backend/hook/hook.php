@@ -30,7 +30,8 @@ $committerId = $committerService->getCommitterId($committerEmail);
 $shortCommiterId = (new ShortIdService())->getShort($committerId);
 $gamificationService = new GamificationService($committerId);
 
-$command = 'GitExercises\\hook\\commands\\' . ucfirst($exercise) . 'Command';
+$possibleCommand = ucfirst(AbstractVerification::dashToCamelCase($exercise));
+$command = 'GitExercises\\hook\\commands\\' . $possibleCommand . 'Command';
 if (class_exists($command)) {
     (new $command())->execute($committerId);
 } else {
@@ -69,7 +70,7 @@ if (class_exists($command)) {
             } else {
                 echo "Next task: $nextTask" . PHP_EOL;
                 echo "In order to start, execute: ";
-                echo ConsoleUtils::blue("git start $nextTask");
+                echo ConsoleUtils::blue("git start next");
             }
             if ($gamificationService->isGamificationSessionActive()) {
                 echo PHP_EOL, PHP_EOL;

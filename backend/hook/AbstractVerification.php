@@ -81,7 +81,7 @@ abstract class AbstractVerification
         return new $verificationName($oldRev, $newRev);
     }
 
-    private static function dashToCamelCase($name)
+    public static function dashToCamelCase($name)
     {
         return preg_replace_callback('/-(.?)/', function ($matches) {
             return ucfirst($matches[1]);
