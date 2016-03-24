@@ -91,6 +91,7 @@ gulp.task 'clean', (done) ->
       '!public/.gitignore'
       '!public/.htaccess*'
       '!public/*.php'
+      '!public/robots.txt'
       '!public/images'
     ]
   ,

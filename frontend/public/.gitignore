@@ -4,3 +4,4 @@
 !.htaccess*
 !api.php
 !/images/
+!robots.txt
