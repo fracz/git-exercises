@@ -12,6 +12,9 @@ angular.module('git-exercises', [
     $rootScope.availableExercises = exercises
 .run ($rootScope, MetaTags) ->
   $rootScope.MetaTags = MetaTags
+.run ($rootScope, $window, $location) ->
+  $rootScope.$on '$stateChangeSuccess', ->
+    $window.ga?('send', 'pageview', page: $location.url())
 .config (UIRouterMetatagsProvider) ->
   UIRouterMetatagsProvider
   .setTitleSuffix(' - Git Exercises')
