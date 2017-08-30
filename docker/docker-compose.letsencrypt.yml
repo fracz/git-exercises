@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  gitexercises:
+    networks: [proxy]
+    environment:
+      VIRTUAL_HOST: ${DOMAIN_NAME}
+      LETSENCRYPT_HOST: ${DOMAIN_NAME}
+      LETSENCRYPT_EMAIL: ${ADMIN_EMAIL}
+    expose: [80]
+
+networks:
+  proxy:
+    external:
+      name: nginx-network

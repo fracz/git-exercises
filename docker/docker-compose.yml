@@ -1,0 +1,34 @@
+version: '3'
+
+services:
+  gitexercises:
+    container_name: ${COMPOSE_PROJECT_NAME}
+    restart: unless-stopped
+    networks: [default]
+    ports:
+      - "${PORT_HTTP}:80"
+    build:
+      context: .
+      args:
+        WWW_DATA_UID: ${UID}
+    volumes:
+      - ../:/var/www:z
+      - ./apache-conf:/etc/apache2/sites-available:z
+    depends_on:
+     - gitexercises-db
+
+  gitexercises-db:
+    container_name: ${COMPOSE_PROJECT_NAME}-postgres
+    restart: unless-stopped
+    image: mysql
+    networks: [default]
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DATABASE_PASSWORD}
+      MYSQL_DATABASE: gitexercises
+      MYSQL_USER: gitexercises
+      MYSQL_PASSWORD: ${DATABASE_PASSWORD}
+    volumes:
+       - ${VOLUME_DATA}/mysql:/var/lib/mysql:z
+
+networks:
+  default: ~
