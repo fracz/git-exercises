@@ -12,13 +12,13 @@ services:
       args:
         WWW_DATA_UID: ${UID}
     volumes:
-      - ../:/var/www:z
+      - ../:/var/www/website:z
       - ./apache-conf:/etc/apache2/sites-available:z
     depends_on:
      - gitexercises-db
 
   gitexercises-db:
-    container_name: ${COMPOSE_PROJECT_NAME}-postgres
+    container_name: ${COMPOSE_PROJECT_NAME}-db
     restart: unless-stopped
     image: mysql
     networks: [default]
