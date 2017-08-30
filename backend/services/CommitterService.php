@@ -58,7 +58,7 @@ class CommitterService
             ':id' => $this->getCommitterId($committerEmail),
             ':name' => $committerName,
             ':exercise' => $exercise,
-            ':passed' => boolval($passed),
+            ':passed' => intval(boolval($passed)),
         ]);
     }
 
