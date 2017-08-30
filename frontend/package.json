@@ -1,6 +1,9 @@
 {
   "name": "git-exercises",
   "version": "0.0.0",
+  "scripts": {
+    "dist": "gulp --production"
+  },
   "devDependencies": {
     "coffee-script": "1.9.3",
     "del": "1.1.1",
