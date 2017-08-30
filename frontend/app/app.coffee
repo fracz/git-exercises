@@ -19,4 +19,9 @@ angular.module('git-exercises', [
   UIRouterMetatagsProvider
   .setTitleSuffix(' - Git Exercises')
   .setDefaultTitle('Git Exercises')
-
+.run ($http) -> # synchronize browser time with server's
+  requestStartTime = Date.now()
+  $http.get('/api/time').success (serverTime) ->
+    requestTime = Date.now() - requestStartTime
+    offset = new Date(serverTime).getTime() - Date.now() + requestTime
+    moment.now = -> Date.now() + offset

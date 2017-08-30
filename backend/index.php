@@ -13,6 +13,7 @@ srand(microtime(true));
 $app = new Application();
 
 $app->group('/api', function () use ($app) {
+    $app->get('/time', 'GitExercises\\controllers\\HomeController:getTime');
     $app->get('/latest', 'GitExercises\\controllers\\HomeController:latest');
     $app->get('/committer/:id', 'GitExercises\\controllers\\CommitterController:get');
     $app->get('/exercise', 'GitExercises\\controllers\\ExerciseController:list');

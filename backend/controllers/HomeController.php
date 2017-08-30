@@ -11,4 +11,9 @@ class HomeController extends AbstractController
             ->query('SELECT committer_id, committer_name, exercise, passed is_passed, DATE_FORMAT(timestamp, \'%Y-%m-%dT%TZ\') timestamp FROM attempt ORDER BY timestamp DESC LIMIT 0, 12')
             ->fetchAll(\PDO::FETCH_ASSOC);
     }
+
+    public function getTimeAction()
+    {
+        return (new \DateTime())->format(\DateTime::ATOM);
+    }
 }
