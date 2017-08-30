@@ -1,5 +1,12 @@
 version: '3'
 
+# configuration file to use with https://github.com/evertramos/docker-compose-letsencrypt-nginx-proxy-companion
+# In order to run:
+#  1. docker network create webproxy
+#  2. Start the proxy
+#  3. Configure DOMAIN_NAME and ADMIN_EMAIL in .env
+#  4. docker-compose -f docker-compose.yml -f docker-compose.letsencrypt.yml up --build -d
+
 services:
   gitexercises:
     networks: [proxy]
@@ -12,4 +19,4 @@ services:
 networks:
   proxy:
     external:
-      name: nginx-network
+      name: webproxy
