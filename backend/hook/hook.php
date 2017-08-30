@@ -2,6 +2,11 @@
 <?php
 
 namespace GitExercises\hook;
+
+ini_set('display_errors', 'Off');
+ini_set("log_errors", 1);
+ini_set("error_log", __DIR__ . "/../data/logs/hook-error.log");
+
 require __DIR__ . '/../vendor/autoload.php';
 
 use GitExercises\hook\utils\ConsoleUtils;
