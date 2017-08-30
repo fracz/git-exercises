@@ -27,10 +27,13 @@ RUN usermod --uid "$WWW_DATA_UID" www-data \
            && groupmod --gid "$WWW_DATA_UID" www-data \
            && chown -hR www-data:www-data /var/www
 
-RUN a2enmod rewrite expires deflate ssl
+RUN a2enmod rewrite expires deflate ssl cgi alias env
 
 RUN mkdir git \
     && mkdir workingarea \
     && git clone --bare https://github.com/fracz/git-exercises.git git/exercises.git \
     && ln -s verifications/hook.php git/exercises.git/hooks/update
 COPY git-config git/exercises.git/config
+
+WORKDIR /var/www/git/exercises.git
+RUN git checkout master && git branch -D verifications
