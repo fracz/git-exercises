@@ -11,12 +11,12 @@ class CommitterService
 
     public function __construct()
     {
-        $this->pdo = require __DIR__ . '/../db.php';;
+        $this->pdo = require __DIR__ . '/../db.php';
     }
 
     public function getAttempts($committerId, $maxCount = 15)
     {
-        return $this->query("SELECT exercise, passed is_passed, timestamp
+        return $this->query("SELECT exercise, passed is_passed, DATE_FORMAT(timestamp, '%Y-%m-%dT%TZ') timestamp
                       FROM attempt WHERE committer_id = :id ORDER BY timestamp DESC LIMIT 0, $maxCount", $committerId)
             ->fetchAll(\PDO::FETCH_ASSOC);
     }
