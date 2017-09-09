@@ -5,4 +5,5 @@ services:
     container_name: ${COMPOSE_PROJECT_NAME}-phpmyadmin
     networks: [default]
     image: phpmyadmin/phpmyadmin
-    links: [gitexercises-db:db]
+    links:
+      - gitexercises-db:db
