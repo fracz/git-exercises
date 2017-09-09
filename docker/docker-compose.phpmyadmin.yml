@@ -2,9 +2,7 @@ version: '3'
 
 services:
   gitexercises-phpmyadmin:
+    container_name: ${COMPOSE_PROJECT_NAME}-phpmyadmin
     networks: [default]
     image: phpmyadmin/phpmyadmin
-    links:
-      - gitexercises-db:db
-    ports:
-      - '8080:80'
+    links: [gitexercises-db:db]
