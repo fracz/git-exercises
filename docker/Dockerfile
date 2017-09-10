@@ -22,7 +22,7 @@ RUN apt-get update \
     && apt-get autoremove \
     && rm -r /var/lib/apt/lists/*
 
-RUN a2enmod rewrite expires deflate ssl cgi alias env proxy_http
+RUN a2enmod rewrite expires deflate ssl cgi alias env headers
 
 RUN mkdir git \
     && mkdir workingarea \
