@@ -1,0 +1,14 @@
+version: '3'
+
+# Use this config file if you want to expose application's database in the Docker's external network called dbnetwork.
+# It enables you to launch another container with a database management tool like PHPMyAdmin and connect to the
+# database via the external network.
+# docker-compose -f docker-compose.yml -f docker-compose.dbnetwork.yml up --build -d
+
+services:
+  gitexercises-db:
+    networks: [dbnetwork]
+
+networks:
+  dbnetwork:
+    external: true
