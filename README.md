@@ -7,7 +7,7 @@ You have implemented three different features of a program in three different lo
                           \
                            ---- C1 <--- C2 - feature-c
                            
-You want to have all these features as single commits in `pick-your-featuers` branch.
+You want to have all these features as single commits in `pick-your-features` branch.
 
                         HEAD
                          |
