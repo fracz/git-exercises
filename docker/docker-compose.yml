@@ -16,6 +16,9 @@ services:
       - ./apache-conf:/etc/apache2/sites-available:z
     depends_on:
      - gitexercises-db
+    logging:
+      options:
+        max-size: 50m
 
   gitexercises-db:
     container_name: ${COMPOSE_PROJECT_NAME}-db
@@ -29,6 +32,9 @@ services:
       MYSQL_PASSWORD: ${DATABASE_PASSWORD}
     volumes:
        - ${VOLUME_DATA}/mysql:/var/lib/mysql:z
+    logging:
+      options:
+        max-size: 50m
 
 networks:
   default: ~
