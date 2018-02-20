@@ -18,5 +18,7 @@ class IgnoreThem extends AbstractVerification
         $this->ensure(!GitUtils::checkIgnore($commit, 'libraries'), "File with name 'libraries' would be ignored but it should not.");
         $this->ensure(!GitUtils::checkIgnore($commit, 'test.txt'), "File with name 'test.txt' would be ignored but it should not.");
         $this->ensure(!GitUtils::checkIgnore($commit, 'libs'), "File with name 'libs' would be ignored but it should not.");
+        $this->ensure(!GitUtils::checkIgnore($commit, 'hello'), "File with name 'hello' would be ignored but it should not.");
+        $this->ensure(!GitUtils::checkIgnore($commit, 'jar'), "File with name 'jar' would be ignored but it should not.");
     }
 }
