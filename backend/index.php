@@ -16,6 +16,7 @@ $app->group('/api', function () use ($app) {
     $app->get('/time', 'GitExercises\\controllers\\HomeController:getTime');
     $app->get('/latest', 'GitExercises\\controllers\\HomeController:latest');
     $app->get('/committer/:id', 'GitExercises\\controllers\\CommitterController:get');
+    $app->get('/gamification/current', 'GitExercises\\controllers\\GamificationController:getCurrent');
     $app->get('/exercise', 'GitExercises\\controllers\\ExerciseController:list');
     $app->get('/exercise/:id', 'GitExercises\\controllers\\ExerciseController:readme');
 });

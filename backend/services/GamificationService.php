@@ -250,21 +250,28 @@ class GamificationService
         return $this->passedExerciseTimes = $result;
     }
 
+    public function getResultBoard() {
+        if (!$this->sessionId) {
+            return 'No active gamification session.';
+        }
+        $stmt = $this->pdo->prepare('SELECT committer_id, failed, passed, points FROM gamification_stats WHERE session_id=:session ORDER BY points DESC');
+        $stmt->execute([':session' => $this->sessionId]);
+        $committerService = new CommitterService();
+        $results = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+        return array_map(function ($e) use ($committerService) {
+            $e = ['committer_name' => $committerService->getMostFrequentName($e['committer_id'])] + $e;
+            unset($e['committer_id']);
+            return $e;
+        }, $results);
+    }
+
     public function printResultBoard()
     {
         if (!$this->sessionId) {
             return 'No active gamification session.';
         }
         echo $this->inSessionCondition . PHP_EOL;
-        $stmt = $this->pdo->prepare('SELECT committer_id, failed, passed, points FROM gamification_stats WHERE session_id=:session ORDER BY points DESC');
-        $stmt->execute([':session' => $this->sessionId]);
-        $committerService = new CommitterService();
-        $results = $stmt->fetchAll(\PDO::FETCH_ASSOC);
-        $results = array_map(function ($e) use ($committerService) {
-            $e = ['committer_name' => $committerService->getMostFrequentName($e['committer_id'])] + $e;
-            unset($e['committer_id']);
-            return $e;
-        }, $results);
+        $results = $this->getResultBoard();
         $renderer = new ArrayToTextTable($results);
         $renderer->showHeaders(true);
         $renderer->render();
