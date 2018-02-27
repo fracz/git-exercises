@@ -3,9 +3,14 @@ angular.module('git-exercises').directive 'latestAttempts', ($http, $interval) -
   scope:
     latest: '=latestAttempts'
   link: ($scope) ->
+    fetching = no
+
     fetchLatest = ->
-      $http.get('/api/latest').success (response) ->
-        $scope.latest = response
+      if not fetching
+        fetching = yes
+        $http.get('/api/latest').success (response) ->
+          fetching = no
+          $scope.latest = response
 
     if $scope.latest?.length > 0
       $scope.hideCommitterName = yes
