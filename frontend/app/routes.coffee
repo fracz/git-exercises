@@ -66,6 +66,12 @@ angular.module('git-exercises').config ($urlRouterProvider, $stateProvider, $loc
     metaTags:
       title: 'FAQ'
 
+  .state 'gamification',
+    url: '/gamification'
+    template: '<result-board></result-board>'
+    metaTags:
+      title: 'Gamification'
+
   .state 'cheatsheet',
     url: '/cheatsheet'
     templateUrl: 'static/cheatsheet.html'

@@ -92,7 +92,9 @@ gulp.task 'clean', (done) ->
       '!public/.htaccess*'
       '!public/*.php'
       '!public/robots.txt'
-      '!public/images'
+      '!public/images',
+      '!public/analytics.js',
+      '!public/google*.html',
     ]
   ,
     done
@@ -105,5 +107,5 @@ gulp.task 'watch', (done) ->
     gulp.watch('app/**/*.coffee', ['scripts'])
     gulp.watch('app/*/**/*.html', ['views'])
     gulp.watch('app/index.html', ['indexView'])
-    gulp.watch('app/css/style.scss', ['styles'])
+    gulp.watch('app/css/*.scss', ['styles'])
     done()
