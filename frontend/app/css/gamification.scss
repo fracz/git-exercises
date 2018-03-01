@@ -19,10 +19,10 @@
       position: absolute;
       ol li {
         vertical-align: top;
-        $margins: 10% 5% 3% 2% 5% 7% 13%;
+        $margins: 10% 5% 3% 2% 5.5% 7.5% 15%;
         @for $i from 1 through length($margins) {
           $margin: nth($margins, $i);
-          &:nth-child(#{$i}) {
+          &.place-#{$i - 1} {
             margin-top: $margin;
           }
         }
@@ -31,37 +31,50 @@
   }
   ol {
     list-style-type: none;
+    position: relative;
+    width: 100%;
     li {
+      position: absolute;
       display: inline-block;
+      transition: all .5s;
       text-align: center;
       vertical-align: middle;
       padding: 0 5px;
       overflow: hidden;
       word-wrap: break-word;
-      border: 1px solid red;
+      //border: 1px solid red;
       $widths: 24% 12% 12% 11% 12% 10% 17%;
-      $left: 100%;
-      &:first-child {
-        margin-left: 1%;
-      }
+      $used: 1%;
       @for $i from 1 through length($widths) {
         $width: nth($widths, $i);
-        $left: $left - $width;
-        &:nth-child(#{$i}) {
+        &.place-#{$i - 1} {
           width: $width;
+          left: $used;
         }
+        $used: $used + $width;
       }
-      //@debug $left;
-      &:nth-child(1) {
+      //@debug $used;
+      &.place-0 {
         font-size: 2.5em;
         font-weight: bold;
       }
-      &:nth-child(2) {
+      &.place-1 {
         font-size: 2em;
       }
-      &:nth-child(3) {
+      &.place-2 {
         font-size: 1.5em;
       }
+    }
+    li {
+      opacity: 1;
+    }
+    li.ng-enter {
+      -webkit-transition: 1s;
+      transition: 1s;
+      opacity: 0;
+    }
+    li.ng-enter-active {
+      opacity: 1;
     }
   }
   .names {
