@@ -1,6 +1,75 @@
 .state-gamification {
   background: white;
+  color: black;
+  font-size: 20px;
   .navbar, footer {
     display: none;
+  }
+  > .container {
+    width: 100%;
+  }
+  .evolution {
+    width: 100%;
+    position: relative;
+    img {
+      width: 100%;
+    }
+    .points {
+      width: 100%;
+      position: absolute;
+      ol li {
+        vertical-align: top;
+        $margins: 10% 5% 3% 2% 5% 7% 13%;
+        @for $i from 1 through length($margins) {
+          $margin: nth($margins, $i);
+          &:nth-child(#{$i}) {
+            margin-top: $margin;
+          }
+        }
+      }
+    }
+  }
+  ol {
+    list-style-type: none;
+    li {
+      display: inline-block;
+      text-align: center;
+      vertical-align: middle;
+      padding: 0 5px;
+      overflow: hidden;
+      word-wrap: break-word;
+      border: 1px solid red;
+      $widths: 24% 12% 12% 11% 12% 10% 17%;
+      $left: 100%;
+      &:first-child {
+        margin-left: 1%;
+      }
+      @for $i from 1 through length($widths) {
+        $width: nth($widths, $i);
+        $left: $left - $width;
+        &:nth-child(#{$i}) {
+          width: $width;
+        }
+      }
+      //@debug $left;
+      &:nth-child(1) {
+        font-size: 2.5em;
+        font-weight: bold;
+      }
+      &:nth-child(2) {
+        font-size: 2em;
+      }
+      &:nth-child(3) {
+        font-size: 1.5em;
+      }
+    }
+  }
+  .names {
+    .passed {
+      color: green
+    }
+    .failed {
+      color: darkred;
+    }
   }
 }

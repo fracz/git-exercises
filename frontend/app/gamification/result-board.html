@@ -1,1 +1,22 @@
-AAAA
+<div class="evolution">
+  <div class="points">
+    <ol>
+      <li ng-repeat="item in $ctrl.resultBoard">
+        {{ item.points }}
+      </li>
+    </ol>
+  </div>
+  <img src="/images/gamification/7.png">
+</div>
+<div class="names">
+  <ol>
+    <li ng-repeat="item in $ctrl.resultBoard">
+      {{ item.committer_name }}
+      <div>
+        <span class="passed">{{ item.passed }}</span>
+        /
+        <span class="failed">{{ item.failed }}</span>
+      </div>
+    </li>
+  </ol>
+</div>
