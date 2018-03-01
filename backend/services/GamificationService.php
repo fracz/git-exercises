@@ -9,8 +9,7 @@ use GitExercises\hook\utils\ConsoleUtils;
  * thesis. I use the Git Exercises platform during classes and calculate points for students based on their attempt.
  * It is disabled in "live" platform.
  */
-class GamificationService
-{
+class GamificationService {
     /**
      * @var \PDO
      */
@@ -51,15 +50,13 @@ class GamificationService
         'find-bug' => 6,
     ];
 
-    public function __construct($committerId)
-    {
+    public function __construct($committerId) {
         $this->pdo = require __DIR__ . '/../db.php';
         $this->committerId = $committerId;
         $this->isGamificationSessionActive();
     }
 
-    public function getTotalPoints()
-    {
+    public function getTotalPoints() {
         $total = 0;
         foreach ($this->getPassedExerciseAttempts() as $passed => $_) {
             $total += $this->getPointsForExercise($passed);
@@ -67,21 +64,19 @@ class GamificationService
         return $total;
     }
 
-    public function getPointsForExercise($exercise)
-    {
-        return $this->getPointsForOrder($exercise) + $this->getPointsForAttempts($exercise) + $this->getPointsForTime($exercise);
+    public function getPointsForExercise($exercise) {
+        return $this->getPointsForOrder($exercise) + $this->getPointsForAttempts($exercise) + $this->getPointsForTime($exercise)
+            - $this->getPenaltyPointsForFailedAttempts($exercise);
     }
 
-    private function ordinal($number)
-    {
+    private function ordinal($number) {
         if ($number == 1) return '1st';
         if ($number == 2) return '2nd';
         if ($number == 3) return '3rd';
         return $number . 'th';
     }
 
-    public function printExerciseSummary($exercise)
-    {
+    public function printExerciseSummary($exercise) {
         echo 'Exercise summary:', PHP_EOL;
         $points = [];
         $points[] = [
@@ -114,8 +109,7 @@ class GamificationService
         echo PHP_EOL;
     }
 
-    public function getGamificationStatus()
-    {
+    public function getGamificationStatus() {
         $summary = "Total points overall: " . number_format($this->getTotalPoints(), 1);
         $summary .= PHP_EOL;
         if (($place = $this->getMyPlaceInGroup()) == 1) {
@@ -127,20 +121,17 @@ class GamificationService
         return $summary;
     }
 
-    private function getPointsForOrder($exercise)
-    {
+    private function getPointsForOrder($exercise) {
         $order = $this->getOrderInSession()[$exercise];
         return max(0, 6 - $order) / 2;
     }
 
-    private function getPointsForAttempts($exercise)
-    {
+    private function getPointsForAttempts($exercise) {
         $attempts = $this->getPassedExerciseAttempts()[$exercise];
         return max(0, 4 - $attempts);
     }
 
-    private function getPointsForTime($exercise)
-    {
+    private function getPointsForTime($exercise) {
         $time = $this->getPassedExerciseTimes()[$exercise];
         $value = self::$EXERCISE_VALUES[$exercise];
         if ($time && $value) {
@@ -155,8 +146,20 @@ class GamificationService
         }
     }
 
-    public function getMyPlaceInGroup()
-    {
+    private function getPenaltyPointsForFailedAttempts($exercise) {
+        $this->committerId = 'fa1f34fbb399cc0e325257254cab906b7cc71c3b';
+        $attempts = $this->query("SELECT COUNT(*) FROM attempt WHERE $this->inSessionCondition AND exercise = :exercise AND committer_id = :id AND passed=0",
+            [':exercise' => $exercise]);
+        $attempts = $attempts->fetchColumn();
+        $value = self::$EXERCISE_VALUES[$exercise];
+        if ($value) {
+            return $attempts * $value / 10;
+        } else {
+            return 0;
+        }
+    }
+
+    public function getMyPlaceInGroup() {
         if ($this->sessionId) {
             $place = $this->query('SELECT COUNT(*) FROM gamification_stats WHERE session_id=:session AND points >= (SELECT points FROM gamification_stats WHERE session_id=:session AND committer_id=:id)', [':session' => $this->sessionId])
                 ->fetchColumn();
@@ -164,8 +167,7 @@ class GamificationService
         }
     }
 
-    public function isGamificationSessionActive()
-    {
+    public function isGamificationSessionActive() {
         $activeSession = $this->pdo
             ->query('SELECT * FROM gamification_session WHERE CURRENT_TIMESTAMP BETWEEN start AND end LIMIT 0,1')
             ->fetch(\PDO::FETCH_ASSOC);
@@ -176,8 +178,7 @@ class GamificationService
         return false;
     }
 
-    public function setGamificationSession($from, $to = null)
-    {
+    public function setGamificationSession($from, $to = null) {
         if (is_array($from)) {
             $this->sessionId = $from['id'];
             return $this->setGamificationSession($from['start'], $from['end']);
@@ -185,8 +186,7 @@ class GamificationService
         $this->inSessionCondition = "timestamp BETWEEN '$from' AND '$to'";
     }
 
-    public function newAttempt($passed)
-    {
+    public function newAttempt($passed) {
         if ($this->sessionId) {
             $this->query('INSERT IGNORE INTO gamification_stats (session_id, committer_id) VALUES(:session, :id)', [':session' => $this->sessionId]);
             if ($passed) {
@@ -198,8 +198,7 @@ class GamificationService
         }
     }
 
-    public function getOrderInSession()
-    {
+    public function getOrderInSession() {
         if ($this->orderInSession) {
             return $this->orderInSession;
         }
@@ -218,8 +217,7 @@ class GamificationService
         return $this->orderInSession = $order;
     }
 
-    public function getPassedExerciseAttempts()
-    {
+    public function getPassedExerciseAttempts() {
         if ($this->passedExerciseAttempts) {
             return $this->passedExerciseAttempts;
         }
@@ -233,8 +231,7 @@ class GamificationService
         return $this->passedExerciseAttempts = $attempts;
     }
 
-    public function getPassedExerciseTimes()
-    {
+    public function getPassedExerciseTimes() {
         if ($this->passedExerciseTimes) {
             return $this->passedExerciseTimes;
         }
@@ -265,8 +262,7 @@ class GamificationService
         }, $results);
     }
 
-    public function printResultBoard()
-    {
+    public function printResultBoard() {
         if (!$this->sessionId) {
             return 'No active gamification session.';
         }
@@ -277,8 +273,7 @@ class GamificationService
         $renderer->render();
     }
 
-    private function query($query, array $params = [])
-    {
+    private function query($query, array $params = []) {
         $stmt = $this->pdo->prepare($query);
         $stmt->execute(array_merge($params, [':id' => $this->committerId]));
         return $stmt;
