@@ -1,16 +1,91 @@
 .state-gamification {
   background: white;
   color: black;
-  font-size: 20px;
+  font-size: 22px;
   .navbar, footer {
     display: none;
   }
   > .container {
     width: 100%;
   }
-  .evolution {
+  ol {
+
+  }
+  .result-board {
     width: 100%;
     position: relative;
+  }
+  .podium {
+    text-align: center;
+    .evolution-image {
+      display: none;
+    }
+    .points {
+      li {
+        .name {
+          font-size: 1.1em;
+        }
+        &.place-0 {
+          width: 400px;
+          left: 50%;
+          top: 0;
+          margin-left: -200px;
+          text-align: center;
+          font-size: 2em;
+          font-weight: bold;
+          .name {
+            font-size: 1.1em;
+          }
+        }
+        &.place-1 {
+          font-size: 1.7em;
+          top: 160px;
+          width: 350px;
+          left: 50%;
+          margin-left: -480px;
+        }
+        &.place-2 {
+          font-size: 1.3em;
+          top: 270px;
+          width: 350px;
+          left: 50%;
+          margin-left: 170px;
+        }
+        @for $i from 3 through 50 {
+          &.place-#{$i} {
+            width: 100%;
+            top: 600px + ($i - 3) * 50px;
+            left: 0;
+            opacity: 1-($i - 3)/10;
+            .total, .tasks, .name {
+              display: inline-block;
+            }
+          }
+        }
+      }
+    }
+    img {
+      margin-top: 200px;
+      width: 850px;
+      height: 400px;
+    }
+    ol {
+      padding: 0;
+      display: block;
+      list-style-type: none;
+      li {
+        position: absolute;
+        transition: all .5s;
+      }
+    }
+    .names {
+      display: none;
+    }
+  }
+  .evolution {
+    .podium-image {
+      display: none;
+    }
     img {
       width: 100%;
     }
@@ -28,61 +103,62 @@
         }
       }
     }
-  }
-  ol {
-    list-style-type: none;
-    position: relative;
-    width: 100%;
-    li {
-      position: absolute;
-      display: inline-block;
-      transition: all .5s;
-      text-align: center;
-      vertical-align: middle;
-      padding: 0 5px;
-      overflow: hidden;
-      word-wrap: break-word;
-      //border: 1px solid red;
-      $widths: 24% 12% 12% 11% 12% 10% 17%;
-      $used: 1%;
-      @for $i from 1 through length($widths) {
-        $width: nth($widths, $i);
-        &.place-#{$i - 1} {
-          width: $width;
-          left: $used;
+    ol {
+      list-style-type: none;
+      position: relative;
+      width: 100%;
+      li {
+        position: absolute;
+        display: inline-block;
+        text-align: center;
+        vertical-align: middle;
+        padding: 0 5px;
+        overflow: hidden;
+        word-wrap: break-word;
+        //border: 1px solid red;
+        $widths: 24% 12% 12% 11% 12% 10% 17%;
+        $used: 1%;
+        @for $i from 1 through length($widths) {
+          $width: nth($widths, $i);
+          &.place-#{$i - 1} {
+            width: $width;
+            left: $used;
+          }
+          $used: $used + $width;
         }
-        $used: $used + $width;
-      }
-      //@debug $used;
-      &.place-0 {
-        font-size: 2.5em;
-        font-weight: bold;
-      }
-      &.place-1 {
-        font-size: 2em;
-      }
-      &.place-2 {
-        font-size: 1.5em;
+        //@debug $used;
+        @for $i from length($widths) through 50 {
+          &.place-#{$i} {
+            display: none;
+          }
+        }
+        &.place-0 {
+          font-size: 2.5em;
+          font-weight: bold;
+        }
+        &.place-1 {
+          font-size: 2em;
+        }
+        &.place-2 {
+          font-size: 1.5em;
+        }
       }
     }
-    li {
-      opacity: 1;
+    .points {
+      .name, .tasks {
+        display: none;
+      }
     }
-    li.ng-enter {
-      -webkit-transition: 1s;
-      transition: 1s;
-      opacity: 0;
-    }
-    li.ng-enter-active {
-      opacity: 1;
+    .names {
+      .total {
+        display: none;
+      }
     }
   }
-  .names {
-    .passed {
-      color: green
-    }
-    .failed {
-      color: darkred;
-    }
+  .passed {
+    color: green
+  }
+  .failed {
+    color: darkred;
   }
 }
