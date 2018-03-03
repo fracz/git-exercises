@@ -88,7 +88,7 @@ class GamificationService {
             'points' => number_format($this->getPointsForAttempts($exercise), 1),
         ];
         $points[] = [
-            'achievment' => 'Unsuccessfull attempts: ' . $this->getFailedAttemptsCount($exercise) . ' attempt',
+            'achievment' => 'Unsuccessfull attempts: ' . $this->getFailedAttemptsCount($exercise),
             'points' => number_format(-$this->getPenaltyPointsForFailedAttempts($exercise), 1),
         ];
         $time = $this->getPassedExerciseTimes()[$exercise];
