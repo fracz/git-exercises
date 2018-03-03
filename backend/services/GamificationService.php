@@ -147,7 +147,6 @@ class GamificationService {
     }
 
     private function getPenaltyPointsForFailedAttempts($exercise) {
-        $this->committerId = 'fa1f34fbb399cc0e325257254cab906b7cc71c3b';
         $attempts = $this->query("SELECT COUNT(*) FROM attempt WHERE $this->inSessionCondition AND exercise = :exercise AND committer_id = :id AND passed=0",
             [':exercise' => $exercise]);
         $attempts = $attempts->fetchColumn();
