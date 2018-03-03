@@ -87,6 +87,10 @@ class GamificationService {
             'achievment' => 'Pass in the ' . $this->ordinal($this->getPassedExerciseAttempts()[$exercise]) . ' attempt',
             'points' => number_format($this->getPointsForAttempts($exercise), 1),
         ];
+        $points[] = [
+            'achievment' => 'Unsuccessfull attempts: ' . $this->getFailedAttemptsCount($exercise) . ' attempt',
+            'points' => number_format(-$this->getPenaltyPointsForFailedAttempts($exercise), 1),
+        ];
         $time = $this->getPassedExerciseTimes()[$exercise];
         $value = self::$EXERCISE_VALUES[$exercise];
         if ($time && $value) {
@@ -147,15 +151,20 @@ class GamificationService {
     }
 
     private function getPenaltyPointsForFailedAttempts($exercise) {
-        $attempts = $this->query("SELECT COUNT(*) FROM attempt WHERE $this->inSessionCondition AND exercise = :exercise AND committer_id = :id AND passed=0",
-            [':exercise' => $exercise]);
-        $attempts = $attempts->fetchColumn();
+        $attempts = $this->getFailedAttemptsCount($exercise);
         $value = self::$EXERCISE_VALUES[$exercise];
         if ($value) {
             return $attempts * $value / 10;
         } else {
             return 0;
         }
+    }
+
+    private function getFailedAttemptsCount($exercise) {
+        $attempts = $this->query("SELECT COUNT(*) FROM attempt WHERE $this->inSessionCondition AND exercise = :exercise AND committer_id = :id AND passed=0",
+            [':exercise' => $exercise]);
+        $attempts = $attempts->fetchColumn();
+        return (int)$attempts;
     }
 
     public function getMyPlaceInGroup() {
@@ -192,7 +201,8 @@ class GamificationService {
                 $this->query('UPDATE gamification_stats SET passed=passed+1, points=:points WHERE session_id=:session AND committer_id=:id AND points<:points',
                     [':session' => $this->sessionId, ':points' => $this->getTotalPoints()]);
             } else {
-                $this->query('UPDATE gamification_stats SET failed=failed+1 WHERE session_id=:session AND committer_id=:id', [':session' => $this->sessionId]);
+                $this->query('UPDATE gamification_stats SET failed=failed+1, points=:points WHERE session_id=:session AND committer_id=:id',
+                    [':session' => $this->sessionId, ':points' => $this->getTotalPoints()]);
             }
         }
     }
