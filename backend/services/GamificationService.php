@@ -154,7 +154,7 @@ class GamificationService {
         $attempts = $this->getFailedAttemptsCount($exercise);
         $value = self::$EXERCISE_VALUES[$exercise];
         if ($value) {
-            return $attempts * $value / 10;
+            return min($value, $attempts * $value / 10);
         } else {
             return 0;
         }
