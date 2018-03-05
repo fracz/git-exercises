@@ -198,8 +198,9 @@ class GamificationService {
         if ($this->sessionId) {
             $this->query('INSERT IGNORE INTO gamification_stats (session_id, committer_id) VALUES(:session, :id)', [':session' => $this->sessionId]);
             if ($passed) {
-                $this->query('UPDATE gamification_stats SET passed=passed+1, points=:points WHERE session_id=:session AND committer_id=:id AND points<:points',
-                    [':session' => $this->sessionId, ':points' => $this->getTotalPoints()]);
+                $passedCount = count($this->getPassedExerciseAttempts());
+                $this->query('UPDATE gamification_stats SET passed=:passed, points=:points WHERE session_id=:session AND committer_id=:id AND points<:points',
+                    [':session' => $this->sessionId, ':points' => $this->getTotalPoints(), ':passed' => $passedCount]);
             } else {
                 $this->query('UPDATE gamification_stats SET failed=failed+1, points=:points WHERE session_id=:session AND committer_id=:id',
                     [':session' => $this->sessionId, ':points' => $this->getTotalPoints()]);
