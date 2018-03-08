@@ -87,6 +87,24 @@ class GitUtils
     }
 
     /**
+     * Get file mode of committed file.
+     * @param $commitId
+     * @param $filename
+     * @return file mode (digits) or null if file has not been found
+     */
+    public static function getFileMode($commitId, $filename)
+    {
+        exec("git ls-tree $commitId", $result);
+        foreach ($result as $filespec) {
+            $parts = preg_split('/\s+/', $filespec);
+            if ($parts[3] == $filename) {
+                return $parts[0];
+            }
+        }
+        return null;
+    }
+
+    /**
      * @param $commitId
      * @param $filename
      * @return array file content as lines

@@ -12,6 +12,7 @@ fix-old-typo
 commit-lost
 split-commit
 too-many-commits
+executable
 commit-parts
 pick-your-features
 rebase-complex
