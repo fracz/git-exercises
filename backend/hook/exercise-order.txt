@@ -8,6 +8,7 @@ save-your-work
 change-branch-history
 remove-ignored
 fix-typo
+forge-date
 fix-old-typo
 commit-lost
 split-commit

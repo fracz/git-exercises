@@ -25,7 +25,7 @@ RUN apt-get update \
 RUN a2enmod rewrite expires deflate ssl cgi alias env headers
 
 RUN mkdir git \
-    && touch v1 \
+    && touch v2 \
     && mkdir workingarea \
     && git clone --bare https://github.com/fracz/git-exercises.git git/exercises.git \
     && ln -s /var/www/website/backend/hook/hook.php /var/www/git/exercises.git/hooks/update

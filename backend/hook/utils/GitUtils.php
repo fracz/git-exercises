@@ -38,6 +38,12 @@ class GitUtils
         return $subject[0];
     }
 
+    public static function getCommitDate($commitId)
+    {
+        exec("git log --pretty=format:\"%ai\" -1 $commitId", $date);
+        return $date[0];
+    }
+
     /**
      * @param $commitId
      * @return array indexed by filenames, values are operations (M, A, D)
