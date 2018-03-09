@@ -117,8 +117,8 @@ class GitUtils
      */
     public static function getFileContent($commitId, $filename)
     {
-        exec("git show $commitId:$filename", $fileLines);
-        return $fileLines;
+        exec("git show $commitId:$filename 2>&1", $fileLines, $exitCode);
+        return $exitCode ? false : $fileLines;
     }
 
     public static function getParents($commitId)

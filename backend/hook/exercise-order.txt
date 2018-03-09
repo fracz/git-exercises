@@ -7,6 +7,7 @@ merge-conflict
 save-your-work
 change-branch-history
 remove-ignored
+case-sensitive-filename
 fix-typo
 forge-date
 fix-old-typo
