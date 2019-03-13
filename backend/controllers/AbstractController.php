@@ -39,7 +39,7 @@ abstract class AbstractController
         $action = $methodName . 'Action';
         try {
             $result = call_user_func_array([&$this, $action], $args);
-            JsonHelper::setResponse($this->getApp()->response(), $result);
+            JsonHelper::setResponse($this->getApp()->response(), $result, $this->getApp()->response()->getStatus());
         } catch (Stop $e) { // list here exceptions that should not be caught
             throw $e;
         } catch (Exception $e) {

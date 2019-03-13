@@ -25,6 +25,8 @@ class GamificationService {
 
     private $sessionId;
 
+    private $sessionData;
+
     private $orderInSession;
 
     public static $EXERCISE_VALUES = [
@@ -92,7 +94,7 @@ class GamificationService {
             'points' => number_format(-$this->getPenaltyPointsForFailedAttempts($exercise), 1),
         ];
         $time = $this->getPassedExerciseTimes()[$exercise];
-        $value = self::$EXERCISE_VALUES[$exercise];
+        $value = self::$EXERCISE_VALUES[$exercise] ?? 1;
         if ($time && $value) {
             if ($time < $value) {
                 $points[] = [
@@ -137,7 +139,7 @@ class GamificationService {
 
     private function getPointsForTime($exercise) {
         $time = $this->getPassedExerciseTimes()[$exercise];
-        $value = self::$EXERCISE_VALUES[$exercise];
+        $value = self::$EXERCISE_VALUES[$exercise] ?? 1;
         if ($time && $value) {
             if ($time < $value) {
                 return $value;
@@ -152,7 +154,7 @@ class GamificationService {
 
     private function getPenaltyPointsForFailedAttempts($exercise) {
         $attempts = $this->getFailedAttemptsCount($exercise);
-        $value = self::$EXERCISE_VALUES[$exercise];
+        $value = self::$EXERCISE_VALUES[$exercise] ?? 1;
         if ($value) {
             return min($value, $attempts * $value / 10);
         } else {
@@ -176,6 +178,9 @@ class GamificationService {
     }
 
     public function isGamificationSessionActive() {
+        if ($this->sessionId) {
+            return true;
+        }
         $activeSession = $this->pdo
             ->query('SELECT * FROM gamification_session WHERE CURRENT_TIMESTAMP BETWEEN start AND end LIMIT 0,1')
             ->fetch(\PDO::FETCH_ASSOC);
@@ -189,9 +194,21 @@ class GamificationService {
     public function setGamificationSession($from, $to = null) {
         if (is_array($from)) {
             $this->sessionId = $from['id'];
+            $this->sessionData = $from;
             return $this->setGamificationSession($from['start'], $from['end']);
         }
         $this->inSessionCondition = "timestamp BETWEEN '$from' AND '$to'";
+    }
+
+    public function setGamificationSessionById(int $id): bool {
+        $stmt = $this->pdo->prepare('SELECT * FROM gamification_session WHERE id = :id');
+        $stmt->execute([':id' => $id]);
+        $activeSession = $stmt->fetch(\PDO::FETCH_ASSOC);
+        if ($activeSession) {
+            $this->setGamificationSession($activeSession);
+            return true;
+        }
+        return false;
     }
 
     public function newAttempt($passed) {
@@ -287,5 +304,23 @@ class GamificationService {
         $stmt = $this->pdo->prepare($query);
         $stmt->execute(array_merge($params, [':id' => $this->committerId]));
         return $stmt;
+    }
+
+    public function getSessionData() {
+        $data = $this->sessionData;
+        $data['start'] = (new \DateTime($data['start']))->format(\DateTime::ATOM);
+        $data['end'] = (new \DateTime($data['end']))->format(\DateTime::ATOM);
+        return $data;
+    }
+
+    public function createNewSession(int $durationInMinutes): int {
+        $stmt = $this->pdo->prepare('INSERT INTO gamification_session (start, end) VALUES(CURRENT_TIMESTAMP, DATE_ADD(CURRENT_TIMESTAMP, INTERVAL :duration MINUTE))');
+        $stmt->execute(array_merge([':duration' => $durationInMinutes]));
+        return $this->pdo->lastInsertId();
+    }
+
+    public function finishGamificationSession() {
+        $stmt = $this->pdo->prepare('UPDATE gamification_session SET `end`=CURRENT_TIMESTAMP WHERE id=:id');
+        $stmt->execute(array_merge([':id' => $this->sessionId]));
     }
 }

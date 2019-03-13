@@ -12,7 +12,8 @@
       </li>
     </ol>
   </div>
-  <img ng-if="$ctrl.resultBoard.length" ng-src="/images/gamification/{{ $ctrl.resultBoard.length > 7 ? 7 : $ctrl.resultBoard.length }}.png"
+  <img ng-if="$ctrl.resultBoard.length"
+       ng-src="/images/gamification/{{ $ctrl.resultBoard.length > 7 ? 7 : $ctrl.resultBoard.length }}.png"
        class="evolution-image">
   <img ng-src="/images/gamification/podium.png"
        class="podium-image">
@@ -28,5 +29,29 @@
         <div class="total">{{ item.points | number:2 }}</div>
       </li>
     </ol>
+  </div>
+</div>
+
+<div class="gamification-form" ng-class="$ctrl.adminFormVisible ? '' : 'hidden'">
+  <div class="form-group" ng-if="$ctrl.currentSessionData">
+    <h3>Aktualna sesja: ID {{$ctrl.currentSessionData.id}}</h3>
+    <h6>{{$ctrl.currentSessionData.start | date:'shortTime'}} - {{$ctrl.currentSessionData.end | date:'shortTime'}}</h6>
+  </div>
+  <div class="form-group">
+    <input type="password" ng-model="$ctrl.adminPassword" class="form-control" placeholder="Hasło administracyjne">
+  </div>
+  <div class="form-group">
+      <input type="number" class="form-control" ng-disabled="!$ctrl.adminPassword" ng-model="$ctrl.desiredSessionId" placeholder="ID sesji do pokazania">
+  </div>
+  <div class="form-group" ng-if="!$ctrl.currentSessionData">
+    <div class="input-group">
+      <input type="number" class="form-control" ng-disabled="!$ctrl.adminPassword" ng-model="$ctrl.newSessionDuration" placeholder="Czas trwania (min)">
+      <span class="input-group-btn">
+        <button class="btn btn-default" ng-disabled="!$ctrl.adminPassword" ng-click="$ctrl.startNewSession()">Nowa sesja</button>
+      </span>
+    </div>
+  </div>
+  <div class="form-group" ng-if="$ctrl.currentSessionData">
+    <button class="btn btn-default" ng-disabled="!$ctrl.adminPassword" ng-click="$ctrl.endCurrentSession()">Zakończ sesję</button>
   </div>
 </div>
