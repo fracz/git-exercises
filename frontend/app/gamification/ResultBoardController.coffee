@@ -16,6 +16,7 @@ angular.module('git-exercises').component 'resultBoard',
           @resultBoard = []
         GamificationService.getResultBoard(@desiredSessionId, @adminPassword)
           .then (response) =>
+            @fetchError = false
             @currentSessionData = response.data
             newResults = response.board
 #            newResults = newResults.slice(0, 7)
@@ -27,6 +28,7 @@ angular.module('git-exercises').component 'resultBoard',
 #            @resultBoard.splice(7)
             angular.extend(item, newResults.find((i) -> i.committer_name is item.committer_name)) for item in @resultBoard
           .catch =>
+            @fetchError = true
             @currentSessionData = undefined
             @resultBoard = []
           .finally(=> $timeout(@fetch, 3000))

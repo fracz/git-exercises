@@ -32,7 +32,7 @@
   </div>
 </div>
 
-<div class="gamification-form" ng-class="$ctrl.adminFormVisible ? '' : 'hidden'">
+<div class="gamification-form" ng-class="{hidden: !$ctrl.adminFormVisible, error: $ctrl.fetchError}">
   <div class="form-group" ng-if="$ctrl.currentSessionData">
     <h3>Aktualna sesja: ID {{$ctrl.currentSessionData.id}}</h3>
     <h6>{{$ctrl.currentSessionData.start | date:'shortTime'}} - {{$ctrl.currentSessionData.end | date:'shortTime'}}</h6>
