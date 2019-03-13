@@ -3,6 +3,7 @@ angular.module('git-exercises').component 'resultBoard',
   controller: (GamificationService, $timeout, $scope) ->
     new class
       $onInit: ->
+        @theme = 'podium'
         @resultBoard = []
         @fetch()
         $(document).mousedown (e) =>

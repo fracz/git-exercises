@@ -1,4 +1,4 @@
-<div class="podium result-board">
+<div class="result-board" ng-class="$ctrl.theme">
   <div class="points">
     <ol>
       <li ng-repeat="item in $ctrl.resultBoard" class="place-{{ item.place }}">
@@ -41,17 +41,26 @@
     <input type="password" ng-model="$ctrl.adminPassword" class="form-control" placeholder="Hasło administracyjne">
   </div>
   <div class="form-group">
-      <input type="number" class="form-control" ng-disabled="!$ctrl.adminPassword" ng-model="$ctrl.desiredSessionId" placeholder="ID sesji do pokazania">
+    <input type="number" class="form-control" ng-disabled="!$ctrl.adminPassword" ng-model="$ctrl.desiredSessionId"
+           placeholder="ID sesji do pokazania">
   </div>
   <div class="form-group" ng-if="!$ctrl.currentSessionData">
     <div class="input-group">
-      <input type="number" class="form-control" ng-disabled="!$ctrl.adminPassword" ng-model="$ctrl.newSessionDuration" placeholder="Czas trwania (min)">
+      <input type="number" class="form-control" ng-disabled="!$ctrl.adminPassword" ng-model="$ctrl.newSessionDuration"
+             placeholder="Czas trwania (min)">
       <span class="input-group-btn">
-        <button class="btn btn-default" ng-disabled="!$ctrl.adminPassword" ng-click="$ctrl.startNewSession()">Nowa sesja</button>
+        <button class="btn btn-default" ng-disabled="!$ctrl.adminPassword"
+                ng-click="$ctrl.startNewSession()">Nowa sesja</button>
       </span>
     </div>
   </div>
   <div class="form-group" ng-if="$ctrl.currentSessionData">
-    <button class="btn btn-default" ng-disabled="!$ctrl.adminPassword" ng-click="$ctrl.endCurrentSession()">Zakończ sesję</button>
+    <button class="btn btn-default" ng-disabled="!$ctrl.adminPassword" ng-click="$ctrl.endCurrentSession()">Zakończ
+      sesję
+    </button>
+  </div>
+  <div class="form-group">
+    <label><input type="radio" ng-model="$ctrl.theme" value="podium"> Podium</label>
+    <label><input type="radio" ng-model="$ctrl.theme" value="evolution"> Ewolucja</label>
   </div>
 </div>
