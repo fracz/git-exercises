@@ -11,6 +11,9 @@
   ol {
 
   }
+  .activity-points, .bg-image {
+    display: none;
+  }
   .result-board {
     width: 100%;
     position: relative;
@@ -26,10 +29,19 @@
       background: lightcoral;
     }
   }
+  .list {
+    .activity-points, .name, .tasks, .total {
+      display: inline-block;
+    }
+    .total, .tasks { color: #AAA; }
+    .total:before { content: 'Punkty: '; }
+    .tasks:before { content: 'Zadania: '; }
+    .names { display: none; }
+  }
   .podium {
     text-align: center;
-    .evolution-image {
-      display: none;
+    .bg-image.podium-image {
+      display: inline;
     }
     .points {
       li {
@@ -94,8 +106,8 @@
     }
   }
   .evolution {
-    .podium-image {
-      display: none;
+    .bg-image.evolution-image {
+      display: inline;
     }
     img {
       width: 100%;
