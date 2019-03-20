@@ -39,7 +39,7 @@ class CommitterService
     public function getMostRecentName($committerId)
     {
         return $this->query("SELECT committer_name FROM attempt
-                             WHERE committer_id = :id GROUP BY committer_name
+                             WHERE committer_id = :id
                              ORDER BY timestamp DESC LIMIT 0,1", $committerId)->fetchColumn();
     }
 
