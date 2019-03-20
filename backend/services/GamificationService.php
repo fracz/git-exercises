@@ -89,16 +89,18 @@ class GamificationService {
         $placeInGroup = $this->getOrderInSession()[$exercise];
         $points[] = [
             'achievment' => 'Pass as the ' . $this->ordinal($placeInGroup + 1) . ' person in the group',
-            'points' => $placeInGroup > self::MOTIVATIONAL_PLACE ? 0 : number_format($this->getPointsForOrder($exercise), 1),
+            'points' => number_format($placeInGroup > self::MOTIVATIONAL_PLACE ? 0 : $this->getPointsForOrder($exercise), 1),
         ];
         $points[] = [
             'achievment' => 'Pass in the ' . $this->ordinal($this->getPassedExerciseAttempts()[$exercise]) . ' attempt',
             'points' => number_format($this->getPointsForAttempts($exercise), 1),
         ];
-        $points[] = [
-            'achievment' => 'Unsuccessfull attempts: ' . $this->getFailedAttemptsCount($exercise),
-            'points' => number_format(-$this->getPenaltyPointsForFailedAttempts($exercise), 1),
-        ];
+        if ($failed = $this->getFailedAttemptsCount($exercise)) {
+            $points[] = [
+                'achievment' => 'Unsuccessfull attempts: ' . $failed,
+                'points' => number_format(-$this->getPenaltyPointsForFailedAttempts($exercise), 1),
+            ];
+        }
         $time = $this->getPassedExerciseTimes()[$exercise];
         $value = self::$EXERCISE_VALUES[$exercise] ?? 1;
         if ($time && $value) {
@@ -116,7 +118,7 @@ class GamificationService {
         }
         if ($placeInGroup > self::MOTIVATIONAL_PLACE) {
             $points[] = [
-                'achievment' => 'MOTIVATION POINTS - keep going!',
+                'achievment' => ConsoleUtils::green('MOTIVATION POINTS') . ' - keep going!',
                 'points' => number_format($this->getPointsForOrder($exercise), 1),
             ];
         }
