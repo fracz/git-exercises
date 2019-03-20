@@ -9,8 +9,10 @@ angular.module('git-exercises').component 'resultBoard',
         $(document).mousedown (e) =>
           if e.which == 2 or e.ctrlKey
             $scope.$apply(=> @adminFormVisible = !@adminFormVisible)
+        @sound = 1
         @sounds = [
           new Audio('/images/sounds/your-turn.mp3')
+          new Audio('/images/sounds/cheerful.mp3')
         ]
 
       fetch: =>
@@ -32,13 +34,16 @@ angular.module('git-exercises').component 'resultBoard',
 #            @resultBoard.splice(7)
             angular.extend(item, newResults.find((i) -> i.committer_id is item.committer_id)) for item in @resultBoard
             newPoints = @resultBoard.map((c) -> c.points).join('|')
-            if newPoints != oldPoints
-              @sounds[Math.floor(Math.random() * @sounds.length)].play()
+            @playSound() if newPoints != oldPoints
           .catch =>
             @fetchError = true
             @currentSessionData = undefined
             @resultBoard = []
           .finally(=> $timeout(@fetch, 3000))
+
+      playSound: =>
+        sound = if @sound == -1 then Math.floor(Math.random() * @sounds.length) else @sound
+        @sounds[sound].play()
 
       endCurrentSession: =>
         if confirm('Na pewno zakończyć sesję?')
