@@ -3,7 +3,7 @@ FROM php:7.1-apache
 WORKDIR /var/www
 
 RUN apt-get update \
-    && curl -sL https://deb.nodesource.com/setup_4.x | bash - \
+    && curl -sL https://deb.nodesource.com/setup_6.x | bash - \
     && apt-get install -y --no-install-recommends \
       libicu-dev \
       libpq-dev \
@@ -13,6 +13,7 @@ RUN apt-get update \
       git \
       unzip \
       nodejs \
+      zlib1g-dev \
     && update-ca-certificates \
     && docker-php-ext-install \
       pdo_mysql \
