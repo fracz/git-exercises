@@ -36,6 +36,13 @@ class CommitterService
                              ORDER BY COUNT(committer_name) DESC LIMIT 0,1", $committerId)->fetchColumn();
     }
 
+    public function getMostRecentName($committerId)
+    {
+        return $this->query("SELECT committer_name FROM attempt
+                             WHERE committer_id = :id GROUP BY committer_name
+                             ORDER BY timestamp DESC LIMIT 0,1", $committerId)->fetchColumn();
+    }
+
     public function suggestNextExercise($committerIdOrPassedArray)
     {
         if (is_array($committerIdOrPassedArray)) {

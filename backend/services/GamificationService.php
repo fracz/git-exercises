@@ -118,7 +118,7 @@ class GamificationService {
         }
         if ($placeInGroup > self::MOTIVATIONAL_PLACE) {
             $points[] = [
-                'achievment' => ConsoleUtils::green('MOTIVATION POINTS') . ' - keep going!',
+                'achievment' => 'MOTIVATION POINTS - keep going!',
                 'points' => number_format($this->getPointsForOrder($exercise), 1),
             ];
         }
@@ -297,7 +297,7 @@ class GamificationService {
         $committerService = new CommitterService();
         $results = $stmt->fetchAll(\PDO::FETCH_ASSOC);
         return array_map(function ($e) use ($committerService) {
-            $e = ['committer_name' => $committerService->getMostFrequentName($e['committer_id'])] + $e;
+            $e = ['committer_name' => $committerService->getMostRecentName($e['committer_id'])] + $e;
             return $e;
         }, $results);
     }
