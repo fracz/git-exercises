@@ -10,6 +10,8 @@ use GitExercises\hook\utils\ConsoleUtils;
  * It is disabled in "live" platform.
  */
 class GamificationService {
+    const MOTIVATIONAL_PLACE = 3;
+
     /**
      * @var \PDO
      */
@@ -84,9 +86,10 @@ class GamificationService {
     public function printExerciseSummary($exercise) {
         echo 'Exercise summary:', PHP_EOL;
         $points = [];
+        $placeInGroup = $this->getOrderInSession()[$exercise];
         $points[] = [
-            'achievment' => 'Pass as the ' . $this->ordinal($this->getOrderInSession()[$exercise] + 1) . ' person in the group',
-            'points' => number_format($this->getPointsForOrder($exercise), 1),
+            'achievment' => 'Pass as the ' . $this->ordinal($placeInGroup + 1) . ' person in the group',
+            'points' => $placeInGroup > self::MOTIVATIONAL_PLACE ? 0 : number_format($this->getPointsForOrder($exercise), 1),
         ];
         $points[] = [
             'achievment' => 'Pass in the ' . $this->ordinal($this->getPassedExerciseAttempts()[$exercise]) . ' attempt',
@@ -111,6 +114,12 @@ class GamificationService {
                 ];
             }
         }
+        if ($placeInGroup > self::MOTIVATIONAL_PLACE) {
+            $points[] = [
+                'achievment' => 'MOTIVATION POINTS - keep going!',
+                'points' => number_format($this->getPointsForOrder($exercise), 1),
+            ];
+        }
         $renderer = new ArrayToTextTable($points);
         $renderer->showHeaders(true);
         $renderer->render();
@@ -132,7 +141,7 @@ class GamificationService {
 
     private function getPointsForOrder($exercise) {
         $order = $this->getOrderInSession()[$exercise];
-        return max(0, 6 - $order) / 2;
+        return abs(self::MOTIVATIONAL_PLACE - $order) / 2;
     }
 
     private function getPointsForAttempts($exercise) {
