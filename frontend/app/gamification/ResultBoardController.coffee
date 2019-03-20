@@ -9,6 +9,9 @@ angular.module('git-exercises').component 'resultBoard',
         $(document).mousedown (e) =>
           if e.which == 2 or e.ctrlKey
             $scope.$apply(=> @adminFormVisible = !@adminFormVisible)
+        @sounds = [
+          new Audio('/images/sounds/your-turn.mp3')
+        ]
 
       fetch: =>
         if @desiredSessionId and @currentSessionData and @desiredSessionId != +@currentSessionData.id
@@ -20,13 +23,17 @@ angular.module('git-exercises').component 'resultBoard',
             @currentSessionData = response.data
             newResults = response.board
 #            newResults = newResults.slice(0, 7)
+            oldPoints = @resultBoard.map((c) -> c.points).join('|')
             delete item.place for item in @resultBoard
-            item.place = newResults.findIndex((i) -> i.committer_name is item.committer_name) for item in newResults
-            item.place = newResults.findIndex((i) -> i.committer_name is item.committer_name) for item in @resultBoard
+            item.place = newResults.findIndex((i) -> i.committer_id is item.committer_id) for item in newResults
+            item.place = newResults.findIndex((i) -> i.committer_id is item.committer_id) for item in @resultBoard
             @resultBoard.splice(@resultBoard.indexOf(item), 1) for item in @resultBoard.filter((i) -> i.place < 0)
-            @resultBoard.push(item) for item in newResults when @resultBoard.findIndex((i) -> i.committer_name is item.committer_name) < 0
+            @resultBoard.push(item) for item in newResults when @resultBoard.findIndex((i) -> i.committer_id is item.committer_id) < 0
 #            @resultBoard.splice(7)
-            angular.extend(item, newResults.find((i) -> i.committer_name is item.committer_name)) for item in @resultBoard
+            angular.extend(item, newResults.find((i) -> i.committer_id is item.committer_id)) for item in @resultBoard
+            newPoints = @resultBoard.map((c) -> c.points).join('|')
+            if newPoints != oldPoints
+              @sounds[Math.floor(Math.random() * @sounds.length)].play()
           .catch =>
             @fetchError = true
             @currentSessionData = undefined

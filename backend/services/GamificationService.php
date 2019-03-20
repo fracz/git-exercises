@@ -298,7 +298,6 @@ class GamificationService {
         $results = $stmt->fetchAll(\PDO::FETCH_ASSOC);
         return array_map(function ($e) use ($committerService) {
             $e = ['committer_name' => $committerService->getMostFrequentName($e['committer_id'])] + $e;
-            unset($e['committer_id']);
             return $e;
         }, $results);
     }
