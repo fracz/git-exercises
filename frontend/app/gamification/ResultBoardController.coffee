@@ -25,7 +25,7 @@ angular.module('git-exercises').component 'resultBoard',
             @currentSessionData = response.data
             newResults = response.board
 #            newResults = newResults.slice(0, 7)
-            oldPoints = @resultBoard.map((c) -> c.points).join('|')
+            oldPoints = @resultBoard.slice(0, 7).map((c) -> c.points).join('|')
             delete item.place for item in @resultBoard
             item.place = newResults.findIndex((i) -> i.committer_id is item.committer_id) for item in newResults
             item.place = newResults.findIndex((i) -> i.committer_id is item.committer_id) for item in @resultBoard
@@ -33,7 +33,7 @@ angular.module('git-exercises').component 'resultBoard',
             @resultBoard.push(item) for item in newResults when @resultBoard.findIndex((i) -> i.committer_id is item.committer_id) < 0
 #            @resultBoard.splice(7)
             angular.extend(item, newResults.find((i) -> i.committer_id is item.committer_id)) for item in @resultBoard
-            newPoints = @resultBoard.map((c) -> c.points).join('|')
+            newPoints = @resultBoard.slice(0, 7).map((c) -> c.points).join('|')
             @playSound() if newPoints != oldPoints
           .catch =>
             @fetchError = true
