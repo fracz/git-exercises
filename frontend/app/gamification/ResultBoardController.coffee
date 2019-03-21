@@ -42,7 +42,7 @@ angular.module('git-exercises').component 'resultBoard',
           .finally(=> $timeout(@fetch, 3000))
 
       playSound: =>
-        sound = if @sound == -1 then Math.floor(Math.random() * @sounds.length) else @sound
+        sound = if +@sound == -1 then Math.floor(Math.random() * @sounds.length) else @sound
         @sounds[sound].play()
 
       endCurrentSession: =>
