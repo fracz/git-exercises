@@ -11,6 +11,7 @@ angular.module('git-exercises').controller 'CommitterDetailsController', ($scope
   getDetails = ->
     CurrentCommitter.fetchData($stateParams.id).then (response) ->
       $scope.committerData = response
+      $scope.committerData.committerNameSafe = encodeURIComponent(response.committerName) if response?.committerName
 
   getDetails()
 

@@ -29,6 +29,12 @@
                  ng-if="availableExercises.length && committerData.passedExercises.length >= availableExercises.length">
                 <h2>Congratulations!</h2>
                 <p class="lead">You managed to pass all exercises!</p>
+                <p class="lead text-center" ng-if="committerData.committerNameSafe">
+                    <a ng-href="https://youaremighty.fracz.com/{{committerData.committerNameSafe}}">
+                        You Are Mighty!
+                        <span class="glyphicon glyphicon-new-window"></span>
+                    </a>
+                </p>
                 <p class="lead">Please find below a random kitten generated specially for you.</p>
                 <p class="text-center"><a href="http://thecatapi.com"><img
                         ng-src="http://thecatapi.com/api/images/get?format=src&type=gif"></a></p>

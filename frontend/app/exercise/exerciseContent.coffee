@@ -15,4 +15,4 @@ angular.module('git-exercises').directive 'exerciseContent', ($http, $state, $sc
         exerciseData.hint = $sce.trustAsHtml(exerciseData.hint) if exerciseData.hint
         $scope.exerciseData = exerciseData
 
-    $scope.isMe = not $scope.committerId or $scope.committerId is $scope.$root.currentCommitter.id
+    $scope.isMe = not $scope.committerId or $scope.committerId is $scope.$root.currentCommitter?.id
