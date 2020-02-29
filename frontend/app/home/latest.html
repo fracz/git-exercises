@@ -10,5 +10,5 @@
     <span attempt-result-icon="attempt" class="pull-right"></span>
     <strong>{{ attempt.exercise }}</strong>
     <span ng-if="!hideCommitterName">by <strong>{{ attempt.committer_name }}</strong></span><br>
-    <span class="text-muted">{{ attempt.timestamp | fromNow }}</span>
+    <span class="text-muted">{{ attempt.timestamp_formatted | fromNow }}</span>
 </script>
