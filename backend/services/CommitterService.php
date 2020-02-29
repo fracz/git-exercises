@@ -16,7 +16,7 @@ class CommitterService
 
     public function getAttempts($committerId, $maxCount = 15)
     {
-        return $this->query("SELECT exercise, passed is_passed, DATE_FORMAT(timestamp, '%Y-%m-%dT%TZ') timestamp
+        return $this->query("SELECT exercise, passed is_passed, timestamp, DATE_FORMAT(timestamp, '%Y-%m-%dT%TZ') timestamp_formatted
                       FROM attempt WHERE committer_id = :id ORDER BY timestamp DESC LIMIT 0, $maxCount", $committerId)
             ->fetchAll(\PDO::FETCH_ASSOC);
     }
