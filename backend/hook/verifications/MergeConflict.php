@@ -11,8 +11,9 @@ class MergeConflict extends AbstractVerification
         $mergeCommit = $this->ensureCommitsCount(4)[0];
         $parents = GitUtils::getParents($mergeCommit);
         $this->ensure(count($parents) == 2, 'The last commit should be a merge commit.');
-        $lines = $this->getFileContent($mergeCommit, 'file.txt');
-        $this->ensure(count($lines) == 1, 'You didn\'t resolve the conflict properly (too many lines).');
-        $this->ensure($lines[0] == 'Hola mundo', 'You didn\'t resolve the conflict properly (invalid content).');
+        $lines = $this->getFileContent($mergeCommit, 'equation.txt');
+        $this->ensure(count($lines) >= 1, 'You didn\'t resolve the conflict properly (too few lines).');
+        $equation = preg_replace('#\s+#', '', $lines[0]);
+        $this->ensure($equation == '2+3=5' || $equation == '3+2=5', 'You didn\'t resolve the conflict properly (expected 2+3=5 equation).');
     }
 }
