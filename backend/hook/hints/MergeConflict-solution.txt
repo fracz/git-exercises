@@ -1,4 +1,4 @@
-git merge fast-bugfix
-echo Hola mundo > file.txt
-git add file.txt
+git merge another-piece-of-work
+echo 2+3=5 > equation.txt
+git add equation.txt
 git commit --no-edit
