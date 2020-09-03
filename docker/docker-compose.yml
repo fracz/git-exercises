@@ -13,6 +13,7 @@ services:
       context: .
       args:
         GIT_REPO: ${GIT_REPO}
+        DOMAIN_NAME: ${DOMAIN_NAME}
     depends_on:
      - gitexercises-db
     logging:
