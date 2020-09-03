@@ -33,6 +33,7 @@ ADD ./apache-conf/000-default.conf /etc/apache2/sites-available
 RUN a2enmod rewrite expires deflate ssl cgi alias env headers
 
 ARG GIT_REPO
+ARG DOMAIN_NAME
 
 RUN mkdir git \
     && touch v4 \
@@ -42,7 +43,7 @@ RUN mkdir git \
     && ln -s /var/www/website/backend/hook/hook.php /var/www/git/exercises.git/hooks/update \
     && cp /var/www/website/docker/git-config git/exercises.git/config
 
-RUN sed -i '/REPLACE_ME/http://${DOMAIN_NAME}/' /var/www/website/app/home/startCommands.coffee
+RUN sed -i -r "s|REPLACE_ME|http:\/\/${DOMAIN_NAME}|g"  /var/www/website/frontend/app/home/startCommands.coffee
 
 WORKDIR /var/www/git/exercises.git
 RUN git checkout master && git branch -D verifications

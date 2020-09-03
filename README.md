@@ -53,7 +53,10 @@ To execute these instructions do
 
 ```bash
 # login to mysql running in docker container
-mysql -h localhost -P 3306 --protocol=tcp -u root <DB_NAME as defined in docker/.env>
+mysql -h localhost -P 3306 --protocol=tcp -u root 
+# in mysql shell 
+CREATE DATABASE <DB_NAME as defined in docker/.env>;
+USE <DB_NAME as defined in docker/.env>;
 # run the sql file
 source 'backend/schema/gitexercises.sql'
 
