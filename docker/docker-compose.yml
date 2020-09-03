@@ -5,15 +5,14 @@ services:
     container_name: ${COMPOSE_PROJECT_NAME}
     restart: unless-stopped
     networks: [default]
+    env_file:
+      - .env
     ports:
       - "${PORT_HTTP}:80"
     build:
       context: .
       args:
-        WWW_DATA_UID: ${UID}
-    volumes:
-      - ../:/var/www/website:z
-      - ./apache-conf:/etc/apache2/sites-available:z
+        GIT_REPO: ${GIT_REPO}
     depends_on:
      - gitexercises-db
     logging:
@@ -26,9 +25,10 @@ services:
     image: mysql
     networks: [default]
     environment:
-      MYSQL_ROOT_PASSWORD: ${DATABASE_PASSWORD}
-      MYSQL_DATABASE: gitexercises
-      MYSQL_USER: gitexercises
+      MYSQL_ALLOW_EMPTY_PASSWORD: "true"
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+      MYSQL_USER: ${DB_USER}
       MYSQL_PASSWORD: ${DATABASE_PASSWORD}
     volumes:
        - ${VOLUME_DATA}/mysql:/var/lib/mysql:z
