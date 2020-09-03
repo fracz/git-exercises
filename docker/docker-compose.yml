@@ -31,7 +31,7 @@ services:
       MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
       MYSQL_DATABASE: ${DB_NAME}
       MYSQL_USER: ${DB_USER}
-      MYSQL_PASSWORD: ${DATABASE_PASSWORD}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
     volumes:
        - ${VOLUME_DATA}/mysql:/var/lib/mysql:z
     logging:
