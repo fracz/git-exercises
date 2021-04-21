@@ -1,6 +1,6 @@
-## Push a commit you have made
+## Pousser un commit 
 
-The first exercise is to push a commit that is created when you run the `git start` command.
+Le premier exercice consiste à pousser un commit qui a été automatiquement créé par la commande `git start`.
 
-Just try `git verify` after you have initialized the exercises and be proud of passing the first one :-)
+Essayez `git verify` après avoir initialisé l'exercice et réjoùissez-vous de votre premier succès!
 
