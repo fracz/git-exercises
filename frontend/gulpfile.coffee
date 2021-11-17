@@ -30,10 +30,10 @@ gulp.task 'bowerdeps', ->
 
 gulp.task 'styles', ->
   gulp.src('app/css/style.scss')
-  .pipe $.sass
-    outputStyle: 'nested'
-    onError: (error) ->
-      $.util.log("SASS: #{error.message} at line #{error.line} column #{error.column} in #{error.file}")
+  .pipe $.dartSass()
+#    outputStyle: 'nested'
+#    onError: (error) ->
+#      $.util.log("SASS: #{error.message} at line #{error.line} column #{error.column} in #{error.file}")
   .pipe($.if(argv.production, $.minifyCss()))
   .pipe(gulp.dest("public"))
 
