@@ -15,7 +15,7 @@ use GitExercises\services\CommitterService;
 use GitExercises\services\GamificationService;
 use GitExercises\services\ShortIdService;
 
-define('DOMAIN', 'https://gitexercises.fracz.com');
+define('DOMAIN', 'http://' + getenv("DOMAIN_NAME"));
 
 $branch = $argv[1];
 $oldRev = $argv[2];
@@ -37,6 +37,10 @@ $gamificationService = new GamificationService($committerId);
 
 $possibleCommand = ucfirst(AbstractVerification::dashToCamelCase($exercise));
 $command = 'GitExercises\\hook\\commands\\' . $possibleCommand . 'Command';
+
+echo "just added \n";
+echo $command;
+
 if (class_exists($command)) {
     (new $command())->execute($committerId);
 } else {
