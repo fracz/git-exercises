@@ -34,7 +34,8 @@ services:
       MYSQL_USER: ${DB_USER}
       MYSQL_PASSWORD: ${DB_PASSWORD}
     volumes:
-       - ${VOLUME_DATA}/mysql:/var/lib/mysql:z
+       - /var/lib/mysql
+       - ../backend/schema/gitexercises.sql:/docker-entrypoint-initdb.d/gitexercises.sql
     logging:
       options:
         max-size: 50m
