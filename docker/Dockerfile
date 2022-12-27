@@ -1,10 +1,12 @@
-FROM php:7.1.26-apache
+FROM php:7.4.33-apache
+
 
 WORKDIR /var/www
 
-RUN apt-get update \
-    && curl -sL https://deb.nodesource.com/setup_6.x | bash - \
-    && apt-get install -y --no-install-recommends \
+RUN curl -sL https://deb.nodesource.com/setup_16.x | bash -
+
+RUN apt-get update
+RUN apt-get install -y --no-install-recommends \
       libicu-dev \
       libpq-dev \
       ca-certificates \
@@ -13,27 +15,30 @@ RUN apt-get update \
       git \
       unzip \
       nodejs \
-      zlib1g-dev \
-      nano \
-      iputils-ping \ 
-      mysql-server \
-    && update-ca-certificates \
-    && docker-php-ext-install \
+      libzip-dev
+
+RUN update-ca-certificates
+RUN docker-php-ext-install \
       pdo_mysql \
       opcache \
       curl \
-      zip \
-    && apt-get autoremove \
-    && rm -r /var/lib/apt/lists/* \
-    && curl -s https://getcomposer.org/installer  | php \
-    && mv composer.phar /usr/local/bin/composer
+      zip
 
-ADD ./apache-conf/000-default.conf /etc/apache2/sites-available
+RUN apt-get autoremove \
+    && rm -r /var/lib/apt/lists/*
 
 RUN a2enmod rewrite expires deflate ssl cgi alias env headers
 
 ARG GIT_REPO
 ARG DOMAIN_NAME
+
+RUN mkdir /var/www/website/
+
+COPY ./frontend /var/www/website/frontend
+COPY ./backend /var/www/website/backend
+
+WORKDIR /var/www/website/backend
+RUN composer install
 
 RUN mkdir git \
     && touch v4 \
@@ -47,9 +52,6 @@ RUN sed -i -r "s|REPLACE_ME|http:\/\/${DOMAIN_NAME}|g"  /var/www/website/fronten
 
 WORKDIR /var/www/git/exercises.git
 RUN git checkout master && git branch -D verifications
-
-WORKDIR /var/www/website/backend
-RUN composer install
 
 WORKDIR /var/www/website/frontend
 RUN npm install
