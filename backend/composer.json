@@ -1,5 +1,5 @@
 {
-    "name": "git-exercises",
+    "name": "fracz/git-exercises",
     "require": {
         "php": ">=5.5",
         "slim/slim": "2.6.2",

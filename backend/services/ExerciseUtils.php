@@ -35,7 +35,7 @@ class ExerciseUtils
 
     private static function getExerciseReadmeContent($id)
     {
-        exec("git show remotes/origin/$id:README.md", $contents);
+        exec("cd ". __DIR__ ."/../../../git/exercises.git && git show $id:README.md", $contents);
         return $contents;
     }
 

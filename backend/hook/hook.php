@@ -8,6 +8,7 @@ ini_set("log_errors", 1);
 ini_set("error_log", __DIR__ . "/../data/logs/hook-error.log");
 
 require __DIR__ . '/../vendor/autoload.php';
+require __DIR__ . '/../config.php';
 
 use GitExercises\hook\utils\ConsoleUtils;
 use GitExercises\hook\utils\GitUtils;
@@ -15,7 +16,7 @@ use GitExercises\services\CommitterService;
 use GitExercises\services\GamificationService;
 use GitExercises\services\ShortIdService;
 
-define('DOMAIN', 'http://' + getenv("DOMAIN_NAME"));
+define('DOMAIN', 'http://' . DOMAIN_NAME);
 
 $branch = $argv[1];
 $oldRev = $argv[2];
@@ -37,9 +38,6 @@ $gamificationService = new GamificationService($committerId);
 
 $possibleCommand = ucfirst(AbstractVerification::dashToCamelCase($exercise));
 $command = 'GitExercises\\hook\\commands\\' . $possibleCommand . 'Command';
-
-echo "just added \n";
-echo $command;
 
 if (class_exists($command)) {
     (new $command())->execute($committerId);
