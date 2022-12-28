@@ -1,2 +1,0 @@
-git add A.txt
-git commit -m "Commit A.txt file"

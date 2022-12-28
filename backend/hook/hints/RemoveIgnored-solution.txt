@@ -1,2 +1,0 @@
-git rm ignored.txt
-git commit -am "Remove the file that should have been ignored"

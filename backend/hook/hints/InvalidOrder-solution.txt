@@ -1,2 +1,0 @@
-git rebase -i HEAD~2
-# move the second commit up

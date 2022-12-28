@@ -65,8 +65,9 @@ RUN git clone --bare ${GIT_REPO} git/exercises.git
 # Copy the hints into the backend
 RUN cd git/exercises.git && \
 	git worktree add /tmp/hints hints && \
-	mv /tmp/hints /var/www/website/backend/hook/hints && \
-	git worktree prune
+	mv /tmp/hints/verifications /var/www/website/backend/hook/verifications && \
+	mv /tmp/hints/hints /var/www/website/backend/hook/hints && \
+	git worktree remove --force hints
 	
 RUN ln -s /var/www/website/backend/hook/hook.php git/exercises.git/hooks/update
 COPY ./docker/git-config git/exercises.git/config

@@ -1,5 +1,0 @@
-git reset HEAD^
-git add first.txt
-git commit -m "First.txt"
-git add second.txt
-git commit -m "Second.txt"

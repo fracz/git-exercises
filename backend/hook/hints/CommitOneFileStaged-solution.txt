@@ -1,2 +1,0 @@
-git reset A.txt
-git commit -m "Commit B.txt file"
