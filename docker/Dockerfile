@@ -58,7 +58,7 @@ COPY --from=backend_build /var/www/vendor website/backend/vendor
 COPY --from=frontend_build /app/ website/frontend/
 
 RUN mkdir git workingarea \
-    && touch v5
+    && touch v7
 
 # Get the exercises 
 RUN git clone --bare ${GIT_REPO} git/exercises.git
@@ -67,7 +67,7 @@ RUN cd git/exercises.git && \
 	git worktree add /tmp/hints verifications && \
 	mv /tmp/hints/verifications /var/www/website/backend/hook/verifications && \
 	mv /tmp/hints/hints /var/www/website/backend/hook/hints && \
-	git worktree remove --force verifications
+	git worktree remove --force /tmp/hints
 	
 RUN ln -s /var/www/website/backend/hook/hook.php git/exercises.git/hooks/update
 COPY ./docker/git-config git/exercises.git/config
