@@ -1,4 +1,0 @@
-git add -p file.txt
-# choose lines to include with 'y'
-git commit -m "First part of changes"
-git commit -am "The rest of the changed"

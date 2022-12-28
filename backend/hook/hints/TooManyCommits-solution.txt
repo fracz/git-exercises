@@ -1,2 +1,0 @@
-git rebase -i HEAD^^
-# "squash" or "fixup" the second commit
