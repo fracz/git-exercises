@@ -7,7 +7,7 @@
   "overrides": {
   	"graceful-fs": "^4.2.10"
   },
-  "devDpendencies": {
+  "devDependencies": {
     "coffee-script": "1.9.3",
     "del": "1.1.1",
     "gulp": "3.9.1",
