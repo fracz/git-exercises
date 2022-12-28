@@ -1,9 +1,28 @@
+# Backend build stage
+FROM composer:latest AS backend_build
+
+COPY backend/composer.json /var/www/
+RUN composer install -d /var/www/
+
+# Frontend build stage
+FROM node:lts-alpine as frontend_build
+ARG DOMAIN_NAME
+
+RUN apk add git
+
+COPY frontend /app/
+RUN sed -i -r "s|REPLACE_ME|https:\/\/${DOMAIN_NAME}|g"  /app/app/home/startCommands.coffee
+
+WORKDIR /app
+
+RUN npm install
+RUN npm install bower -g
+
+RUN bower --allow-root install
+RUN npm run-script dist
+
+# Production stage
 FROM php:7.4.33-apache
-
-
-WORKDIR /var/www
-
-RUN curl -sL https://deb.nodesource.com/setup_16.x | bash -
 
 RUN apt-get update
 RUN apt-get install -y --no-install-recommends \
@@ -14,7 +33,6 @@ RUN apt-get install -y --no-install-recommends \
       libcurl4-gnutls-dev \
       git \
       unzip \
-      nodejs \
       libzip-dev
 
 RUN update-ca-certificates
@@ -27,42 +45,36 @@ RUN docker-php-ext-install \
 RUN apt-get autoremove \
     && rm -r /var/lib/apt/lists/*
 
+COPY ./docker/apache-conf/000-default.conf /etc/apache2/sites-enabled/000-default.conf
 RUN a2enmod rewrite expires deflate ssl cgi alias env headers
 
 ARG GIT_REPO
-ARG DOMAIN_NAME
-
-RUN mkdir /var/www/website/
-
-COPY ./frontend /var/www/website/frontend
-COPY ./backend /var/www/website/backend
-
-WORKDIR /var/www/website/backend
-RUN composer install
-
-RUN mkdir git \
-    && touch v4 \
-    && mkdir workingarea \
-    && git clone --bare ${GIT_REPO} git/exercises.git   \
-    && git clone ${GIT_REPO} website  \
-    && ln -s /var/www/website/backend/hook/hook.php /var/www/git/exercises.git/hooks/update \
-    && cp /var/www/website/docker/git-config git/exercises.git/config
-
-RUN sed -i -r "s|REPLACE_ME|http:\/\/${DOMAIN_NAME}|g"  /var/www/website/frontend/app/home/startCommands.coffee
-
-WORKDIR /var/www/git/exercises.git
-RUN git checkout master && git branch -D verifications
-
-WORKDIR /var/www/website/frontend
-RUN npm install
-
-RUN npm install bower -g
-RUN bower --allow-root install
-RUN npm run-script dist
 
 WORKDIR /var/www
+RUN mkdir website
+
+COPY ./backend website/backend
+COPY --from=backend_build /var/www/vendor website/backend/vendor
+COPY --from=frontend_build /app/ website/frontend/
+
+RUN mkdir git workingarea \
+    && touch v5
+
+# Get the exercises 
+RUN git clone --bare ${GIT_REPO} git/exercises.git
+# Copy the hints into the backend
+RUN cd git/exercises.git && \
+	git worktree add /tmp/hints hints && \
+	mv /tmp/hints /var/www/website/backend/hook/hints && \
+	git worktree prune
+	
+RUN ln -s /var/www/website/backend/hook/hook.php git/exercises.git/hooks/update
+COPY ./docker/git-config git/exercises.git/config
+
+WORKDIR /var/www/git/exercises.git
+RUN git checkout master && git branch -D verifications hints
+
 ARG WWW_DATA_UID=1001
 RUN usermod --uid "$WWW_DATA_UID" www-data \
            && groupmod --gid "$WWW_DATA_UID" www-data \
            && chown -hR www-data:www-data /var/www
-RUN echo ${GIT_REPO}
