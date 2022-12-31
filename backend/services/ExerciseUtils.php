@@ -23,12 +23,12 @@ class ExerciseUtils
 
     public static function getExerciseSummary($id)
     {
-        return @file_get_contents(__DIR__ . "/../hook/hints/$name-summary.md");
+        return @file_get_contents(__DIR__ . "/../hook/hints/$id-summary.md");
     }
 
     public static function getExerciseHint($id)
     {
-        return @file_get_contents(__DIR__ . "/../hook/hints/$name-hint.md");
+        return @file_get_contents(__DIR__ . "/../hook/hints/$id-hint.md");
     }
 
     private static function getExerciseReadmeContent($id)
@@ -39,7 +39,7 @@ class ExerciseUtils
 
     public static function getExerciseSolution($id)
     {
-        return @file_get_contents(__DIR__ . "/../hook/hints/$name-solution.txt");
+        return @file_get_contents(__DIR__ . "/../hook/hints/$id-solution.txt");
     }
 
 }
