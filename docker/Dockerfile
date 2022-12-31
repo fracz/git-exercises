@@ -60,21 +60,20 @@ COPY --from=frontend_build /app/ website/frontend/
 RUN mkdir git workingarea \
     && touch v7
 
-# Get the exercises
-RUN git clone ${GIT_REPO} /tmp/exercises
+# Get the exercises 
+RUN git clone --bare ${GIT_REPO} git/exercises.git
 # Copy the hints and verifications into the backend
-RUN mkdir /var/www/git/exercises.git
-RUN mkdir /var/www/website/backend/hook/verifications
+RUN cd git/exercises.git && \
+	git worktree add /tmp/hints verifications && \
+	mv /tmp/hints/verifications /var/www/website/backend/hook/verifications && \
+	mv /tmp/hints/hints /var/www/website/backend/hook/hints && \
+	git worktree remove --force /tmp/hints
+	
+RUN ln -s /var/www/website/backend/hook/hook.php git/exercises.git/hooks/update
+COPY ./docker/git-config git/exercises.git/config
+
 WORKDIR /var/www/git/exercises.git
-COPY docker/init-exercises.sh .
-RUN ./init-exercises.sh
-RUN rm -rf /tmp/exercises docker/init-exercises.sh
-
-RUN mkdir hooks
-RUN ln -s /var/www/website/backend/hook/hook.php .git/hooks/update
-COPY ./docker/git-config .git/config
-
-RUN git checkout main
+RUN git checkout master && git branch -D verifications website
 
 ARG WWW_DATA_UID=1001
 RUN usermod --uid "$WWW_DATA_UID" www-data \
