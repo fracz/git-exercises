@@ -27,6 +27,6 @@ do
 
 	cp /tmp/exercises/exercises/$exercise/hint.md /var/www/website/backend/hook/hints/$exercise-hint.md || true
 	cp /tmp/exercises/exercises/$exercise/summary.md /var/www/website/backend/hook/hints/$exercise-summary.md || true
-	cp /tmp/exercises/exercises/$exercise/solution.md /var/www/website/backend/hook/hints/$exercise-solution.md || true
+	cp /tmp/exercises/exercises/$exercise/solution.txt /var/www/website/backend/hook/hints/$exercise-solution.txt || true
 	cp /tmp/exercises/exercises/$exercise/verification.php /var/www/website/backend/hook/verifications/$( dashToCamelCase $exercise ).php || true
 done
