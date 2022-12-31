@@ -17,6 +17,7 @@ git add start.sh && \
 git commit -m "Exercice base"
 
 cp /tmp/exercises/exercises/exercise-order.txt /var/www/website/backend/hook/
+shopt -s dotglob
 for exercise in $(cat /tmp/exercises/exercises/exercise-order.txt)
 do
 	git checkout exercise-base
