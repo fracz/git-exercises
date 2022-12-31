@@ -36,7 +36,7 @@ $committerId = $committerService->getCommitterId($committerEmail);
 $shortCommiterId = (new ShortIdService())->getShort($committerId);
 $gamificationService = new GamificationService($committerId);
 
-$possibleCommand = ucfirst(AbstractVerification::dashToCamelCase($exercise));
+$possibleCommand = ucfirst($exercise);
 $command = 'GitExercises\\hook\\commands\\' . $possibleCommand . 'Command';
 
 if (class_exists($command)) {
