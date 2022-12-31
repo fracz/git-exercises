@@ -21,14 +21,6 @@ abstract class AbstractVerification
         $this->doVerify();
     }
 
-    public function getSolution()
-    {
-        $solutionFile = __DIR__ . '/hints/' . get_class($this) . '-solution.txt';
-        if (file_exists($solutionFile)) {
-            return file_get_contents($solutionFile);
-        }
-    }
-
     protected abstract function doVerify();
 
     protected function ensure($condition, $errorMessage, array $formatVars = [])

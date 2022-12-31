@@ -12,6 +12,7 @@ require __DIR__ . '/../config.php';
 
 use GitExercises\hook\utils\ConsoleUtils;
 use GitExercises\hook\utils\GitUtils;
+use GitExercises\services\ExerciseUtils;
 use GitExercises\services\CommitterService;
 use GitExercises\services\GamificationService;
 use GitExercises\services\ShortIdService;
@@ -57,7 +58,7 @@ if (class_exists($command)) {
         try {
             $verifier->verify();
             echo ConsoleUtils::green('PASSED') . PHP_EOL;
-            $solution = $verifier->getSolution();
+            $solution = ExerciseUtils::getExerciseSolution($exercise);
             if ($solution) {
                 echo PHP_EOL . ConsoleUtils::pink('The easiest solution:') . PHP_EOL . trim($solution) . PHP_EOL . PHP_EOL;
             }
