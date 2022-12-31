@@ -29,11 +29,11 @@ $exerciseName = dashToCamelCase($exercise);
 if (!is_dir($repo)) {
     system('cd ' . __DIR__ . ' && git clone ' . REPO_URL . ' ' . LOCAL_DIR_NAME);
     run('git checkout verifications');
-    run('git branch -D master');
+    run('git branch -D main');
     run('git remote rm origin');
     run('git remote add origin ' . VERIFICATION_URL);
     run('git fetch origin');
-    run('git checkout master');
+    run('git checkout main');
     run('configure.sh');
 }
 

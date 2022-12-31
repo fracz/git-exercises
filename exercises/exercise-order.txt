@@ -1,4 +1,4 @@
-master
+main
 commit-one-file
 commit-one-file-staged
 ignore-them

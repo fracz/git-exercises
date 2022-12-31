@@ -83,7 +83,7 @@ class GitUtils
     {
         exec("git checkout -q $commitId");
         exec("git check-ignore -v $filename", $result, $status);
-        exec("git checkout -q master");
+        exec("git checkout -q main");
         if ($status) {
             return false;
         }
