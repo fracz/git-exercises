@@ -3,7 +3,8 @@
  * Copy this file into config.php and adjust values below to match your environment.
  */
 
-const DB_HOST = getenv("DB_HOST");
-const DB_NAME = getenv("DB_NAME");
-const DB_USER = getenv("DB_USER");
-const DB_PASSWORD = getenv("DB_PASSWORD");
+define('DB_HOST', getenv('DB_HOST'));
+define('DB_NAME', getenv('DB_NAME'));
+define('DB_USER', getenv('DB_USER'));
+define('DB_PASSWORD', getenv('DB_PASSWORD'));
+define('DOMAIN_NAME', getenv('DOMAIN_NAME'));
