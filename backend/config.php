@@ -7,3 +7,4 @@ const DB_HOST = getenv("DB_HOST");
 const DB_NAME = getenv("DB_NAME");
 const DB_USER = getenv("DB_USER");
 const DB_PASSWORD = getenv("DB_PASSWORD");
+const DOMAIN_NAME = 'git-exercises.example.com';

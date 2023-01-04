@@ -17,6 +17,8 @@ services:
       args:
         GIT_REPO: ${GIT_REPO}
         DOMAIN_NAME: ${DOMAIN_NAME}
+        SITE_ADMIN_NAME: ${SITE_ADMIN_NAME}
+        SITE_ADMIN_EMAIL: ${SITE_ADMIN_EMAIL}
     depends_on:
      - gitexercises-db
     logging:
