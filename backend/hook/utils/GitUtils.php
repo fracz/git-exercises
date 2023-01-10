@@ -48,9 +48,9 @@ class GitUtils
      * @param $commitId
      * @return array indexed by filenames, values are operations (M, A, D)
      */
-    public static function getChangedFiles($commitId)
+    public static function getChangedFiles($commitId, $secondCommitId="")
     {
-        exec("git diff-tree --no-commit-id --name-status -r $commitId", $changes);
+        exec("git diff-tree --no-commit-id --name-status -r $commitId $secondCommitId", $changes);
         $changedFiles = [];
         foreach ($changes as $change) {
             $data = explode("\t", $change);
