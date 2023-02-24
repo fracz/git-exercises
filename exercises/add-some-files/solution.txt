@@ -1,0 +1,1 @@
+git add A.txt B.txt C.txt
