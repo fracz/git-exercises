@@ -1,7 +1,6 @@
-## Change a letter case in the filename of an already tracked file
+## Commit one file
+There are two files created in the root project directory - `A.txt` and `B.txt`.
 
-You have committed a `File.txt` but then you realized the filename should
-be all lowercase: `file.txt`. Change the filename.
+The goal is to commit only one of them.
 
-This one is tricky on Windows, or in any filesystem that treats `File.txt`
-and `file.txt` as the same files.
+NOTE: Remember that you can submit your solutions with `git verify` command instead of `git push`.

@@ -1,0 +1,3 @@
+# fix the typo in the file
+git commit -a --amend
+# fix the typo in commit message

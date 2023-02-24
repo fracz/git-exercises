@@ -1,0 +1,2 @@
+git mv File.txt file.txt
+git commit -am "Lowercase file.txt"
