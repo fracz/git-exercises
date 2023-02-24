@@ -1,0 +1,59 @@
+{
+  "name": "git-exercises",
+  "homepage": "http://git-exercises.com",
+  "authors": [
+    "Wojciech Frącz <fraczwojciech@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap-sass": "3.3.6",
+    "angular": "1.5.0",
+    "angular-ui-router": "0.2.18",
+    "jquery": "2.2.1",
+    "moment": "2.11.2",
+    "js-sha1": "0.3.0",
+    "angular-bootstrap": "1.1.2",
+    "bootstrap": "3.3.6",
+    "angular-cookie": "4.1.0",
+    "angular-clipboard": "1.3.0",
+    "ui-router-metatags": "1.0.3"
+  },
+  "resolutions": {
+    "angular": "1.5.0"
+  },
+  "overrides": {
+    "angular": {
+      "dependencies": {
+        "jquery": "*"
+      }
+    },
+    "angular-bootstrap": {
+      "main": "ui-bootstrap-tpls.js"
+    },
+    "bootstrap": {
+      "main": [
+        "./dist/fonts/glyphicons-halflings-regular.eot",
+        "./dist/fonts/glyphicons-halflings-regular.svg",
+        "./dist/fonts/glyphicons-halflings-regular.ttf",
+        "./dist/fonts/glyphicons-halflings-regular.woff",
+        "./dist/fonts/glyphicons-halflings-regular.woff2"
+      ]
+    },
+    "font-awesome": {
+      "main": [
+        "./css/font-awesome.css",
+        "./fonts/*"
+      ]
+    }
+  }
+}

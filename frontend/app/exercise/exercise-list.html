@@ -1,0 +1,14 @@
+<div class="row">
+    <div class="col-md-9" ui-view></div>
+    <div class="col-md-3">
+        <div class="list-group">
+            <a ui-sref-active="active"
+               ui-sref="exercise.details({id: exercise})"
+               class="list-group-item"
+               ng-repeat="exercise in exercises">
+                {{ exercise }}
+                <span passed-icon="exercise" class="pull-right"></span>
+            </a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,31 @@
+<div>
+    <div class="jumbotron hidden-xs">
+        <div class="row form-group">
+            <div class="col-sm-6">
+                <input type="text" class="form-control" placeholder="Your name here" ng-model="you.name">
+            </div>
+            <div class="col-sm-6">
+                <input type="text" class="form-control" placeholder="Your e-mail here" ng-model="you.email">
+            </div>
+        </div>
+        <pre>{{ commands() }}</pre>
+        <div class="code-copy-button" ng-if="you.email">
+            <div class="btn-group">
+                <button clipboard text="commands()" class="btn" ng-class="copied ? 'btn-success' : 'btn-default'"
+                        on-copied="copied = true">
+                    <span class="glyphicon" ng-class="copied ? 'glyphicon-ok' : 'glyphicon-copy'"></span>
+                    {{ copied ? 'Copied' : 'Copy' }}
+                </button>
+                <a class="btn btn-default" ng-if="!committerId"
+                   ui-sref="committer({id: (you.email | sha1), email: you.email, name: you.name})">
+                    <span class="glyphicon glyphicon-stats"></span>
+                    Show my results
+                </a>
+            </div>
+        </div>
+    </div>
+    <p class="lead visible-xs">
+        You will need a PC first :-)
+        <span class="small">... or a wider screen!</span>
+    </p>
+</div>

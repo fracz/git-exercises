@@ -1,0 +1,45 @@
+version: '3'
+
+services:
+  gitexercises:
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      DB_HOST: ${DB_HOST}
+      DB_NAME: ${DB_NAME}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DOMAIN_NAME: ${DOMAIN_NAME}
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+      args:
+        GIT_REPO: ${GIT_REPO}
+        DOMAIN_NAME: ${DOMAIN_NAME}
+        SITE_ADMIN_NAME: ${SITE_ADMIN_NAME}
+        SITE_ADMIN_EMAIL: ${SITE_ADMIN_EMAIL}
+    depends_on:
+     - gitexercises-db
+    logging:
+      options:
+        max-size: 50m
+
+  gitexercises-db:
+    restart: unless-stopped
+    image: mysql
+    env_file:
+      - .env
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "true"
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_NAME}
+    volumes:
+       - /var/lib/mysql
+       - ../backend/schema/gitexercises.sql:/docker-entrypoint-initdb.d/gitexercises.sql
+    logging:
+      options:
+        max-size: 50m
+
+networks:
+  default: ~

@@ -1,0 +1,14 @@
+<div class="list-group latest">
+    <a ng-if="!hideCommitterName" ui-sref="committer({id: attempt.committer_id, remember: false})"
+       class="list-group-item"
+       ng-repeat="attempt in latest" ng-include="'latest-item.html'"></a>
+    <a ng-if="hideCommitterName" ui-sref="exercise.details({id: attempt.exercise})"
+       class="list-group-item"
+       ng-repeat="attempt in latest" ng-include="'latest-item.html'"></a>
+</div>
+<script type="text/ng-template" id="latest-item.html">
+    <span attempt-result-icon="attempt" class="pull-right"></span>
+    <strong>{{ attempt.exercise }}</strong>
+    <span ng-if="!hideCommitterName">by <strong>{{ attempt.committer_name }}</strong></span><br>
+    <span class="text-muted">{{ attempt.timestamp_formatted | fromNow }}</span>
+</script>

@@ -1,0 +1,187 @@
+.state-gamification {
+  background: white;
+  color: black;
+  font-size: 22px;
+  .navbar, footer {
+    display: none;
+  }
+  > .container {
+    width: 100%;
+  }
+  ol {
+
+  }
+  .activity-points, .bg-image {
+    display: none;
+  }
+  .result-board {
+    width: 100%;
+    position: relative;
+  }
+  .gamification-form {
+    background: lightgreen;
+    padding: 10px;
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    width: 420px;
+    &.error {
+      background: lightcoral;
+    }
+  }
+  .list {
+    .activity-points, .name, .tasks, .total {
+      display: inline-block;
+    }
+    .total, .tasks { color: #AAA; }
+    .total:before { content: 'Punkty: '; }
+    .tasks:before { content: 'Zadania: '; }
+    .names { display: none; }
+  }
+  .podium {
+    text-align: center;
+    .bg-image.podium-image {
+      display: inline;
+    }
+    .points {
+      li {
+        .name {
+          font-size: 1.1em;
+        }
+        &.place-0 {
+          width: 600px;
+          left: 50%;
+          top: 0;
+          margin-left: -300px;
+          text-align: center;
+          font-size: 2em;
+          font-weight: bold;
+          .name {
+            font-size: 1.1em;
+          }
+        }
+        &.place-1 {
+          font-size: 1.7em;
+          top: 160px;
+          width: 350px;
+          left: 50%;
+          margin-left: -480px;
+        }
+        &.place-2 {
+          font-size: 1.3em;
+          top: 270px;
+          width: 350px;
+          left: 50%;
+          margin-left: 170px;
+        }
+        @for $i from 3 through 50 {
+          &.place-#{$i} {
+            width: 100%;
+            top: 600px + ($i - 3) * 50px;
+            left: 0;
+            opacity: 1-($i - 3)/10;
+            .total, .tasks, .name {
+              display: inline-block;
+            }
+          }
+        }
+      }
+    }
+    img {
+      margin-top: 200px;
+      width: 850px;
+      height: 400px;
+    }
+    ol {
+      padding: 0;
+      display: block;
+      list-style-type: none;
+      li {
+        position: absolute;
+        transition: all .5s;
+      }
+    }
+    .names {
+      display: none;
+    }
+  }
+  .evolution {
+    .bg-image.evolution-image {
+      display: inline;
+    }
+    img {
+      width: 100%;
+    }
+    .points {
+      width: 100%;
+      position: absolute;
+      ol li {
+        vertical-align: top;
+        $margins: 10% 5% 3% 2% 5.5% 7.5% 15%;
+        @for $i from 1 through length($margins) {
+          $margin: nth($margins, $i);
+          &.place-#{$i - 1} {
+            margin-top: $margin;
+          }
+        }
+      }
+    }
+    ol {
+      list-style-type: none;
+      position: relative;
+      width: 100%;
+      li {
+        position: absolute;
+        display: inline-block;
+        text-align: center;
+        vertical-align: middle;
+        padding: 0 5px;
+        overflow: hidden;
+        word-wrap: break-word;
+        //border: 1px solid red;
+        $widths: 24% 12% 12% 11% 12% 10% 17%;
+        $used: 1%;
+        @for $i from 1 through length($widths) {
+          $width: nth($widths, $i);
+          &.place-#{$i - 1} {
+            width: $width;
+            left: $used;
+          }
+          $used: $used + $width;
+        }
+        //@debug $used;
+        @for $i from length($widths) through 50 {
+          &.place-#{$i} {
+            display: none;
+          }
+        }
+        &.place-0 {
+          font-size: 2.5em;
+          font-weight: bold;
+        }
+        &.place-1 {
+          font-size: 2em;
+        }
+        &.place-2 {
+          font-size: 1.5em;
+        }
+      }
+    }
+    .points {
+      .name, .tasks {
+        display: none;
+      }
+    }
+    .names {
+      .total {
+        display: none;
+      }
+    }
+  }
+  .passed {
+    color: green
+  }
+  .failed {
+    color: darkred;
+  }
+}

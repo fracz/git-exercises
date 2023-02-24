@@ -1,0 +1,9 @@
+<div ng-if="hint" class="jumbotron" ng-class="displayHint() ? 'bg-info' : 'hidden-hint'">
+    <h2>Hint</h2>
+    <p ng-if="displayHint()"
+       ng-bind-html="hint"></p>
+    <p ng-if="!displayHint()">
+        You need to <span ng-if="$root.currentCommitter.attempts.length">either wait 5 minutes from your last solution or</span>
+        submit at least one wrong solution for this exercise to see a hint.
+    </p>
+</div>

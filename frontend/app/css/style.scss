@@ -1,0 +1,82 @@
+@import "darky";
+
+$font-size-base: 17px;
+$icon-font-path: '/libs/bootstrap/dist/fonts/';
+@import "../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap";
+
+.ng-cloak {
+  display: none;
+}
+
+.home {
+  p {
+    margin-bottom: 2em;
+  }
+  img.intro {
+    max-width: 100%;
+  }
+}
+
+.jumbotron {
+  padding: 25px !important;
+  pre {
+    padding: 0;
+    background: transparent;
+    color: $text-color;
+    border: 0;
+    font-size: 1.35em;
+  }
+  &.bg-info {
+    background-color: $alert-info-bg;
+  }
+  &.bg-danger {
+    background-color: $alert-danger-bg;
+  }
+}
+
+.latest {
+  a {
+    color: white;
+    .attempt-result-icon {
+      font-size: 1.3em;
+    }
+  }
+}
+
+.committer-details {
+  table {
+    font-size: 1.1em;
+  }
+  .progress {
+    background-color: #777777;
+  }
+}
+
+code {
+  background: transparent;
+  border: 0;
+  color: lightgoldenrodyellow;
+}
+
+.code-copy-button {
+  position: relative;
+  > button, > .btn-group {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+  }
+}
+
+.hidden-hint {
+  opacity: .5;
+}
+
+.text-success {
+  color: #00bc8c;
+}
+
+.text-danger {
+  color: #e74c3c;
+}
+
+@import "gamification";

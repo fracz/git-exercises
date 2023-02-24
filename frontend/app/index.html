@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pl" ng-app="git-exercises">
+<head>
+    <meta charset="utf-8">
+    <meta name="fragment" content="!">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title ng-bind="MetaTags.title">Git Exercises</title>
+    <meta name="prerender-status-code" content="{{MetaTags.prerender.statusCode}}">
+    <!--<link rel="shortcut icon" type="image/ico" href="/favicon.ico">-->
+    <base href="/"/>
+    <!-- bower:css -->
+    <!-- endinject -->
+    <!-- app:css -->
+    <!-- endinject -->
+</head>
+<body class="ng-cloak" state-based-css-class>
+
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Git exercises</a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li ui-sref-active="active"><a ui-sref="home">Home</a></li>
+                <li ui-sref-active="active">
+                    <a ui-sref="exercise">
+                        Exercises
+                        <span class="badge" ng-if="availableExercises.length">{{ availableExercises.length }}</span>
+                    </a>
+                </li>
+                <li ng-if="currentCommitter.id" ui-sref-active="active">
+                    <a ui-sref="committer({id: currentCommitter.id})">
+                        My progress
+                        <span class="badge">{{ currentCommitter.passedExercises.length || 0 }}</span>
+                    </a>
+                </li>
+                <li ui-sref-active="active"><a ui-sref="faq">FAQ</a></li>
+                <li ui-sref-active="active"><a ui-sref="cheatsheet">Cheatsheet</a></li>
+                <li><a href="https://github.com/fracz/git-exercises">Github</a></li>
+            </ul>
+            <form class="navbar-form navbar-right" role="search" ng-controller="CommitterSearchController"
+                  ng-submit="search()">
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="Your e-mail address" ng-model="committerEmail">
+                </div>
+                <button type="submit" class="btn btn-default">Show my progress</button>
+            </form>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <div ui-view></div>
+</div>
+
+<footer class="footer">
+    <div class="container">
+        <p class="text-center text-muted small">
+            Made with
+            <span class="glyphicon glyphicon-heart text-danger" title="love"></span>
+            for git by Wojciech Frącz and Jacek Dajda
+            at AGH University of Science and Technology
+        </p>
+        <p class="text-center">
+            <a href="https://www.paypal.me/fracz/10" target="_blank"><img src="/images/badge.svg" alt="Buy me a coffee"></a>
+        </p>
+    </div>
+</footer>
+
+<!-- bower:js -->
+<!-- endinject -->
+<!-- app:js -->
+<!-- endinject -->
+<script src="/analytics.js"></script>
+</body>
+</html>

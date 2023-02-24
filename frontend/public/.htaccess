@@ -1,0 +1,18 @@
+RewriteEngine On
+
+# Put this in vhost configuration:
+# RequestHeader set X-Prerender-Token "YOUR_PRERENDER_TOKEN"
+
+# /index.php to /
+RewriteCond %{THE_REQUEST} ^.*/index\.php
+RewriteRule ^(.*)index.php$ /$1 [R=301,L]
+
+# Don't rewrite files
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteRule ^ - [L]
+
+# Rewrite API calls to api.php
+RewriteRule ^api api.php [QSA,L]
+
+# Rewrite everything else to index.html to allow html5 state links
+RewriteRule ^ index.html [L]
