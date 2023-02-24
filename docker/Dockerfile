@@ -52,12 +52,14 @@ ARG GIT_REPO
 ARG SITE_ADMIN_NAME
 ARG SITE_ADMIN_EMAIL
 
+RUN chown www-data:www-data /var/www
+USER www-data
 WORKDIR /var/www
 RUN mkdir website
 
-COPY ./backend website/backend
-COPY --from=backend_build /var/www/vendor website/backend/vendor
-COPY --from=frontend_build /app/ website/frontend/
+COPY --chown=www-data:www-data ./backend website/backend
+COPY --chown=www-data:www-data --from=backend_build /var/www/vendor website/backend/vendor
+COPY --chown=www-data:www-data --from=frontend_build /app/ website/frontend/
 
 RUN mkdir git workingarea
 
@@ -77,7 +79,3 @@ COPY ./docker/git-config .git/config
 
 RUN git checkout main
 
-ARG WWW_DATA_UID=1001
-RUN usermod --uid "$WWW_DATA_UID" www-data \
-           && groupmod --gid "$WWW_DATA_UID" www-data \
-           && chown -hR www-data:www-data /var/www
