@@ -61,10 +61,11 @@ COPY --chown=www-data:www-data ./backend website/backend
 COPY --chown=www-data:www-data --from=backend_build /var/www/vendor website/backend/vendor
 COPY --chown=www-data:www-data --from=frontend_build /app/ website/frontend/
 
-RUN mkdir git workingarea
+RUN mkdir -p website/backend/hook/hints website/backend/hook/verifications git workingarea
 
 # Get the exercises
-RUN git clone ${GIT_REPO} /tmp/exercises
+COPY --chown=www-data:www-data exercises/ /tmp/exercises/
+RUN [ -z "${GIT_REPO}" ] || (rm -rf /tmp/exercises && git clone ${GIT_REPO} /tmp/)
 # Copy the hints and verifications into the backend
 RUN mkdir /var/www/git/exercises.git
 
