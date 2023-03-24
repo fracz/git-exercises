@@ -1,2 +1,2 @@
-git config user.name "Real Name"
-git config user.email "realname@gitmail.com"
+git config user.name "bob"
+git config user.email "bob@test.com"

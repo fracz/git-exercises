@@ -1,7 +1,7 @@
 # Auto-fixing
 while read eq
 do
-	if [ "$(echo $eq|sed 's/=/==/'| bc)" = "1" ]
+	if [ "$(echo $eq|sed 's/=/==/'| bc 2>/dev/null)" = "1" ]
 	then
 		echo $eq
 	fi
@@ -10,7 +10,7 @@ mv additions_2.txt additions.txt
 
 while read eq
 do
-	if [ "$(echo $eq|sed 's/=/==/'| bc)" = "1" ]
+	if [ "$(echo $eq|sed 's/=/==/'| bc 2>/dev/null)" = "1" ]
 	then
 		echo $eq
 	fi
@@ -19,4 +19,4 @@ mv subs_2.txt subs.txt
 
 # Validation
 git add additions.txt subs.txt
-git merge --continue
+git commit --no-edit

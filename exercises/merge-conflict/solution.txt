@@ -1,4 +1,4 @@
 git merge another-piece-of-work
-echo print("2 + 3 = 5") > equation.txt
+echo 'print("2 + 3 = 5")' > equation.txt
 git add equation.txt
 git merge --continue
