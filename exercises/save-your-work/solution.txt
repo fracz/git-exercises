@@ -1,0 +1,7 @@
+git stash
+# fix a bug
+sed -i '4d' bug.txt
+git commit -am "Fix a bug"
+git stash pop
+echo "Finally, finished it!" >> bug.txt
+git commit -am "Finish my work"

@@ -1,0 +1,22 @@
+# Auto-fixing
+while read eq
+do
+	if [ "$(echo $eq|sed 's/=/==/'| bc 2>/dev/null)" = "1" ]
+	then
+		echo $eq
+	fi
+done < additions.txt | uniq > additions_2.txt
+mv additions_2.txt additions.txt
+
+while read eq
+do
+	if [ "$(echo $eq|sed 's/=/==/'| bc 2>/dev/null)" = "1" ]
+	then
+		echo $eq
+	fi
+done < subs.txt | uniq > subs_2.txt
+mv subs_2.txt subs.txt
+
+# Validation
+git add additions.txt subs.txt
+git commit --no-edit

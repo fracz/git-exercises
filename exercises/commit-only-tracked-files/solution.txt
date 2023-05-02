@@ -1,0 +1,2 @@
+git add -u .
+git commit -m "only tracked files"

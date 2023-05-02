@@ -1,0 +1,4 @@
+# fix the typo in the file
+sed -i 's/wordl/world/g' file.txt
+# fix the typo in commit message
+git commit -a --amend -m "Add Hello world"

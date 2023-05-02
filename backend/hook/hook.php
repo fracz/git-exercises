@@ -8,14 +8,16 @@ ini_set("log_errors", 1);
 ini_set("error_log", __DIR__ . "/../data/logs/hook-error.log");
 
 require __DIR__ . '/../vendor/autoload.php';
+require __DIR__ . '/../config.php';
 
 use GitExercises\hook\utils\ConsoleUtils;
 use GitExercises\hook\utils\GitUtils;
+use GitExercises\services\ExerciseUtils;
 use GitExercises\services\CommitterService;
 use GitExercises\services\GamificationService;
 use GitExercises\services\ShortIdService;
 
-define('DOMAIN', 'https://gitexercises.fracz.com');
+define('DOMAIN', 'http://' . DOMAIN_NAME);
 
 $branch = $argv[1];
 $oldRev = $argv[2];
@@ -35,8 +37,9 @@ $committerId = $committerService->getCommitterId($committerEmail);
 $shortCommiterId = (new ShortIdService())->getShort($committerId);
 $gamificationService = new GamificationService($committerId);
 
-$possibleCommand = ucfirst(AbstractVerification::dashToCamelCase($exercise));
+$possibleCommand = ucfirst($exercise);
 $command = 'GitExercises\\hook\\commands\\' . $possibleCommand . 'Command';
+
 if (class_exists($command)) {
     (new $command())->execute($committerId);
 } else {
@@ -55,7 +58,7 @@ if (class_exists($command)) {
         try {
             $verifier->verify();
             echo ConsoleUtils::green('PASSED') . PHP_EOL;
-            $solution = $verifier->getSolution();
+            $solution = ExerciseUtils::getExerciseSolution($exercise);
             if ($solution) {
                 echo PHP_EOL . ConsoleUtils::pink('The easiest solution:') . PHP_EOL . trim($solution) . PHP_EOL . PHP_EOL;
             }

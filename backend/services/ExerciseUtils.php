@@ -23,32 +23,23 @@ class ExerciseUtils
 
     public static function getExerciseSummary($id)
     {
-        $name = self::dashToCamelCase($id);
-        return @file_get_contents(__DIR__ . "/../hook/hints/$name-summary.md");
+        return @file_get_contents(__DIR__ . "/../hook/hints/$id-summary.md");
     }
 
     public static function getExerciseHint($id)
     {
-        $name = self::dashToCamelCase($id);
-        return @file_get_contents(__DIR__ . "/../hook/hints/$name-hint.md");
+        return @file_get_contents(__DIR__ . "/../hook/hints/$id-hint.md");
     }
 
     private static function getExerciseReadmeContent($id)
     {
-        exec("git show remotes/origin/$id:README.md", $contents);
+        exec("cd ". __DIR__ ."/../../../git/exercises.git && git show $id:README.md", $contents);
         return $contents;
     }
 
     public static function getExerciseSolution($id)
     {
-        $name = self::dashToCamelCase($id);
-        return @file_get_contents(__DIR__ . "/../hook/hints/$name-solution.txt");
+        return @file_get_contents(__DIR__ . "/../hook/hints/$id-solution.txt");
     }
 
-    private static function dashToCamelCase($name)
-    {
-        return ucfirst(preg_replace_callback('/-(.?)/', function ($matches) {
-            return ucfirst($matches[1]);
-        }, $name));
-    }
 }

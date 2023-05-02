@@ -2,36 +2,40 @@ version: '3'
 
 services:
   gitexercises:
-    container_name: ${COMPOSE_PROJECT_NAME}
     restart: unless-stopped
-    networks: [default]
-    ports:
-      - "${PORT_HTTP}:80"
+    environment:
+      DB_HOST: gitexercises-db
+      DB_NAME: gitexercises
+      DB_USER: ${DB_USER:-gitexercises}
+      DB_PASSWORD: ${DB_PASSWORD:-gitexercises}
+      DOMAIN_NAME: ${DOMAIN_NAME:-gitexercises.com}
     build:
-      context: .
+      context: ..
+      dockerfile: docker/Dockerfile
       args:
-        WWW_DATA_UID: ${UID}
-    volumes:
-      - ../:/var/www/website:z
-      - ./apache-conf:/etc/apache2/sites-available:z
+        GIT_REPO: ${GIT_REPO:-}
+        DOMAIN_NAME: ${DOMAIN_NAME:-gitexercises.com}
+        SITE_ADMIN_NAME: ${SITE_ADMIN_NAME:-Gitexercises Admin}
+        SITE_ADMIN_EMAIL: ${SITE_ADMIN_EMAIL:-admin@gitexercises.com}
     depends_on:
      - gitexercises-db
+    ports:
+     - ${PORT_HTTP}:80
     logging:
       options:
         max-size: 50m
 
   gitexercises-db:
-    container_name: ${COMPOSE_PROJECT_NAME}-db
     restart: unless-stopped
     image: mysql
-    networks: [default]
     environment:
-      MYSQL_ROOT_PASSWORD: ${DATABASE_PASSWORD}
+      MYSQL_ALLOW_EMPTY_PASSWORD: 1
+      MYSQL_USER: ${DB_USER:-gitexercises}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-gitexercises}
       MYSQL_DATABASE: gitexercises
-      MYSQL_USER: gitexercises
-      MYSQL_PASSWORD: ${DATABASE_PASSWORD}
     volumes:
-       - ${VOLUME_DATA}/mysql:/var/lib/mysql:z
+       - /var/lib/mysql
+       - ../backend/schema/gitexercises.sql:/docker-entrypoint-initdb.d/gitexercises.sql
     logging:
       options:
         max-size: 50m

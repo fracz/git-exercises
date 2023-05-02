@@ -17,7 +17,7 @@ class CommitterController extends AbstractController
             $result['passedExercises'] = $this->getApp()->committerService->getPassedExercises($id);
             $result['nextExercise'] = $this->getApp()->committerService->suggestNextExercise($result['passedExercises']);
         } else {
-            $result['nextExercise'] = 'master';
+            $result['nextExercise'] = 'main';
             $result['passedExercises'] = [];
         }
         return $result;

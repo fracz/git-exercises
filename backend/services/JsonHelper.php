@@ -15,7 +15,7 @@ class JsonHelper
 
     public static function toJson($content)
     {
-        return ")]}',\n" . json_encode($content);
+        return json_encode($content);
     }
 
     private static function prepareDataToSend($content)
