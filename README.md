@@ -13,4 +13,4 @@ You want to have all these features as single commits in `pick-your-features` br
                          |
                   pick-your-features
                          |
-    Z <--- A <--- B <--- C
+    Z <--- C <--- B <--- A
