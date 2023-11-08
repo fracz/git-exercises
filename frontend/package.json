@@ -2,7 +2,8 @@
   "name": "git-exercises",
   "version": "0.0.0",
   "scripts": {
-    "dist": "gulp --production"
+    "dist": "gulp --production",
+    "install": "bower install --allow-root"
   },
   "devDependencies": {
     "coffee-script": "1.9.3",
@@ -26,5 +27,11 @@
     "main-bower-files": "2.7.0",
     "run-sequence": "1.0.2",
     "yargs": "3.8.0"
+  },
+  "dependencies": {
+    "bower": "^1.8.14"
+  },
+  "overrides": {
+    "graceful-fs": "^4.2.11"
   }
 }
