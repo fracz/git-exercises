@@ -33,6 +33,7 @@ RUN . "$NVM_DIR/nvm.sh" && nvm install ${NODE_VERSION}
 RUN . "$NVM_DIR/nvm.sh" && nvm use v${NODE_VERSION}
 RUN . "$NVM_DIR/nvm.sh" && nvm alias default v${NODE_VERSION}
 ENV PATH="/root/.nvm/versions/node/v${NODE_VERSION}/bin/:${PATH}"
+RUN npm install -g bower
 
 RUN mkdir git \
     && touch v4 \
@@ -52,6 +53,7 @@ RUN usermod --uid "$WWW_DATA_UID" www-data \
            && chown -hR www-data:www-data /var/www
 
 # After first install, run:
-# docker compose exec gitexercises sh -c "cd website/backend && composer install"
-# docker compose exec gitexercises sh -c "cd website/frontend && npm install"
+# docker compose exec gitexercises sh -c "cd website/backend && composer install --optimize-autoloader"
+# docker compose exec gitexercises sh -c "cd website/frontend && npm ci"
+# docker compose exec gitexercises sh -c "cd website/frontend && bower install"
 # docker compose exec gitexercises sh -c "cd website/frontend && npm run dist"
