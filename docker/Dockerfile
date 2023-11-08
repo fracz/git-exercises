@@ -57,3 +57,4 @@ RUN usermod --uid "$WWW_DATA_UID" www-data \
 # docker compose exec gitexercises sh -c "cd website/frontend && npm ci"
 # docker compose exec gitexercises sh -c "cd website/frontend && bower install"
 # docker compose exec gitexercises sh -c "cd website/frontend && npm run dist"
+# docker compose exec gitexercises sh -c "chown -hR www-data:www-data /var/www"
