@@ -19,7 +19,7 @@ RUN apt-get update \
       opcache \
       curl \
       zip \
-    && apt-get autoremove \
+    && apt-get -y autoremove \
     && rm -r /var/lib/apt/lists/*
 
 RUN a2enmod rewrite expires deflate ssl cgi alias env headers

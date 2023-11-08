@@ -7,3 +7,4 @@ const DB_HOST = 'localhost';
 const DB_NAME = 'pkc';
 const DB_USER = 'php';
 const DB_PASSWORD = '';
+const DB_PORT = 3306;
