@@ -14,3 +14,4 @@ git config --local alias.exercises "! git push origin master:exercises 2>&1 | se
 git config --local push.default current
 
 echo "OK"
+ # this is the changes made for the practice.
