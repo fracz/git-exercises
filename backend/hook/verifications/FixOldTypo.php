@@ -8,6 +8,6 @@ class FixOldTypo extends FixTypo
         $commits = $this->ensureCommitsCount(2);
         $this->verifyTypoIsFixed($commits[1]);
         $fileContent = implode(' ', $this->getFileContent($commits[0], 'file.txt'));
-        $this->ensure($fileContent == 'Hello world Hello world is an excellent program.', "You haven't resolved the conflict correctly.");
+        $this->ensure($fileContent == 'Hello world is an excellent program.', "You haven't resolved the conflict correctly.");
     }
 }
