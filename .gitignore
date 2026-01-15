@@ -1,2 +1,11 @@
-var/
-.*
+# Ignore all files with exe extension
+*.exe
+
+# Ignore all files with o extension
+*.o
+
+# Ignore all files with jar extension
+*.jar
+
+# Ignore the whole libraries directory
+libraries/
