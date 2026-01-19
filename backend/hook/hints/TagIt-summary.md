@@ -1,0 +1,1 @@
+Tags are references used to label specific points in Git history, such as version releases or significant updates with the [`git tag`](https://git-scm.com/docs/git-tag) command.

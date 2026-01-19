@@ -70,6 +70,16 @@ class GitUtils
         return $commits;
     }
 
+    /** Get all tag names that point to $commitId.
+     * @param $commitId
+     * @return array
+     */
+    public static function getCommitTagNames($commitId)
+    {
+        exec("git tag --points-at $commitId", $tags);
+        return $tags;
+    }
+
     /**
      * Check if given filename would be ignored in the specified commit id by any of the commited .gitignore files.
      * @param $commitId

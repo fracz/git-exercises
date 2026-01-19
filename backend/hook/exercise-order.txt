@@ -11,6 +11,7 @@ case-sensitive-filename
 fix-typo
 forge-date
 fix-old-typo
+tag-it
 commit-lost
 split-commit
 too-many-commits

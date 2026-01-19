@@ -1,0 +1,1 @@
+Use the [`git tag`](https://git-scm.com/docs/git-tag) command to create a tag for a specific commit and mark important points in your project’s history.

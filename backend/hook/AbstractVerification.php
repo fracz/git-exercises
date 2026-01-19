@@ -52,6 +52,13 @@ abstract class AbstractVerification
         return $count == 1 ? $files[0] : $files;
     }
 
+    protected function ensureTagsCount($commitId, $count)
+    {
+        $tags = $this->getTags($commitId);
+        $this->ensure(count($tags) == $count, "Expected number of tags: %d in commit %s. Received %d.", [$count, substr($commitId, 0, 7), count($tags)]);
+        return $count == 1 ? $tags[0] : $tags;
+    }
+
     public function getCommitterName($commitId = null)
     {
         return GitUtils::getCommitterName($commitId ? $commitId : $this->newRev);
@@ -60,6 +67,11 @@ abstract class AbstractVerification
     protected function getCommits()
     {
         return GitUtils::getCommitIdsBetween($this->oldRev, $this->newRev);
+    }
+
+    protected function getTags($commitId)
+    {
+        return GitUtils::getCommitTagNames($commitId);
     }
 
     protected function getFilenames($commitId)
